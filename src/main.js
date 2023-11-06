@@ -5,7 +5,6 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import App from './App.vue'
 
-
 const app = createApp(App)
 
 app.use(createPinia())

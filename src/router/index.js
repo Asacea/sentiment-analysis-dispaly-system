@@ -8,7 +8,17 @@ const router=createRouter({
         },
         {
             path:'/login',
-            component:()=>import('@/views/Login/index.vue')
+            component:()=>import('@/views/Login/index.vue'),
+            children:[
+                {
+                    path:'',
+                    component:()=>import('@/views/Login/components/Signin.vue')
+                },
+                {
+                    path:'/signup',
+                    component:()=>import('@/views/Login/components/Signup.vue')
+                }
+            ]
         },
         {
             path:'/screen',
@@ -16,16 +26,12 @@ const router=createRouter({
         },
         {
             path:'/Admin',
-            component:()=>import('@/vies/Admin.index.vue'),
+            component:()=>import('@/views/Admin/index.vue'),
             children:[
                 {
-                    path:'/dashboard',
+                    path:'/1',
                     component:()=>import('@/views/Admin/Dashboard.vue')
                 },
-                {
-                    path:'/screen2',
-                    component:()=>import('@/views/Screen/index.vue')
-                }
             ]
         }
     ]

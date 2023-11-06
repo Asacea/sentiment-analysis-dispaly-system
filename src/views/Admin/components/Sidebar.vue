@@ -1,3 +1,3 @@
 <template>
-    这是管理面板
+    sidebar
 </template>
