@@ -41,8 +41,8 @@
             <div class="subtitle">
                 <h1>>访客足迹</h1>
             </div>
-            <div id="visitor">
-                <el-table :data="visitorTableData" height="250" style="width: 100%">
+            <div class="Admin">
+                <el-table :data="visitorTableData" height="250" style="width: 100%" class="Table">
                     <el-table-column prop="date" label="最近访问时间" width="200" />
                     <el-table-column prop="name" label="姓名" width="200" />
                     <el-table-column prop="count" label="访问次数"  width="200"/>
@@ -54,8 +54,13 @@
             <div class="subtitle">
                 <h1>>大屏管理</h1>
             </div>
-            <div id="screenAdmin">
-                <el-table :data="ScreentableData" height="250" style="width: 100%">
+            <div class="Admin">
+                <el-table 
+                :data="ScreentableData" 
+                height="250" 
+                style="width: 100%;"
+                class="Table"
+                >
                     <el-table-column prop="topic" label="话题" width="200" />
                     <el-table-column prop="clicks" label="点击量" width="200" />
                     <el-table-column prop="type" label="类型" width="200" />
@@ -76,22 +81,29 @@
 import * as echarts from 'echarts';
 import { onMounted, ref } from 'vue';
 function createChart(){
-    var visitorChart=echarts.init(document.getElementById('visitorViews'))
-var option={
-    xAxis:{
-        type:'category',
-        data:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-    },
-    yAxis:{
-        type:'value'
-    },
-    series:[
-        {
-            data:[12,43,56,2,4,123,56,23,23,0,23,2],
-            type:'line',
-            smmoth:true
-        }
-    ]
+    var visitorChart=echarts.init(document.getElementById('visitorViews'),'dark')
+    var option={
+        backgroundColor:'rgba(0,0,0,0)',
+        xAxis:{
+            type:'category',
+            data:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+            axisLabel:{
+                color:'#fff'
+            }
+        },
+        yAxis:{
+            type:'value',
+            axisLabel:{
+                color:'#fff'
+            }
+        },
+        series:[
+            {
+                data:[12,43,56,2,4,123,56,23,23,0,23,2],
+                type:'line',
+                smooth:true
+            }
+        ]
 }
 option&&visitorChart.setOption(option)
 console.log('sucess')
@@ -180,8 +192,8 @@ onMounted(()=>createChart())
     height: 400px;
     margin: 20px;
     margin-left: 320px;
-    background-color: #fff;
-    box-shadow: 5px 5px 4px 1px rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.7);
+    border: 1px solid aquamarine;
     border-radius: 5px;
     .subtitle{
         position: inherit;
@@ -201,8 +213,8 @@ onMounted(()=>createChart())
             margin-top: 10px;
             font-weight: 600;
             font-size:x-large;
-            color:black;
-            text-shadow: #ffd04b 1px 0 10px; 
+            color:white;
+            text-shadow: aquamarine 1px 0 10px; 
         }
     }  
     .itemholder{
@@ -218,7 +230,7 @@ onMounted(()=>createChart())
             margin: 25px;
             height: 100px;
             //border:1px solid #545c64;
-            box-shadow: 12px 12px 2px 1px #ffd04b;
+            box-shadow: 12px 12px 2px 1px aquamarine;
             display: flex;
             .number{
                 margin: 0;
@@ -228,7 +240,7 @@ onMounted(()=>createChart())
                 font-weight: 800;
                 font-size: xx-large;
                 line-height: 80px;
-                color: #ffd04b;
+                color: aquamarine;
                 background-color:#545c64;
                 //background-color: #BEBEED;
             }
@@ -237,18 +249,47 @@ onMounted(()=>createChart())
             }
         }
     }
+    #visitorViews{
+        color: white;
+    }
     #visitor{
         height: 300px;
         width: 975px;
         padding: 0 50px;
         margin-top: 20px;
     }
-    #screenAdmin{
+    .Admin{
         height: 300px;
         width: 975px;
         padding: 0 50px;
         margin-top: 20px;
-    }
+        .Table{
+            --el-table-border-color: rgba(127, 255, 212, 0.3);
+        }
+        :deep(.el-table){
+            background-color: transparent;
+         }
+         :deep(.el-table__expanded-cell){
+            background-color: transparent;
+         }
+         :deep(.el-table th){
+            background-color: #545c64 !important;
+            color: aquamarine;
+            font-size: 1rem;
+         }
+         :deep(.el-table tr){
+            background-color: transparent !important;
+            font-weight: 500;
+            color: #FFFFFF;
+         }
+         :deep(.el-table td){
+            background-color: transparent !important;
+         }
+         .el-table__fixed::before{
+            background-color: transparent;
+         }
+    
+        }
     
 }
 </style>

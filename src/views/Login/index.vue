@@ -25,7 +25,7 @@ import { RouterView } from 'vue-router';
         height: 190px;
         //border: 1px solid black;
         padding: 30px;
-        border-radius: 1%;
+        border-radius: 5px;
         background-color: rgba(255,255,255,0.4);
         box-shadow: 3px 3px 2px 1px rgba(255, 255, 255, 0.2);
     }

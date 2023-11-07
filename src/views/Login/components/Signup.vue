@@ -128,7 +128,7 @@ const handleClick=()=>{
     border: 1px solid aquamarine;
     padding: 30px;
     //box-shadow: 3px 3px 6px 1px aquamarine;
-    border-radius: 1%;
+    border-radius: 5px;
 }
 .toSignUp{
     position: absolute;

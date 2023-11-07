@@ -33,10 +33,10 @@ import {RouterView} from 'vue-router'
 .layout{
     position: absolute;
     top:0;
-    //left: 0;
-    //right: 0;
+    left: 0;
+    right: 0;
     //bottom: 0;
-    background-color: aliceblue;
+    background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') repeat;
     //color:white
     
 }
@@ -47,6 +47,7 @@ import {RouterView} from 'vue-router'
     width: 300px;
     text-align: center;
     background-color: #545c64;
+    opacity: 0.8;
     padding-top: 30px;
     .el-menu-vertical-demo{
         margin-top: 30px;
@@ -62,10 +63,10 @@ a{
     color: white;
 }
 a:hover{
-    color: #ffd04b;
+    color: aquamarine;
 }
 .iconfont{
     font-size: 50px;
-    color: #ffd04b;
+    color: aquamarine;
 }
 </style>
