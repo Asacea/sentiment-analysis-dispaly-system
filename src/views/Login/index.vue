@@ -1,6 +1,8 @@
 <template>
     <div class="layout">
-        <RouterView/>
+        <div class="container">
+            <RouterView/>
+        </div>
     </div>
 </template>
 <script setup>
@@ -17,6 +19,15 @@ import { RouterView } from 'vue-router';
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    .container{
+        position: absolute;
+        width: 500px;
+        height: 190px;
+        //border: 1px solid black;
+        padding: 30px;
+        border-radius: 1%;
+        background-color: rgba(255,255,255,0.4);
+        box-shadow: 3px 3px 2px 1px rgba(255, 255, 255, 0.2);
+    }
 }
 </style>

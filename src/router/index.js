@@ -25,14 +25,16 @@ const router=createRouter({
             component:()=>import('@/views/Screen/index.vue')
         },
         {
-            path:'/Admin',
+            path:'/admin',
             component:()=>import('@/views/Admin/index.vue'),
             children:[
                 {
-                    path:'/1',
-                    component:()=>import('@/views/Admin/Dashboard.vue')
+                    path:'/admin/dashboard',
+                    name:'dashboard',
+                    component:()=>import('@/views/Admin/Components/Dashboard.vue')
                 },
-            ]
+            ],
+            redirect:'/admin/dashboard'
         }
     ]
 })

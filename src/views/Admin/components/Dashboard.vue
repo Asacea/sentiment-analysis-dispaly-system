@@ -1,3 +1,254 @@
 <template>
-    这是管理面板
+        <div class="module">
+            <div class="subtitle">
+                <!-- <i class="iconfont icon-shuju"></i> -->
+                <h1>>网络舆情数据</h1>
+            </div>
+            <div class="itemholder">
+                <div class="item">
+                    <p class="number">11111</p>
+                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                </div>
+                <div class="item">
+                    <p class="number">278372</p>
+                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                </div>
+                <div class="item">
+                    <p class="number">278372</p>
+                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                </div>
+                <div class="item">
+                    <p class="number">278372</p>
+                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                </div>
+                <div class="item">
+                    <p class="number">278372</p>
+                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                </div>
+                <div class="item">
+                    <p class="number">278372</p>
+                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                </div>
+            </div>    
+        </div>
+        <div class="module">
+            <div class="subtitle">
+                <h1>>浏览量记录</h1>
+            </div>
+            <div class="itemholder" id="visitorViews"></div>
+        </div>
+        <div class="module">
+            <div class="subtitle">
+                <h1>>访客足迹</h1>
+            </div>
+            <div id="visitor">
+                <el-table :data="visitorTableData" height="250" style="width: 100%">
+                    <el-table-column prop="date" label="最近访问时间" width="200" />
+                    <el-table-column prop="name" label="姓名" width="200" />
+                    <el-table-column prop="count" label="访问次数"  width="200"/>
+                    <el-table-column prop="school" label="学校" />
+                </el-table>
+            </div>
+        </div>
+        <div class="module">
+            <div class="subtitle">
+                <h1>>大屏管理</h1>
+            </div>
+            <div id="screenAdmin">
+                <el-table :data="ScreentableData" height="250" style="width: 100%">
+                    <el-table-column prop="topic" label="话题" width="200" />
+                    <el-table-column prop="clicks" label="点击量" width="200" />
+                    <el-table-column prop="type" label="类型" width="200" />
+                    <el-table-column fixed="right" label="展示开关" >
+                        <template #default="scope">
+                            <el-switch
+                            v-model="ScreentableData[scope.$index].value"
+                            class="ml-2"
+                            style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+                          />
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
 </template>
+<script setup>
+import * as echarts from 'echarts';
+import { onMounted, ref } from 'vue';
+function createChart(){
+    var visitorChart=echarts.init(document.getElementById('visitorViews'))
+var option={
+    xAxis:{
+        type:'category',
+        data:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+    },
+    yAxis:{
+        type:'value'
+    },
+    series:[
+        {
+            data:[12,43,56,2,4,123,56,23,23,0,23,2],
+            type:'line',
+            smmoth:true
+        }
+    ]
+}
+option&&visitorChart.setOption(option)
+console.log('sucess')
+}
+const visitorTableData = [
+  {
+    date: '2023-05-03',
+    name: '张伟',
+    count: 1,
+    school: '电子科技大学',
+  },
+  {
+    date: '2023-05-02',
+    count: 1,
+    name: '张伟',
+    school: '电子科技大学',
+  },
+  {
+    date: '2023-05-04',
+    name: '张伟',
+    count: 1,
+    school: '电子科技大学',
+  },
+  {
+    date: '2023-05-01',
+    name: '张伟',
+    count: 1,
+    school: '电子科技大学',
+  },
+  {
+    date: '2023-05-08',
+    name: '张伟',
+    count: 1,
+    school: '电子科技大学',
+  },
+  {
+    date: '2023-05-06',
+    name: '张伟',
+    count: 1,
+    school: '电子科技大学',
+  },
+  {
+    date: '2023-05-07',
+    name: '张伟',
+    count: 1,
+    school: '电子科技大学',
+  },
+]
+const ScreentableData=ref([
+    {
+        topic:'考研缩招',
+        clicks:178,
+        type:'社科',
+        value:true
+    },
+    {
+        clicks:178,
+        topic:'元宇宙',
+        type:'科技',
+        value:true
+    },
+    {
+        clicks:178,
+        topic:'虚拟货币',
+        type:'科技',
+        value:true
+    },
+    {
+        clicks:178,
+        topic:'web3.0',
+        type:'科技',
+        value:true
+    },
+    {
+        clicks:178,
+        topic:'电子科大专属话题',
+        type:'学校专属定制',
+        value:false
+    }
+])
+onMounted(()=>createChart())
+
+</script>
+<style scoped lang="scss">
+.module{
+    height: 400px;
+    margin: 20px;
+    margin-left: 320px;
+    background-color: #fff;
+    box-shadow: 5px 5px 4px 1px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    .subtitle{
+        position: inherit;
+        display: flex;
+        margin-left: 20px;
+        margin-top: 20px;
+        .iconfont{
+            font-size: 50px;
+            display: block;
+        }
+        h1{
+            position: relative;
+            height: 50px;
+            margin:0;
+            padding-left: 20px;
+            line-height: 50px;
+            margin-top: 10px;
+            font-weight: 600;
+            font-size:x-large;
+            color:black;
+            text-shadow: #ffd04b 1px 0 10px; 
+        }
+    }  
+    .itemholder{
+        height: 300px;
+        width: 1050px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        .item{
+            background-color: rgb(244, 244, 242);
+            width: 280px;
+            margin: 25px;
+            height: 100px;
+            //border:1px solid #545c64;
+            box-shadow: 12px 12px 2px 1px #ffd04b;
+            display: flex;
+            .number{
+                margin: 0;
+                padding: 10px;
+                height: 80px;
+                width: fit-content;
+                font-weight: 800;
+                font-size: xx-large;
+                line-height: 80px;
+                color: #ffd04b;
+                background-color:#545c64;
+                //background-color: #BEBEED;
+            }
+            .notes{
+                padding: 5px;
+            }
+        }
+    }
+    #visitor{
+        height: 300px;
+        width: 975px;
+        padding: 0 50px;
+        margin-top: 20px;
+    }
+    #screenAdmin{
+        height: 300px;
+        width: 975px;
+        padding: 0 50px;
+        margin-top: 20px;
+    }
+    
+}
+</style>

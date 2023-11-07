@@ -46,6 +46,7 @@ const handleClick=function(){
             
     //     }
     // })
+    router.push('/admin')
 }
 </script>
 <style lang="scss">
