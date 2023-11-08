@@ -36,7 +36,7 @@ import {RouterView} from 'vue-router'
     left: 0;
     right: 0;
     //bottom: 0;
-    background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') repeat;
+    background: url('.././../img/111.jpg') repeat;
     //color:white
     
 }
