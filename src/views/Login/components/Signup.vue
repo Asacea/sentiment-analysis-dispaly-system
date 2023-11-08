@@ -129,6 +129,8 @@ const handleClick=()=>{
     padding: 30px;
     //box-shadow: 3px 3px 6px 1px aquamarine;
     border-radius: 5px;
+    background-color: rgba(0,0,0,0.5); /* 设置背景颜色 */
+
 }
 .toSignUp{
     position: absolute;

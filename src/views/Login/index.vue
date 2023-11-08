@@ -20,14 +20,14 @@ import { RouterView } from 'vue-router';
     align-items: center;
     justify-content: center;
     .container{
-        position: absolute;
+        position: relative;
         width: 500px;
-        height: 190px;
+        height: 250px;
         //border: 1px solid black;
-        padding: 30px;
+        // padding: 30px;
         border-radius: 5px;
-        background-color: rgba(255,255,255,0.4);
-        box-shadow: 3px 3px 2px 1px rgba(255, 255, 255, 0.2);
+        // background-color: rgba(255,255,255,0.4);
+        // box-shadow: 3px 3px 2px 1px rgba(255, 255, 255, 0.2);
     }
 }
 </style>

@@ -75,12 +75,16 @@
 </template>
 <script setup>
 import * as echarts from 'echarts';
+<<<<<<< HEAD
+import { onMounted, ref, defineProps, onBeforeUnmount } from 'vue';
+=======
 import { onMounted, ref } from 'vue';
 import useStatusStore from '@/stores/screenStatus.js'
 import useVisitorStore from '@/stores/dashboard.js'
 const statusStore=useStatusStore()
 const visitorStore=useVisitorStore()
 
+>>>>>>> eb9a25a9eed6b8095372d64b9180c3f9590c7adf
 function createChart(){
     var visitorChart=echarts.init(document.getElementById('visitorViews'),'dark')
     var option={
@@ -112,8 +116,79 @@ console.log('sucess')
 
 onMounted(()=>createChart())
 
+// const props = defineProps({
+//   w: { type: Number, default: 1000 },
+//   h: { type: Number, default: 550 },
+// });
+
+// const style = ref({
+//   width: `${props.w}px`,
+//   height: `${props.h}px`,
+//   transform: 'scale(1) translate(-50%, -50%)', // 默认不缩放，垂直水平居中
+// });
+
+// // 添加监听窗口大小变化事件
+// const debounce = (fn, t) => {
+//   const delay = t || 500;
+//   let timer;
+//   return function () {
+//     const args = arguments;
+//     if (timer) {
+//       clearTimeout(timer);
+//     }
+//     const context = this;
+//     timer = setTimeout(() => {
+//       timer = null;
+//       fn.apply(context, args);
+//     }, delay);
+//   };
+// };
+
+
+
+// // 获取缩放比例
+// const getScale = () => {
+//   console.log(window.innerHeight, window.innerWidth);
+//   const w = window.innerWidth / props.w;
+//   const h = window.innerHeight / props.h;
+//   return w < h ? w : h;
+// };
+
+// const setScale = () => {
+//   style.value.transform = `scale(${getScale()}) translate(-50%, -50%)`;
+// };
+
+// const onresize = debounce(() => setScale(), 100);
+// onMounted(() => {
+//   createChart();
+//   setScale();
+//   window.addEventListener('resize', onresize);
+// });
+
+// // 移除事件监听
+// onBeforeUnmount(() => {
+//   window.removeEventListener('resize', onresize);
+// });
+
+
 </script>
 <style scoped lang="scss">
+//   .content-wrap {
+//     transform-origin: 0 0;
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     padding: 18px 64px;
+//   }
+
+// .screen-adapter {
+//   width: 100vw;
+//   min-height: 100%;
+//   max-height: 100vh;
+//   overflow: hidden;
+// //   background: url("../../assets/charts/icon-bg.png") no-repeat;
+//   background-size: 100% 100%;
+// }
 .module{
     height: 400px;
     margin: 20px;
