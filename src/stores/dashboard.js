@@ -46,8 +46,34 @@ const useVisitorStore = defineStore('visitor',()=>{
           school: '电子科技大学',
         },
       ])
+    const infoSelectList=ref([
+      {
+        number: 11111,
+        notes:'收集到来自bilibili的数据'
+      },
+      {
+        number: 11111,
+        notes:'收集到来自bilibili的数据'
+      },
+      {
+        number: 11111,
+        notes:'收集到来自bilibili的数据'
+      },
+      {
+        number: 11111,
+        notes:'收集到来自bilibili的数据'
+      },
+      {
+        number: 11111,
+        notes:'收集到来自bilibili的数据'
+      },
+      {
+        number: 11111,
+        notes:'收集到来自bilibili的数据'
+      }
+    ])
     return {
-        visitorRecordData,visitorViewsData
+        visitorRecordData,visitorViewsData,infoSelectList
     }
 })
 export default useVisitorStore

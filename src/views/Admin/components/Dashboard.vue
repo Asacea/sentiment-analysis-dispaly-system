@@ -1,33 +1,12 @@
 <template>
         <div class="module">
             <div class="subtitle">
-                <!-- <i class="iconfont icon-shuju"></i> -->
                 <h1>>网络舆情数据</h1>
             </div>
             <div class="itemholder">
-                <div class="item">
-                    <p class="number">11111</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                <div class="item" v-for="info in visitorStore.infoSelectList">
+                    <p class="number">{{info.number}}</p>
+                    <p class="notes">{{info.notes}}</p>
                 </div>
             </div>    
         </div>
