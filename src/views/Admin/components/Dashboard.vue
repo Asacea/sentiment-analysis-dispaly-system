@@ -44,7 +44,7 @@
                 <h1>>访客足迹</h1>
             </div>
             <div class="Admin">
-                <el-table :data="visitorTableData" height="250" style="width: 100%" class="Table">
+                <el-table :data="visitorStore.visitorRecordData" height="250" style="width: 100%" class="Table">
                     <el-table-column prop="date" label="最近访问时间" width="200" />
                     <el-table-column prop="name" label="姓名" width="200" />
                     <el-table-column prop="count" label="访问次数"  width="200"/>
@@ -58,7 +58,7 @@
             </div>
             <div class="Admin">
                 <el-table 
-                :data="ScreentableData" 
+                :data="statusStore.ScreentableData" 
                 height="250" 
                 style="width: 100%;"
                 class="Table"
@@ -69,7 +69,7 @@
                     <el-table-column fixed="right" label="展示开关" >
                         <template #default="scope">
                             <el-switch
-                            v-model="ScreentableData[scope.$index].value"
+                            v-model="statusStore.ScreentableData[scope.$index].value"
                             class="ml-2"
                             style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
                           />
@@ -83,7 +83,16 @@
 </template>
 <script setup>
 import * as echarts from 'echarts';
+<<<<<<< HEAD
 import { onMounted, ref, defineProps, onBeforeUnmount } from 'vue';
+=======
+import { onMounted, ref } from 'vue';
+import useStatusStore from '@/stores/screenStatus.js'
+import useVisitorStore from '@/stores/dashboard.js'
+const statusStore=useStatusStore()
+const visitorStore=useVisitorStore()
+
+>>>>>>> eb9a25a9eed6b8095372d64b9180c3f9590c7adf
 function createChart(){
     var visitorChart=echarts.init(document.getElementById('visitorViews'),'dark')
     var option={
@@ -103,7 +112,7 @@ function createChart(){
         },
         series:[
             {
-                data:[12,43,56,2,4,123,56,23,23,0,23,2],
+                data:visitorStore.visitorViewsData,
                 type:'line',
                 smooth:true
             }
@@ -112,82 +121,7 @@ function createChart(){
 option&&visitorChart.setOption(option)
 console.log('sucess')
 }
-const visitorTableData = [
-  {
-    date: '2023-05-03',
-    name: '张伟',
-    count: 1,
-    school: '电子科技大学',
-  },
-  {
-    date: '2023-05-02',
-    count: 1,
-    name: '张伟',
-    school: '电子科技大学',
-  },
-  {
-    date: '2023-05-04',
-    name: '张伟',
-    count: 1,
-    school: '电子科技大学',
-  },
-  {
-    date: '2023-05-01',
-    name: '张伟',
-    count: 1,
-    school: '电子科技大学',
-  },
-  {
-    date: '2023-05-08',
-    name: '张伟',
-    count: 1,
-    school: '电子科技大学',
-  },
-  {
-    date: '2023-05-06',
-    name: '张伟',
-    count: 1,
-    school: '电子科技大学',
-  },
-  {
-    date: '2023-05-07',
-    name: '张伟',
-    count: 1,
-    school: '电子科技大学',
-  },
-]
-const ScreentableData=ref([
-    {
-        topic:'考研缩招',
-        clicks:178,
-        type:'社科',
-        value:true
-    },
-    {
-        clicks:178,
-        topic:'元宇宙',
-        type:'科技',
-        value:true
-    },
-    {
-        clicks:178,
-        topic:'虚拟货币',
-        type:'科技',
-        value:true
-    },
-    {
-        clicks:178,
-        topic:'web3.0',
-        type:'科技',
-        value:true
-    },
-    {
-        clicks:178,
-        topic:'电子科大专属话题',
-        type:'学校专属定制',
-        value:false
-    }
-])
+
 onMounted(()=>createChart())
 
 // const props = defineProps({
@@ -326,12 +260,6 @@ onMounted(()=>createChart())
     }
     #visitorViews{
         color: white;
-    }
-    #visitor{
-        height: 300px;
-        width: 975px;
-        padding: 0 50px;
-        margin-top: 20px;
     }
     .Admin{
         height: 300px;
