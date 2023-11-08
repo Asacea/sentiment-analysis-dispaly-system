@@ -22,7 +22,24 @@ const router=createRouter({
         },
         {
             path:'/screen',
-            component:()=>import('@/views/Screen/index.vue')
+            component:()=>import('@/views/Screen/index.vue'),
+            children:[
+                {
+                    path:'/screen/社科/:id',
+                    name:'社科',
+                    component:()=>import('@/views/Screen/components/Social.vue')
+                },
+                {
+                    path:'/screen/科技/:id',
+                    name:'科技',
+                    component:()=>import('@/views/Screen/components/Tech.vue')
+                },
+                {
+                    path:'/screen/学校专属定制/:school',
+                    name:'学校专属定制',
+                    component:()=>import('@/views/Screen/components/School.vue')
+                }
+            ]
         },
         {
             path:'/admin',

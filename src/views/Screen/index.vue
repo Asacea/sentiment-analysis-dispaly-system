@@ -1,6 +1,14 @@
 <template>
-    <div class="layout">screen</div>
+    <div class="layout">
+        <Header/>
+        <RouterView/>
+    </div>
 </template>
+<script setup>
+
+import Header from './components/Header.vue'
+import {RouterView} from 'vue-router'
+</script>
 <style scoped lang="scss">
 .layout{
     position: absolute;
