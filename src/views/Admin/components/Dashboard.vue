@@ -75,16 +75,12 @@
 </template>
 <script setup>
 import * as echarts from 'echarts';
-<<<<<<< HEAD
-import { onMounted, ref, defineProps, onBeforeUnmount } from 'vue';
-=======
 import { onMounted, ref } from 'vue';
 import useStatusStore from '@/stores/screenStatus.js'
 import useVisitorStore from '@/stores/dashboard.js'
 const statusStore=useStatusStore()
 const visitorStore=useVisitorStore()
 
->>>>>>> eb9a25a9eed6b8095372d64b9180c3f9590c7adf
 function createChart(){
     var visitorChart=echarts.init(document.getElementById('visitorViews'),'dark')
     var option={

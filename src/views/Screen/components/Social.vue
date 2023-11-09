@@ -58,26 +58,39 @@ onBeforeRouteUpdate(()=>{
 function createChartl1(){
     var myChart = echarts.init(document.getElementById('chart-l-1'),'dark');
     var option = {
+        grid:{
+            width:'80%',
+            right:'4%',
+            height:'66%',
+            top:'20%'
+        },
         title:{
             text:'考研学校热度排行榜',
-            //textAlign:'center',
+            //textAlign:'end',
             textStyle:{
                 color: '#1687D7',
-        },
+            },
+            boundaryGap: false
         },
         yAxis: { 
             type: 'category',
-            data: ['武大', '北大', '清华', '上交', '复旦'],
+            data: ['武前后大', '北大', '清华', '上交', '复旦','人大','哈工'],
             axisLabel:{
-                fontSize:'10'
+                fontSize:'10',
+                interval: 0, // 让字体完全显示
+
+
+            },
+            axisTick:{
+                show:false
             }
         },
         xAxis: {
-            type: 'value'
+            type: 'value',
         },
         series: [
             {
-            data: [120, 200, 150, 80, 70],
+            data: [120, 200, 150, 80, 70,40,20],
             type: 'bar',
             backgroundColor:'rgba(0,0,0,0)',
             }
