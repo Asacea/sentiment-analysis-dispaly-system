@@ -8,12 +8,25 @@
             </div>
             <div class="l2 outer">
                 <dv-border-box10 >
-                    <div class="inner" id="chart-l-2"></div>
+                    <div class="inner" >
+                        <h4 style="color:#1FACED;margin-left:86px">各平台讨论度实时排名</h4>
+                        <div id="chart-l-2">
+                            <div class="chart-l-2-i" v-for="i in hotList.sort((a,b)=>a.rank-b.rank)">
+                                <h3 :style="{color:hotColor[i.rank]}" style="font-style: italic">0{{ i.rank }}</h3>
+                                <h4 style="margin: 0 10px">{{i.name}}</h4>
+                                <div :style="{color:hotColor[i.rank]}">
+                                    <i class="iconfont icon-xiaopangchetubiao-copy" v-for="i in (5-i.rank)" ></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </dv-border-box10>
             </div>
             <div class="l3 outer">
                 <dv-border-box8 :dur="5">
-                    <div class="inner" id="chart-l-3"></div>
+                    <div class="inner" id="chart-l-3" style="color:white">
+                        这玩意没有!!!
+                    </div>
                 </dv-border-box8>
             </div>
         </div>
@@ -46,13 +59,14 @@
 </template>
 <script setup>
 import {useRoute,onBeforeRouteUpdate} from 'vue-router'
-import {ref,onMounted} from 'vue'
+import {ref,onMounted,reactive} from 'vue'
 import * as echarts from 'echarts';
 const route = useRoute()
 const screenId=ref(0)
 onBeforeRouteUpdate(()=>{
     screenId.value=route.params.id
     console.log(screenId.value)
+
 })
 
 function createChartl1(){
@@ -68,7 +82,7 @@ function createChartl1(){
             text:'考研学校热度排行榜',
             //textAlign:'end',
             textStyle:{
-                color: '#1687D7',
+                color: '#1FACED',
             },
             boundaryGap: false
         },
@@ -99,8 +113,16 @@ function createChartl1(){
     };
     option && myChart.setOption(option);
 }
-
-
+const hotList=ref([
+    {name:'知乎',rank:2},{name:'微博',rank:1},{name:'bilibili',rank:3},{name:'贴吧',rank:4},{name:'清水河畔',rank:5}
+])
+const hotColor=ref({
+    1: 'red',
+    2:'orange',
+    3:'rgb(255, 196, 0)',
+    4:'yellow',
+    5:'lightgreen'
+})
 onMounted(()=>{
     createChartl1()
 })
@@ -165,5 +187,29 @@ onMounted(()=>{
     left: 2%;
     width: 96%;
     height: 90%;    
+}
+#chart-l-2{
+    //background-color: #fff;
+    position:relative;
+    width: 96%;
+    top:0;
+    padding: 10px;
+    margin: 0 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+
+    .chart-l-2-i{
+        //background-color: #c1b1b1;
+        margin-bottom: 5px;
+        height: 25px;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        font-family:'Times New Roman', Times, serif;
+        color:white
+        
+    }
 }
 </style>
