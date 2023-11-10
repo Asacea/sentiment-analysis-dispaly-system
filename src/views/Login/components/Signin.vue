@@ -26,8 +26,9 @@
 <script setup>
 import {reactive, ref} from 'vue'
 import { RouterLink } from 'vue-router';
-import axios from 'axios'
 import { useRouter } from 'vue-router';
+import {useUserStore} from '../../../stores/user.js'
+const userStore = useUserStore()
 const router=useRouter()
 const formdata=reactive({
     usertype:'',
@@ -47,13 +48,21 @@ const rules = {
 
 }
 const myForm = ref(null)
-const handleClick=function(){
+const handleClick= ()=>{
     console.log(formdata.usertype)
     // router.push('/screen')
-    myForm.value.validate((valid) => {
+    myForm.value.validate(async (valid) => {
         if (valid) {
             ElMessage.success('表单验证通过'); // 成功提示
             // 后端进行用户名密码验证
+            const res = await userStore.getUserInfo( {
+              usertype: formdata.usertype, // 从组件的 data 中获取数据
+              username: formdata.username,
+              password: formdata.userpswd
+            });
+
+            console.log(res)
+            // 进行数据验证
 
             // 跳转到对应管理员/访客对应页面
             if(formdata.usertype==='visitor'){
@@ -65,18 +74,8 @@ const handleClick=function(){
             ElMessage.error('表单验证失败，请检查输入'); // 失败提示
         }
       });
-    // router.push('/Admin')
-    // axios.get(url,{
-    //     userType:formdata.userType,
-    //     username:formdata.username,
-    //     userpswd:formdata.userpswd
-    // }).then(res=>{
-    //     console.log(res.data)
-    //     if(res.data.msg===1){
-            
-    //     }
-    // })
-    router.push('/admin')
+
+    // router.push('/admin')
 }
 </script>
 <style lang="scss">

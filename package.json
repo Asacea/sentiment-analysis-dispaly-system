@@ -10,8 +10,10 @@
   "dependencies": {
     "@kjgl77/datav-vue3": "^1.7.1",
     "axios": "^1.6.0",
+    "cors": "^2.8.5",
     "echarts": "^5.4.3",
     "element-plus": "^2.4.1",
+    "express": "^4.18.2",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"

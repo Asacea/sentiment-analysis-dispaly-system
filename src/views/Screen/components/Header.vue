@@ -12,7 +12,7 @@
 </template>
 <script setup>
 import {ref,onMounted} from 'vue'
-import Navbar from './Navbar.vue'
+import Navbar from '@/views/screen/components/Navbar.vue'
 const option={
     timeZone:'Asia/Shanghai',
     hour12: false,
