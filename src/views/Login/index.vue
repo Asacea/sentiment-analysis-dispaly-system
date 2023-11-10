@@ -29,5 +29,7 @@ import { RouterView } from 'vue-router';
         // background-color: rgba(255,255,255,0.4);
         // box-shadow: 3px 3px 2px 1px rgba(255, 255, 255, 0.2);
     }
+    background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') no-repeat;
+    background-size: 100% 130%;
 }
 </style>

@@ -79,12 +79,7 @@ const handleClick=function(){
     router.push('/admin')
 }
 </script>
-<style lang="scss">
-.layout
-{
-    background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') no-repeat;
-    background-size: 100% 130%;
-}
+<style scoped lang="scss">
 
 .container_signin{
     position: absolute;
