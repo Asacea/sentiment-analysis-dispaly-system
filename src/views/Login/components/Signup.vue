@@ -17,7 +17,7 @@
                 <el-input type="password" v-model="formdata.userpswd" placeholder="请输入密码" />
             </el-form-item>
             <el-form-item label="确认密码" prop="confirmPassword">
-                <el-input type="password" v-model="formdata.confirmPassword" placeholder="请再次输入密码" @blur="updateFormData"></el-input>
+                <el-input type="password" v-model="formdata.confirmpassword" placeholder="请再次输入密码" @blur="updateFormData"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleClick" size="large" id="btn">注册</el-button>
@@ -42,7 +42,7 @@ const formdata=reactive({
     usertype:'',
     username:'',
     userpswd:'',
-    confirmPassword:''
+    confirmpassword:''
 })
 const rules = {
     userschool:[
@@ -93,8 +93,9 @@ const handleClick=()=>{
         if (valid) {
             ElMessage.success('表单验证通过'); // 成功提示
             // 将数据保存在后端
+            
             // 页面跳转至登录页
-            router.push('/')  
+            // router.push('/')  
         } else {
             ElMessage.error('表单验证失败，请检查输入'); // 失败提示
         }

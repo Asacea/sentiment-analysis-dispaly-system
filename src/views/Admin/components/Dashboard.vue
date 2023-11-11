@@ -1,87 +1,122 @@
 <template>
-        <div class="module">
-            <dv-border-box12>
-                <div class="innerbox">
-                    <div class="subtitle">
-                        <h1>>网络舆情数据</h1>
-                        <div class="itemholder">
-                            <div class="item" v-for="info in visitorStore.infoSelectList">
-                                <p class="number">{{info.number}}</p>
-                                <p class="notes">{{info.notes}}</p>
-                            </div>
-                        </div>    
-                    </div>
-                </div>    
-            </dv-border-box12>
-        </div>
-        <div class="module">
-            <dv-border-box12>
-                <div class="innerbox">
-                    <div class="subtitle">
-                        <h1>>浏览量记录</h1>
-                    </div>
-                    <div class="itemholder" id="visitorViews"></div>
+    <div class="module">
+        <dv-border-box12>
+            <div class="innerbox">
+             <!-- <div class="subtitle">
+                    <h1>>网络舆情数据</h1>
+                    <div class="itemholder">
+                        <div class="item" v-for="info in visitorStore.infoSelectList">
+                            <p class="number">{{info.number}}</p>
+                            <p class="notes">{{info.notes}}</p>
+                        </div>
+                    </div>    
+                </div> -->
+            <div class="subtitle">
+             <!-- <i class="iconfont icon-shuju"></i>  -->
+            <h1>>网络舆情数据</h1>
+            </div>
+            <div class="itemholder">
+                <div class="item" v-for="info in platformData">
+                    <p class="number">{{ info.number }}</p>
+                    <p class="notes">{{ info.notes }}</p>
                 </div>
-            </dv-border-box12>  
-        </div>
-        <div class="module">
-            <dv-border-box12>
-                <div class="innerbox">
-                    <div class="subtitle">
-                        <h1>>访客足迹</h1>
-                    </div>
-                    <div class="Admin">
-                        <el-table :data="visitorStore.visitorRecordData" height="250" style="width: 100%" class="Table">
-                            <el-table-column prop="date" label="最近访问时间" width="200" />
-                            <el-table-column prop="name" label="姓名" width="200" />
-                            <el-table-column prop="count" label="访问次数"  width="200"/>
-                            <el-table-column prop="school" label="学校" />
-                        </el-table>
-                    </div>
+            </div>    
+            </div>    
+        </dv-border-box12>
+    </div>
+    <div class="module">
+        <dv-border-box12>
+            <div class="innerbox">
+                <div class="subtitle">
+                    <h1>>浏览量记录</h1>
                 </div>
-            </dv-border-box12>
-        </div>
-        <div class="module">
-            <dv-border-box12>
-                <div class="innerbox">
-                    <div class="subtitle">
-                        <h1>>大屏管理</h1>
-                    </div>
-                    <div class="Admin">
-                        <el-table 
-                        :data="statusStore.ScreentableData" 
-                        height="250" 
-                        style="width: 100%;"
-                        class="Table"
-                        >
-                            <el-table-column prop="topic" label="话题" width="200" />
-                            <el-table-column prop="clicks" label="点击量" width="200" />
-                            <el-table-column prop="type" label="类型" width="200" />
-                            <el-table-column fixed="right" label="展示开关" >
-                                <template #default="scope">
-                                    <el-switch
-                                    v-model="statusStore.ScreentableData[scope.$index].value"
-                                    class="ml-2"
-                                    style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-                                  />
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </div>
+                <div class="itemholder" id="visitorViews"></div>
+            </div>
+        </dv-border-box12>  
+    </div>
+    <div class="module">
+        <dv-border-box12>
+            <div class="innerbox">
+                <div class="subtitle">
+                    <h1>>访客足迹</h1>
                 </div>
-            </dv-border-box12>
-            
-        </div>
+                <div class="Admin">
+                    <el-table :data="visitorData" height="250" style="width: 100%" class="Table">
+                        <el-table-column prop="date" label="最近访问时间" width="200" />
+                        <el-table-column prop="name" label="姓名" width="200" />
+                        <el-table-column prop="count" label="访问次数"  width="200"/>
+                        <el-table-column prop="school" label="学校" />
+                    </el-table>
+                </div>
+            </div>
+        </dv-border-box12>
+    </div>
+    <div class="module">
+        <dv-border-box12>
+            <div class="innerbox">
+                <div class="subtitle">
+                    <h1>>大屏管理</h1>
+                </div>
+                <div class="Admin">
+                    <el-table 
+                    :data="screendata" 
+                    height="250" 
+                    style="width: 100%;"
+                    class="Table"
+                    >
+                        <el-table-column prop="topic" label="话题" width="200" />
+                        <el-table-column prop="clicks" label="点击量" width="200" />
+                        <el-table-column prop="type" label="类型" width="200" />
+                        <el-table-column fixed="right" label="展示开关" >
+                            <template #default="scope">
+                                <el-switch
+                                v-model="screendata[scope.$index].value"
+                                class="ml-2"
+                                style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+                              />
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+            </div>
+        </dv-border-box12>
+        
+    </div>
 </template>
+
 <script setup>
 import * as echarts from 'echarts';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import useStatusStore from '@/stores/screenStatus.js'
 import useVisitorStore from '@/stores/dashboard.js'
 const statusStore=useStatusStore()
 const visitorStore=useVisitorStore()
+// 各平台数据
+const platformData = ref([])
+const visitorData = ref([])
+// 大屏管理数据
+const screendata = ref([])
+// 
 
-function createChart(){
+// 获取数据
+const createChart=async()=>{
+    // 获取各平台相关数据总数
+    platformData.value = await visitorStore.getplatformData()
+    console.log(platformData)
+
+    // 获取浏览量数据
+    const viewsData =await visitorStore.getViewsData()
+    console.log(viewsData)
+   
+    // console.log(visitorData)
+
+    // 获取访客数据
+    visitorData.value = await visitorStore.getVisitorData()
+    // console.log(visitorData)
+
+    // 获取管理大屏数据
+    screendata.value = await statusStore.getscreenData()
+
     var visitorChart=echarts.init(document.getElementById('visitorViews'),'dark')
     var option={
         backgroundColor:'rgba(0,0,0,0)',
@@ -100,7 +135,7 @@ function createChart(){
         },
         series:[
             {
-                data:visitorStore.visitorViewsData,
+                data:viewsData,
                 type:'line',
                 smooth:true
             }
@@ -109,65 +144,11 @@ function createChart(){
 option&&visitorChart.setOption(option)
 console.log('sucess')
 }
-
 onMounted(()=>createChart())
-
-// const props = defineProps({
-//   w: { type: Number, default: 1000 },
-//   h: { type: Number, default: 550 },
-// });
-
-// const style = ref({
-//   width: `${props.w}px`,
-//   height: `${props.h}px`,
-//   transform: 'scale(1) translate(-50%, -50%)', // 默认不缩放，垂直水平居中
-// });
-
-// // 添加监听窗口大小变化事件
-// const debounce = (fn, t) => {
-//   const delay = t || 500;
-//   let timer;
-//   return function () {
-//     const args = arguments;
-//     if (timer) {
-//       clearTimeout(timer);
-//     }
-//     const context = this;
-//     timer = setTimeout(() => {
-//       timer = null;
-//       fn.apply(context, args);
-//     }, delay);
-//   };
-// };
-
-
-
-// // 获取缩放比例
-// const getScale = () => {
-//   console.log(window.innerHeight, window.innerWidth);
-//   const w = window.innerWidth / props.w;
-//   const h = window.innerHeight / props.h;
-//   return w < h ? w : h;
-// };
-
-// const setScale = () => {
-//   style.value.transform = `scale(${getScale()}) translate(-50%, -50%)`;
-// };
-
-// const onresize = debounce(() => setScale(), 100);
-// onMounted(() => {
-//   createChart();
-//   setScale();
-//   window.addEventListener('resize', onresize);
-// });
-
-// // 移除事件监听
-// onBeforeUnmount(() => {
-//   window.removeEventListener('resize', onresize);
-// });
-
-
 </script>
+
+
+<!-- </> -->
 <style scoped lang="scss">
 //   .content-wrap {
 //     transform-origin: 0 0;

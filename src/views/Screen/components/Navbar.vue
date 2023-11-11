@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="outer"
-      v-for="screen in statusStore.ScreentableData"
+      v-for="screen in screendata"
       :key="screen.id"
     >
       <dv-border-box7 :reverse="true">
@@ -17,10 +17,17 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import useStatusStore from "@/stores/screenStatus.js";
 const statusStore = useStatusStore();
+const screendata = ref([])
+
+const getTopic = async()=>{
+  screendata.value = await statusStore.getscreenData()
+}
+onMounted(()=>getTopic())
+
 </script>
 <style scoped lang="scss">
 .container {
