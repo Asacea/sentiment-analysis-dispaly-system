@@ -16,29 +16,9 @@
             <h1>>网络舆情数据</h1>
             </div>
             <div class="itemholder">
-                <div class="item">
-                    <p class="number">11111</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
-                </div>
-                <div class="item">
-                    <p class="number">278372</p>
-                    <p class="notes">收集到来自bilibili的278372条数据</p>
+                <div class="item" v-for="info in platformData">
+                    <p class="number">{{ info.number }}</p>
+                    <p class="notes">{{ info.notes }}</p>
                 </div>
             </div>    
             </div>    
@@ -111,6 +91,8 @@ import useStatusStore from '@/stores/screenStatus.js'
 import useVisitorStore from '@/stores/dashboard.js'
 const statusStore=useStatusStore()
 const visitorStore=useVisitorStore()
+// 各平台数据
+const platformData = ref([])
 const visitorData = ref([])
 // 大屏管理数据
 const screendata = ref([])
@@ -119,6 +101,9 @@ const screendata = ref([])
 // 获取数据
 const createChart=async()=>{
     // 获取各平台相关数据总数
+    platformData.value = await visitorStore.getplatformData()
+    console.log(platformData)
+
     // 获取浏览量数据
     const viewsData =await visitorStore.getViewsData()
     console.log(viewsData)
