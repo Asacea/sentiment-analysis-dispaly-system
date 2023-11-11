@@ -3,16 +3,17 @@
         <div id="decorationTop">
             <dv-decoration5 :dur="3" style="width:100%;height:60px;"/>
         </div>
-        <h1 class="title">社会科学舆情分析</h1>
+        <h1 class="title">{{title}}</h1>
         <h2 class="time">{{beijingTime}}</h2>
         <div class="navbar">
-            <Navbar/>
+            <Navbar @screenChange="changeTitle"/>
         </div>
     </div>
 </template>
 <script setup>
 import {ref,onMounted} from 'vue'
 import Navbar from '@/views/screen/components/Navbar.vue'
+const beijingTime=ref('')
 const option={
     timeZone:'Asia/Shanghai',
     hour12: false,
@@ -23,10 +24,13 @@ const option={
 function getClock(){
     beijingTime.value=new Date().toLocaleDateString('en-US',option)
 }
+const title=ref('舆情分析')
+const changeTitle=(newtitle)=>{
+    title.value=newtitle+"舆情分析"
+}
 onMounted(()=>{
     setInterval(getClock,1000)
 })
-const beijingTime=ref('')
 </script>
 <style scoped lang="scss">
 

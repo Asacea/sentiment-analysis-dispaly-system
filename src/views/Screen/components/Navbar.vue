@@ -2,16 +2,16 @@
   <div class="container">
     <div
       class="outer"
-      v-for="screen in screendata"
+      v-for="screen in screendata.filter(i=>i.value==true)"
       :key="screen.id"
     >
-      <dv-border-box7 :reverse="true">
+      <dv-border-box7>
         <RouterLink
           :to="{
             path: `/screen/${screen.type}/${screen.id}`,
           }"
-          >{{ screen.topic }}</RouterLink
-        >
+          @click="$emit('screenChange',screen.topic)"
+          >{{ screen.topic }}</RouterLink>
       </dv-border-box7>
     </div>
   </div>
@@ -48,6 +48,7 @@ onMounted(()=>getTopic())
       text-align: center;
       text-decoration: none;
       color: white;
+      font-size:10px;
     }
   }
 }

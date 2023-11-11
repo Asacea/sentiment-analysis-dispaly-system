@@ -145,6 +145,11 @@ option&&visitorChart.setOption(option)
 console.log('sucess')
 }
 onMounted(()=>createChart())
+watch(screendata,(newScreenData)=>{
+    //要不直接就把改变后的原封不动的传回去，直接覆盖了原来的数据
+    console.log(newScreenData)
+    //statusStore.sendSwitchStateToBackend()
+})
 </script>
 
 
@@ -174,7 +179,7 @@ onMounted(()=>createChart())
     border: 0;
     border-radius: 15px;
     .innerbox{
-        position: inherit;
+        //position: inherit;
         width: 1080px;
         height: 400px;
         .subtitle{

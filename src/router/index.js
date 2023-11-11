@@ -23,6 +23,7 @@ const router=createRouter({
         {
             path:'/screen',
             component:()=>import('@/views/Screen/index.vue'),
+            redirect:'/screen/社科/1',
             children:[
                 {
                     path:'/screen/社科/:id',
