@@ -366,9 +366,6 @@ app.use('/echarts-data', async (req, res) => {
         },
         {
             "name": "H"
-        },
-        {
-            "name": "I"
         }
     ]
   }
@@ -1339,9 +1336,6 @@ app.use('/echarts-data', async (req, res) => {
         {
             "name": "H"
         },
-        {
-            "name": "I"
-        }
     ]
 }
   res.json(data1)
