@@ -179,7 +179,7 @@ watch(screendata,(newScreenData)=>{
     border: 0;
     border-radius: 15px;
     .innerbox{
-        //position: inherit;
+        // position: inherit;
         width: 1080px;
         height: 400px;
         .subtitle{

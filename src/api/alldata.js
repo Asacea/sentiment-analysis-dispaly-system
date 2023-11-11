@@ -4,7 +4,8 @@ import request from "../utils/http";
 export const alldataAPI = () => {
   return request({
     // 测试url
-    url: 'http://localhost:3000/platformdata',
+    url:'http://localhost:3000/platformdata',
+    // url: '/admin/alldata',
   })
 }
 
