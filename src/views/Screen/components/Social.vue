@@ -149,7 +149,6 @@ const m2_option= {
       textStyle:{
         color:'#1FACED'
       }
-
     },
     tooltip: {
       trigger: "axis",
@@ -167,13 +166,14 @@ const m2_option= {
       left: "3%",
       right: "4%",
       bottom: "3%",
+      height:"80%",
       containLabel: true,
     },
     xAxis: [
       {
         type: "category",
         boundaryGap: false,
-        data: ["1月", "2月", "3月", "4月", "5月"],
+        data: ["1月", "2月", "3月", "4月", "5月","6月"],
       },
     ],
     yAxis: [
@@ -188,7 +188,7 @@ const m2_option= {
         areaStyle: {
             opacity:0.3
         },
-        data: [100, 140, 230, 100, 120],
+        data: [100, 140, 230, 100, 120,146],
       },
       {
         name: "考研缩招",
@@ -196,7 +196,7 @@ const m2_option= {
         areaStyle: {
             opacity:0.3
         },
-        data: [150,100,200,140,100],
+        data: [150,100,200,140,100,87],
       },
       {
         name: "反向考研",
@@ -204,7 +204,7 @@ const m2_option= {
         areaStyle: {
             opacity:0.3
         },
-        data: [190,212,181,202,218],
+        data: [190,212,181,202,218,197],
       }
     ],
     backgroundColor: "rgba(0,0,0,0)",
@@ -416,7 +416,7 @@ onMounted(() => {
       flex: 2;
     }
   }
-}
+}a
 .outer {
   margin: 3px;
 }
@@ -468,7 +468,7 @@ onMounted(() => {
     }
     .chart-r-2-i{
         flex:1;
-        padding:2px 0;
+        padding:2px 1px;
         border-radius: 8px;
         h4{
             strong{
@@ -483,10 +483,11 @@ onMounted(() => {
         }
         p{
             //margin-top:4px;
-            color:wheat;
+            color:white;
             font-style:italic;
             font-size:x-small;
             text-align:end;
+            opacity:0.6;
         }
     }
 }
