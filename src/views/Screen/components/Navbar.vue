@@ -22,7 +22,6 @@ import { RouterLink } from "vue-router";
 import useStatusStore from "@/stores/screenStatus.js";
 const statusStore = useStatusStore();
 const screendata = ref([])
-
 const getTopic = async()=>{
   screendata.value = await statusStore.getscreenData()
 }

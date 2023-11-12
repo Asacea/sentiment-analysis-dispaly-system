@@ -516,7 +516,7 @@ const m1_option = {
     //borderRadius:100,
     formatter: (params) => {
       if (params.value > 1) {
-        console.log(params.value);
+        //console.log(params.value);
         return `${params.name}<i class="iconfont icon-xiaopangchetubiao-copy" style="color:red;text-algin:center" </i><br/>话题量：${params.value}`;
       } else return `地区：${params.name}<br/>数据：${params.value}`;
     },
