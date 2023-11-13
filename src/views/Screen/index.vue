@@ -1,11 +1,12 @@
 <template>
     <div class="layout">
+        <canvass class="cav"></canvass>  
         <Header/>
         <RouterView/>
     </div>
 </template>
 <script setup>
-
+import canvass from '@/views/bcg1.vue'
 import Header from './components/Header.vue'
 import {RouterView} from 'vue-router'
 </script>
@@ -16,7 +17,7 @@ import {RouterView} from 'vue-router'
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #091629;
+    //background-color: #091629;
     display: flex;
     align-items: center;
     justify-content: center;

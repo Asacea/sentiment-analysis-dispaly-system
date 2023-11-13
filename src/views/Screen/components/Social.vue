@@ -371,6 +371,8 @@ const r1_option = {
   xAxis: {
     type: "category",
     data: r1_data.value.map((i) => i.name),
+    axisLabel: {fontSize: 10}
+
   },
   yAxis: {
     type: "value",
