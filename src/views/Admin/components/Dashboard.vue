@@ -87,8 +87,9 @@
 <script setup>
 import * as echarts from 'echarts';
 import { onMounted, ref, watch } from 'vue';
-import useStatusStore from '@/stores/screenStatus.js'
-import useVisitorStore from '@/stores/dashboard.js'
+// import useStatusStore from '@/stores/screenStatus.js'
+
+import {useVisitorStore,useStatusStore }from '@/stores/dashboard.js'
 const statusStore=useStatusStore()
 const visitorStore=useVisitorStore()
 // 各平台数据
@@ -172,6 +173,8 @@ watch(screendata,(newScreenData)=>{
 //   background-size: 100% 100%;
 // }
 .module{
+    //position: relative;
+    //top:-2000px;
     height: 400px;
     margin: 20px;
     margin-left: 320px;

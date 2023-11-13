@@ -1,5 +1,6 @@
 <template>
     <div class="layout">
+        <canvass class="cav"></canvass>  
         <div class="sidebar">
             <!-- <h3 style="color:#ffd04b">管理员界面</h3> -->
             <i class="iconfont icon-yonghu"></i>
@@ -23,8 +24,8 @@
     </div>
 </template>
 <script setup>
-import {RouterLink} from 'vue-router'
-import {RouterView} from 'vue-router'
+import {RouterLink,RouterView} from 'vue-router'
+import canvass from '@/views/bcg1.vue'
 </script>
 <style scoped lang="scss">
 .layout{
@@ -32,12 +33,23 @@ import {RouterView} from 'vue-router'
     top:0;
     left: 0;
     right: 0;
-    //bottom: 0;
-    background: url('.././../img/111.jpg') repeat;
+    //bottom: auto;
+    //background: url('.././../img/111.jpg') repeat;
     //color:white
-    
+    .cav{
+        height: 1750px;
+    }
+    .board{
+        //position: fixed;
+        //top:0;
+        //left:0;
+        right:0;
+        position:absolute;
+        top:2%;
+    }
 }
 .sidebar{
+    z-index: 999;
     position: fixed;
     top:0;
     height: 100%;
@@ -66,4 +78,5 @@ a:hover{
     font-size: 50px;
     color: aquamarine;
 }
+
 </style>
