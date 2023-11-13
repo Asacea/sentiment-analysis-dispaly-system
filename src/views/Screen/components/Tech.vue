@@ -35,24 +35,24 @@
                 </dv-border-box12>
             </div>
             <div class="l3 outer">
-                <dv-border-box1 >
+                <dv-border-box12 >
                     <div class="inner" style="text-align: center;">
                       <h4>话题情感分析</h4>
                       <div id="chart-l-3" style="height: 100%;"></div>
                     </div>
-                </dv-border-box1>
+                </dv-border-box12>
             </div>
         </div>
         <div class="mid">
             <!-- 节点发现图 -->
             <div class="m1 outer">
-                <dv-border-box1>
+                <dv-border-box12>
                     <div class="inner" >
                         <h4>关系节点发现</h4>
                         <div id="chart-m-1" ref="chartm1" style="height: 100%">
                         </div>
                     </div>
-                </dv-border-box1>
+                </dv-border-box12>
             </div>
             <div class="m2 outer">
                 <dv-border-box12>
@@ -85,12 +85,12 @@
                 </dv-border-box12>
             </div>
             <div class="r2 outer">
-                <dv-border-box8 :dur="5" :reverse="true" style="text-align: center;">
+                <dv-border-box10 :dur="5" :reverse="true" style="text-align: center;">
                   <h4 style="padding-top: 5px;">用户来源分布</h4>
                     <div class="inner" id="chart-r-2">
                         <div id="chart-r-2" ref="chinaMap" style="height: 100%;"></div>
                     </div>
-                </dv-border-box8>
+                </dv-border-box10>
             </div>
         </div>
     </div>
