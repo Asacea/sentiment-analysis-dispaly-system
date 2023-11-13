@@ -3,16 +3,18 @@
         <div id="decorationTop">
             <dv-decoration5 :dur="3" style="width:100%;height:60px;"/>
         </div>
-        <h1 class="title">{{title}}</h1>
+        <h1 class="title">{{socialStore.screenTitle+"舆情分析"}}</h1>
         <h2 class="time">{{beijingTime}}</h2>
         <div class="navbar">
-            <Navbar @screenChange="changeTitle"/>
+            <Navbar/>
         </div>
     </div>
 </template>
 <script setup>
 import {ref,onMounted} from 'vue'
 import Navbar from '@/views/screen/components/Navbar.vue'
+import useSocialScreenStore from '../../../stores/socialStore';
+const socialStore=useSocialScreenStore()
 const beijingTime=ref('')
 const option={
     timeZone:'Asia/Shanghai',
@@ -24,10 +26,10 @@ const option={
 function getClock(){
     beijingTime.value=new Date().toLocaleDateString('en-US',option)
 }
-const title=ref('舆情分析')
-const changeTitle=(newtitle)=>{
-    title.value=newtitle+"舆情分析"
-}
+// const title=ref('舆情分析')
+// const changeTitle=(newtitle)=>{
+//     title.value=newtitle+"舆情分析"
+// }
 onMounted(()=>{
     setInterval(getClock,1000)
 })

@@ -89,7 +89,8 @@ import * as echarts from 'echarts';
 import { onMounted, ref, watch } from 'vue';
 // import useStatusStore from '@/stores/screenStatus.js'
 
-import {useVisitorStore,useStatusStore }from '@/stores/dashboard.js'
+import {useVisitorStore }from '@/stores/dashboard.js'
+import useStatusStore from '../../../stores/screenStatus.js';
 const statusStore=useStatusStore()
 const visitorStore=useVisitorStore()
 // 各平台数据

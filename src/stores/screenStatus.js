@@ -1,11 +1,15 @@
 import {defineStore} from 'pinia'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import { screenadminAPI,screendataAPI } from '../api/screenadmin'
 const useStatusStore = defineStore('Status',()=>{
+    const screenData=ref([])
+    const visitorScreen=ref([])
     // 获取大数据管理数据
     const getscreenData = async() => {
         const res = await screendataAPI()
-        console.log(res)
+        // console.log("res",res)
+        screenData.value=res
+        visitorScreen.value=res.filter(i=>i.value==true)
         return res
     }
 
@@ -51,6 +55,7 @@ const useStatusStore = defineStore('Status',()=>{
     // ])
     return {
         // ScreentableData,
+        screenData,visitorScreen,
         getscreenData,
         sendSwitchStateToBackend
     }

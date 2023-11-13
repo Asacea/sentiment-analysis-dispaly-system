@@ -23,8 +23,13 @@ const router=createRouter({
         {
             path:'/screen',
             component:()=>import('@/views/Screen/index.vue'),
-            redirect:'/screen/社科/1',
+            redirect:'/screen/default',
             children:[
+                {
+                    path:'/screen/default',
+                    name:'default',
+                    component:()=>import('@/views/Screen/components/Default.vue')
+                },
                 {
                     path:'/screen/社科/:id',
                     name:'社科',

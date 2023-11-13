@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="outer"
-      v-for="screen in screendata.filter(i=>i.value==true)"
+      v-for="screen in screendata"
       :key="screen.id"
     >
       <dv-border-box7>
@@ -10,7 +10,7 @@
           :to="{
             path: `/screen/${screen.type}/${screen.id}`,
           }"
-          @click="$emit('screenChange',screen.topic)"
+          @click="changeScreen(screen)"
           >{{ screen.topic }}</RouterLink>
       </dv-border-box7>
     </div>
@@ -20,13 +20,34 @@
 import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import useStatusStore from "@/stores/screenStatus.js";
+import useSocialScreenStore from '@/stores/socialStore.js'
+import { useUserStore } from "../../../stores/user";
 const statusStore = useStatusStore();
+const socialStore=useSocialScreenStore();
+const userStore=useUserStore();
 const screendata = ref([])
-const getTopic = async()=>{
-  screendata.value = await statusStore.getscreenData()
+// const getTopic = async()=>{
+//   screendata.value = await statusStore.getscreenData()
+// }
+async function identifyUser(){
+  if(userStore.userType=='admin'){
+    screendata.value=statusStore.screenData
+  }else{
+    screendata.value=statusStore.visitorScreen
+  }
+  console.log("screendata:",screendata.value)
 }
-onMounted(()=>getTopic())
-
+onMounted(async ()=>{
+  // getTopic()
+  console.log("hello")
+  await statusStore.getscreenData()
+  // console.log(userStore.userType)
+  await identifyUser()
+})
+const changeScreen=(screen)=>{
+  socialStore.screenId=screen.id;
+  socialStore.screenTitle=screen.topic
+}
 </script>
 <style scoped lang="scss">
 .container {
@@ -46,7 +67,7 @@ onMounted(()=>getTopic())
     a {
       text-align: center;
       text-decoration: none;
-      color: white;
+      color: white ;
       font-size:10px;
     }
   }
