@@ -8,13 +8,20 @@
         <div class="navbar">
             <Navbar/>
         </div>
+        <div class="back" v-show="userStore.userType=='admin'" @click="goBacktoDashboard">
+            <i class="iconfont icon-fanhui"></i>
+        </div>
     </div>
 </template>
 <script setup>
 import {ref,onMounted} from 'vue'
 import Navbar from '@/views/screen/components/Navbar.vue'
 import useSocialScreenStore from '../../../stores/socialStore';
+import { useUserStore } from '../../../stores/user';
+import {useRouter} from 'vue-router'
 const socialStore=useSocialScreenStore()
+const userStore=useUserStore()
+const router=useRouter()
 const beijingTime=ref('')
 const option={
     timeZone:'Asia/Shanghai',
@@ -26,10 +33,10 @@ const option={
 function getClock(){
     beijingTime.value=new Date().toLocaleDateString('en-US',option)
 }
-// const title=ref('舆情分析')
-// const changeTitle=(newtitle)=>{
-//     title.value=newtitle+"舆情分析"
-// }
+function goBacktoDashboard(){
+    socialStore.screenTitle=""
+    router.push('/Admin')
+}
 onMounted(()=>{
     setInterval(getClock,1000)
 })
@@ -59,14 +66,29 @@ onMounted(()=>{
 .time{
     position: fixed;
     top:25px;
-    left: 10px;
+    left: 50px;
     font-weight: 500;
     font-size: large;
-    color:rgba(63,150,165,0.9);
+    color:whitesmoke;
+    opacity: 0.6;
 }
 .navbar{
     position: fixed;
     right: 0;
     top:42px;
+}
+.back{
+    position: fixed;
+    top:32px;
+    left:5px;
+    .iconfont{
+        font-size: 40px;
+        color: aquamarine;
+        opacity: 0.8;
+        &:hover{
+            font-weight: 900;
+            opacity: 1;
+        }
+    }
 }
 </style>
