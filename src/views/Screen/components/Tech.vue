@@ -3,7 +3,7 @@
         <div class="left">
             <div class="l1 outer">
                 <dv-border-box12 style="text-align: center; display: flex;">
-                  <h4 style="margin-top: 10px;">热门话题</h4>
+                  <h3 style="margin-top: 10px;">热门话题</h3>
                     <div class="inner" id="chart-l-1" >                       
                           <div class="inner1" >
                             <div class="inner11" style="color: white; font-size: 12px; margin-top: 5px;">
@@ -25,7 +25,7 @@
             <div class="l2 outer">
                 <dv-border-box12 >
                     <div class="inner" style="text-align: center;">
-                      <h4>关键传播信息账号</h4>
+                      <h3>关键传播信息账号</h3>
                       <div id="chart-l-2" style="height: 100%;">
                         <div demo-bg>
                           <dv-scroll-board :config="config" style="height: 100%;font-size: 8px;" />
@@ -37,7 +37,7 @@
             <div class="l3 outer">
                 <dv-border-box12 >
                     <div class="inner" style="text-align: center;">
-                      <h4>话题情感分析</h4>
+                      <!-- <h3>话题情感分析</h3> -->
                       <div id="chart-l-3" style="height: 100%;"></div>
                     </div>
                 </dv-border-box12>
@@ -48,7 +48,7 @@
             <div class="m1 outer">
                 <dv-border-box12>
                     <div class="inner" >
-                        <h4>关系节点发现</h4>
+                        <h3>关系节点发现</h3>
                         <div id="chart-m-1" ref="chartm1" style="height: 100%">
                         </div>
                     </div>
@@ -57,8 +57,8 @@
             <div class="m2 outer">
                 <dv-border-box12>
                     <div class="inner" style="text-align: center">
-                        <h4 >话题热度趋势变化</h4>
-                        <div id="chart-m-2" style="height: 120%;margin-left:20px;margin-top: -25px;;">
+                        <!-- <h3>话题热度趋势变化</h3> -->
+                        <div id="chart-m-2" style="height: 100%;margin-left:0px;margin-top: 0px;;">
 
                         </div>
                     </div>
@@ -71,26 +71,25 @@
                     <div class="inner" >
                         <div class="inner1" style="text-align: center;">
                             <div id="chart-r-1-1" style="height: 100%;"></div>
-                            <h4 style="margin-top: -35px;;">用户年龄</h4>
+                            <!-- <h3 style="margin-top: -35px;;">用户年龄</h3> -->
                         </div>
                         <div class="inner2" style="text-align: center;">
                             <div id="chart-r-1-2" style="height: 100%;"></div>
-                            <h4 style="margin-top: -35px;;">用户类别</h4>
+                            <!-- <h3 style="margin-top: -35px;;">用户类别</h3> -->
                         </div>
                         <div class="inner3" style="text-align: center;">
                             <div id="chart-r-1-3" style="height: 100%;"></div>
-                            <h4 style="margin-top: -35px;;">用户占比</h4>
+                            <!-- <h3 style="margin-top: -35px;;">用户占比</h3> -->
                         </div>
                     </div>
                 </dv-border-box12>
             </div>
             <div class="r2 outer">
-                <dv-border-box10 :dur="5" :reverse="true" style="text-align: center;">
-                  <h4 style="padding-top: 5px;">用户来源分布</h4>
+                <dv-border-box12 :dur="5" :reverse="true" style="text-align: center;">
                     <div class="inner" id="chart-r-2">
                         <div id="chart-r-2" ref="chinaMap" style="height: 100%;"></div>
                     </div>
-                </dv-border-box10>
+                </dv-border-box12>
             </div>
         </div>
     </div>
@@ -111,9 +110,16 @@ import 'echarts-wordcloud';
 import 'echarts/map/js/china.js'
 
 const route = useRoute()
-const screenId=ref(0)
+const screenId=ref(2)
 const techStore = usetechStore()
 
+onBeforeRouteUpdate(() => {
+  // beforeRouteEnter(() => {
+  screenId.value = route.params.id;
+  console.log('11111aaaa')
+  console.log(screenId.value);
+  //screenId用来传数据
+});
 
 // 关系节点发现图表chart-m-1
 const createChartm1 = async() => {
@@ -122,7 +128,12 @@ const createChartm1 = async() => {
     useDirtyRect: false
   });
   const chartm1Data =await techStore.getmid1()
-
+  if (techStore && typeof techStore.getmid1 === 'function') {
+    const chartm1Data = await techStore.getmid1();
+    console.log('有函数')
+  } else {
+    console.error('techStore.getmid1 is not a function or techStore is not defined.');
+  }
   myChart.showLoading();
   const graph = chartm1Data;
 
@@ -134,12 +145,14 @@ const createChartm1 = async() => {
   });
 
   const option = {
-  //   title: {
-//     text: 'Les Miserables',
-//     subtext: 'Default layout',
-//     top: 'bottom',
-//     left: 'right'
-//   },
+    title:{
+        text: '关键节点发现',
+        // top:'bottom',
+        left: 'center',
+        textStyle: {
+          color: "#1FACED",
+        },
+      },
     tooltip: {},
     legend: [{
         data: graph.categories.map(function (a) {
@@ -191,6 +204,14 @@ const createChartm2 = async() => {
 
     // 配置项
     option = {
+      title:{
+        text: '热度话题变化趋势',
+        // top:'bottom',
+        left: 'center',
+        textStyle: {
+          color: "#1FACED",
+        },
+      },
       // 坐标
       xAxis: {
         type: 'category',
@@ -201,10 +222,18 @@ const createChartm2 = async() => {
       },
       series: [
         {
-          data: [150, 230, 224, 218, 135, 147, 260],
+          name: '热度话题', // 图例名称
+          data: [150, 280, 224, 218, 135, 147, 260],
           type: 'line'
         }
       ],
+      legend: {
+        top:'bottom',
+        data: ['热度话题'], // Corresponds to the series name
+        textStyle: {
+          color: '#1FACED',
+        },
+      },
       // 背景设置为透明
       backgroundColor: 'transparent'
     };
@@ -223,6 +252,14 @@ const createChartr11 =async() =>{
 
     // 配置项
     option = {
+      title:{
+        text: '用户年龄',
+        top:'bottom',
+        left: 'center',
+        textStyle: {
+          color: "#1FACED",
+        },
+      },
       // 调整位置
       grid: {
         // top: '30%', // 调整顶部边距
@@ -268,9 +305,14 @@ const createChartr12 = async()=>{
     let option;
 
     option = {
-      // title: {
-      //   text: 'Basic Radar Chart'
-      // },
+      title:{
+        text: '用户类别',
+        top:'bottom',
+        left: 'center',
+        textStyle: {
+          color: "#1FACED",
+        },
+      },
 
       legend: {
         data: ['知乎', '贴吧','微博', 'B站', '清水河畔']
@@ -337,6 +379,14 @@ const createChartr13 = async()=>{
     let option;
 
     option = {
+      title:{
+        text: '用户性别',
+        top:'bottom',
+        left: 'center',
+        textStyle: {
+          color: "#1FACED",
+        },
+      },
       tooltip: {
         trigger: 'item'
       },
@@ -388,17 +438,20 @@ const createChartl3 = async()=>{
   });    
 
   let  option = {
-    // title: {
-    //   text: 'Referer of a Website',
-    //   subtext: 'Fake Data',
-    //   left: 'center'
-    // },
+    title:{
+      text: '话题情感分析',
+      left: 'center',
+      textStyle: {
+        color: "#1FACED",
+      },
+    },
     tooltip: {
       trigger: 'item'
     },
     legend: {
       orient: 'vertical',
-      left: 'left'
+      left: 'left',
+      top:'30'
     },
     series: [
       {
@@ -443,7 +496,6 @@ const config = reactive({
     ['张三', '300','普通用户','2023-9-19','8'],
     ['张三', '300','普通用户','2023-9-19','8'],
     ['张三', '300','普通用户','2023-9-19','8'],
-    ['张三', '300','普通用户','2023-9-19','8'],
   ],
   index: true,
   columnWidth: [45],
@@ -454,11 +506,18 @@ const config = reactive({
   rowNum: 7
 })
 
-// 地图
+// 用户来源分布
 const createChartr2 = ()=>{
   let mapcharts = echarts.init(document.getElementById('chart-r-2'))
   let option;
   option = {
+    title:{
+      text: '用户来源分布',
+      left: 'center',
+      textStyle: {
+        color: "#1FACED",
+      },
+    },
     series: [{
       type: 'map',
       map: 'china',
@@ -671,7 +730,7 @@ onMounted(()=>{
     height: 90%;    
 }
 
-h4{
+h3{
     color:#1FACED;
     // margin-left:86px
 }
