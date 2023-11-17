@@ -6,17 +6,17 @@
                   <h3 style="margin-top: 10px;">热门话题</h3>
                     <div class="inner" id="chart-l-1" >                       
                           <div class="inner1" >
-                            <div class="inner11" style="color: white; font-size: 12px; margin-top: 5px;">
-                              <img src="../../../../src/img/马立奥.png" alt="" style="width: 50px;">
-                              <div style="margin-top: 10px;">新华社</div>
-                              <div style="margin-top: 5px;">微博认证</div>
+                            <div class="inner11" style="color: white; font-size: 13px; margin-top: 5px;">
+                              <img src="../../../../src/img/马立奥.png" alt="" style="width: 85px;">
+                              <div style="margin-top: 10px;">{{techStore.data_tech_topic.platform}}</div>
+                              <!-- <div style="margin-top: 5px;">微博认证</div> -->
                             </div>
                           </div>
                           <div class="inner2">
-                            <div class="inner22" style="text-align: left; color: white; font-size: 14px;">
-                              <div>20世纪70年代到95年代出现了大量的开放性多人游戏，游戏本身的开放世界形成了元宇宙的早期基础。2003年，游戏《Second Life》发布，它在理念上给大家部分解放了现实世界所面临的窘境，大家在现实世界中不能快速调整自己的身份</div>
+                            <div class="inner22" style="text-align: left; color: white; font-size: 13px; margin:3px">
+                              <div>{{techStore.data_tech_topic.text}}</div>
                               <br/>
-                              <div>[转发：1000，评论数：200，点赞：3000]</div>
+                              <div>【转发：{{techStore.data_tech_topic.num_forward}}，评论数：{{techStore.data_tech_topic.num_comment}}，点赞：{{techStore.data_tech_topic.num_like}}】</div>
                             </div>
                           </div>
                     </div>
@@ -24,7 +24,7 @@
             </div>
             <div class="l2 outer">
                 <dv-border-box12 >
-                    <div class="inner" style="text-align: center;">
+                    <div class="inner" style="text-align: center;">  
                       <h3>关键传播信息账号</h3>
                       <div id="chart-l-2" style="height: 100%;">
                         <div demo-bg>
@@ -48,7 +48,7 @@
             <div class="m1 outer">
                 <dv-border-box12>
                     <div class="inner" >
-                        <h3>关系节点发现</h3>
+                        <!-- <h3>关系节点发现</h3> -->
                         <div id="chart-m-1" ref="chartm1" style="height: 100%">
                         </div>
                     </div>
@@ -112,375 +112,27 @@ import 'echarts/map/js/china.js'
 const route = useRoute()
 const screenId=ref(2)
 const techStore = usetechStore()
-
-onBeforeRouteUpdate(() => {
-  // beforeRouteEnter(() => {
-  screenId.value = route.params.id;
-  console.log('11111aaaa')
-  console.log(screenId.value);
-  //screenId用来传数据
-});
-
-// 关系节点发现图表chart-m-1
-const createChartm1 = async() => {
-  const myChart = echarts.init(document.getElementById('chart-m-1'), 'dark', {
-    renderer: 'canvas',
-    useDirtyRect: false
-  });
-  const chartm1Data =await techStore.getmid1()
-  if (techStore && typeof techStore.getmid1 === 'function') {
-    const chartm1Data = await techStore.getmid1();
-    console.log('有函数')
-  } else {
-    console.error('techStore.getmid1 is not a function or techStore is not defined.');
-  }
-  myChart.showLoading();
-  const graph = chartm1Data;
-
-  graph.nodes.forEach(function (node) {
-    node.symbolSize /= 1.5
-    node.label = {
-      show: node.symbolSize > 25
-    };
-  });
-
-  const option = {
-    title:{
-        text: '关键节点发现',
-        // top:'bottom',
-        left: 'center',
-        textStyle: {
-          color: "#1FACED",
-        },
-      },
-    tooltip: {},
-    legend: [{
-        data: graph.categories.map(function (a) {
-          return a.name;
-        })
-      }
-    ],
-    animationDuration: 1000,
-    animationEasingUpdate: 'quinticInOut',
-    series: [
-      {
-        name: 'Les Miserables',
-        type: 'graph',
-        layout: 'none',
-        data: graph.nodes,
-        links: graph.links,
-        categories: graph.categories,
-        roam: true,
-        label: {
-          position: 'right',
-          formatter: '{b}'
-        },
-        lineStyle: {
-          color: 'source',
-          curveness: 0.3
-        },
-        emphasis: {
-          focus: 'adjacency',
-          lineStyle: {
-            width: 10
-          }
-        }
-      }
-    ],
-  backgroundColor: 'transparent'
-};
-
-myChart.setOption(option);
-myChart.hideLoading();
-
+// 渲染图表函数封装
+async function createChart(eleID,option){
+  let ele = document.getElementById(eleID);
+  let chart = echarts.init(ele, "dark");
+  option && chart.setOption(option);
+  window.addEventListener('resize', function () {
+    chart.resize();
+})
 }
 
-// 话题热度趋势变化图
-const createChartm2 = async() => {
-    echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
-    let chartDom = document.getElementById('chart-m-2');
-    let myChart = echarts.init(chartDom);
-    let option;
-
-    // 配置项
-    option = {
-      title:{
-        text: '热度话题变化趋势',
-        // top:'bottom',
-        left: 'center',
-        textStyle: {
-          color: "#1FACED",
-        },
-      },
-      // 坐标
-      xAxis: {
-        type: 'category',
-        data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '热度话题', // 图例名称
-          data: [150, 280, 224, 218, 135, 147, 260],
-          type: 'line'
-        }
-      ],
-      legend: {
-        top:'bottom',
-        data: ['热度话题'], // Corresponds to the series name
-        textStyle: {
-          color: '#1FACED',
-        },
-      },
-      // 背景设置为透明
-      backgroundColor: 'transparent'
-    };
-
-    option && myChart.setOption(option);
+// 渲染图表
+async function createAllCharts(){
+  console.log('科技科技')
+  createChart("chart-l-3",techStore.tech_l3_option);
+  createChart("chart-m-1",techStore.tech_m1_option);
+  createChart("chart-m-2",techStore.tech_m2_option);
+  createChart("chart-r-1-1",techStore.tech_r11_option);
+  createChart("chart-r-1-2",techStore.tech_r12_option);
+  createChart("chart-r-1-3",techStore.tech_r13_option);
+  createChart("chart-r-2",techStore.tech_r2_option);
 }
-
-// 用户年龄趋势图
-const createChartr11 =async() =>{
-    let dom = document.getElementById('chart-r-1-1');
-    let myChart = echarts.init(dom, null, {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });
-    let option;
-
-    // 配置项
-    option = {
-      title:{
-        text: '用户年龄',
-        top:'bottom',
-        left: 'center',
-        textStyle: {
-          color: "#1FACED",
-        },
-      },
-      // 调整位置
-      grid: {
-        // top: '30%', // 调整顶部边距
-        // bottom: '10%', // 调整底部边距
-        left: '15%', // 调整左侧边距
-        // right: '10%' // 调整右侧边距
-      },
-      // 坐标
-      xAxis: {
-        type: 'category',
-        data: ['<15', '15-18', '18-30', '30-45', '>45'],
-        // 字体大小调整
-        axisLabel: {fontSize: 7}
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          data: [120, 200, 150, 80, 70],
-          type: 'bar',
-          barWidth: '55%' // 调整柱子的宽度
-        }
-      ],
-      // 设置背景透明
-      backgroundColor: 'transparent'
-
-};
-
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-}
-
-// 用户类别
-const createChartr12 = async()=>{
-    let dom = document.getElementById('chart-r-1-2');
-    let myChart = echarts.init(dom, 'dark', {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });
-    
-    let option;
-
-    option = {
-      title:{
-        text: '用户类别',
-        top:'bottom',
-        left: 'center',
-        textStyle: {
-          color: "#1FACED",
-        },
-      },
-
-      legend: {
-        data: ['知乎', '贴吧','微博', 'B站', '清水河畔']
-      },
-      // 雷达图
-      radar: {
-        // 雷达图的形状
-        // shape: 'circle',
-        // 用于定义指标轴
-        indicator: [
-          { name: '个体认证', max: 6500 },
-          { name: '达人', max: 16000 },
-          { name: '普通用户', max: 30000 },
-          { name: '大V', max: 38000 },
-          { name: '公号', max: 52000 },
-          // { name: 'Marketing', max: 25000 }
-        ],
-        // 调整雷达图的大小
-        radius: '60%' 
-      },
-      series: [
-        {
-          name: '各平台数据对比',
-          type: 'radar',
-          data: [
-            {
-              value: [4200, 3000, 20000, 35000, 50000],
-              name: '知乎'
-            },
-            {
-              value: [5000, 14000, 28000, 26000, 42000, 21000],
-              name: '贴吧'
-            },
-            {
-              value: [3000, 1000, 21000, 2600, 42300, 2200],
-              name: '微博'
-            },
-            {
-              value: [5030, 4000, 18000, 20000, 12000, 31000],
-              name: '清水河畔'
-            },
-            {
-              value: [3000, 4000, 18000, 29000, 40000, 23000],
-              name: 'B站'
-            }
-          ]
-        }
-      ],
-      backgroundColor: 'transparent'
-    };
-
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-}
-
-// 用户性别
-const createChartr13 = async()=>{
-    let dom = document.getElementById('chart-r-1-3');
-    let myChart = echarts.init(dom, 'dark', {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });    
-    let option;
-
-    option = {
-      title:{
-        text: '用户性别',
-        top:'bottom',
-        left: 'center',
-        textStyle: {
-          color: "#1FACED",
-        },
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        top: '5%',
-        left: 'center'
-      },
-      series: [
-        {
-          name: '评论人数',
-          type: 'pie',
-          radius: ['30%', '60%'],
-          avoidLabelOverlap: false,
-          label: {
-          show: false,
-          position: 'center'
-          },
-          emphasis: {
-          label: {
-            show: true,
-            fontSize: 20,
-            fontWeight: 'bold'
-          }
-          },
-          labelLine: {
-          show: false
-          },
-          data: [
-          { value: 1048, name: '男' },
-          { value: 735, name: '女' },
-          ]
-        }
-      ],
-      backgroundColor: 'transparent'
-    };
-
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-}
-
-
-// 话题情感分析
-const createChartl3 = async()=>{
-  let dom = document.getElementById('chart-l-3');
-  let myChart = echarts.init(dom, 'dark', {
-      renderer: 'canvas',
-      useDirtyRect: false
-  });    
-
-  let  option = {
-    title:{
-      text: '话题情感分析',
-      left: 'center',
-      textStyle: {
-        color: "#1FACED",
-      },
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left',
-      top:'30'
-    },
-    series: [
-      {
-        name: '评论数量',
-        type: 'pie',
-        radius: '50%',
-        data: [
-          { value: 1048, name: '消极' },
-          { value: 735, name: '积极' },
-          { value: 580, name: '中立' },
-        ],
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ],
-    backgroundColor: 'transparent'
-  };
-
-  if (option && typeof option === 'object') {
-    myChart.setOption(option);
-  }
-
-}
-
 
 
 // 关键传播账号
@@ -506,139 +158,11 @@ const config = reactive({
   rowNum: 7
 })
 
-// 用户来源分布
-const createChartr2 = ()=>{
-  let mapcharts = echarts.init(document.getElementById('chart-r-2'))
-  let option;
-  option = {
-    title:{
-      text: '用户来源分布',
-      left: 'center',
-      textStyle: {
-        color: "#1FACED",
-      },
-    },
-    series: [{
-      type: 'map',
-      map: 'china',
-      layoutCenter: ['40%', '50%'], // 地图布局中心点
-      layoutSize: 270, 
-      label: {
-        show: true,
-        color: '#ffffff',
-        fontSize: 10,
-      },
-      itemStyle: {
-        areaColor: '#eee',
-        borderColor: '#24dafe',
-      },
-      roam: true,
-      zoom: 1.1,
-      emphasis: {
-        label: {
-          color: '#fff',
-          fontSize: 12,
-          fontWeight:'bold'
-        },
-        itemStyle: {
-          areaColor: 'none',
-          borderColor: '#77ebff',
-          borderWidth: 2
-        }
-      },
-      data: [
-        { name: '北京', value: 17 },
-        { name: '天津', value: 12 },
-        { name: '上海', value: 15 },
-        { name: '重庆', value: 15 },
-        { name: '河北', value: 15 },
-        { name: '河南', value: 15 },
-        { name: '云南', value: 5 },
-        { name: '辽宁', value: 15 },
-        { name: '黑龙江', value: 15 },
-        { name: '湖南', value: 2 },
-        { name: '安徽', value: 15 },
-        { name: '山东', value: 15 },
-        { name: '新疆', value: 3 },
-        { name: '江苏', value: 3 },
-        { name: '浙江', value: 9 },
-        { name: '江西', value: 15 },
-        { name: '湖北', value: 4 },
-        { name: '广西', value: 4 },
-        { name: '甘肃', value: 10 },
-        { name: '山西', value: 15 },
-        { name: '内蒙古', value: 15 },
-        { name: '陕西', value: 9 },
-        { name: '吉林', value: 8 },
-        { name: '福建', value: 9 },
-        { name: '贵州', value: 9 },
-        { name: '广东', value: 8 },
-        { name: '青海', value: 3 },
-        { name: '西藏', value: 9 },
-        { name: '四川', value: 0 },
-        { name: '宁夏', value: 15 },
-        { name: '海南', value: 7 },
-        { name: '台湾', value: 4 },
-        { name: '香港', value: 4 },
-        { name: '澳门', value: 3 }
-      ]
-    }],
-    visualMap: [{
-      type: 'piecewise',
-      show: true,
-      pieces: [
-        { min: 0, max:4 },
-        { min: 5, max: 9 },
-        { min: 10, max: 14},
-        { min: 14},
-      ],
-      textStyle: {
-        color: '#828994'
-      },
-      itemWidth: 64, // 每个图元的宽度
-      itemHeight:12,
-      top: "top",                               
-      right: "0",
-      inRange: {
-        borderRadius: 4,
-        color: [ 
-          '#84bbff',
-          '#70b4ff',
-          '#61a7ff',
-          '#4d90f2',
-        ]
-      },
-    }],
-    tooltip: { 
-      trigger: 'item',  //数据项图形触发
-      backgroundColor: "#fff",  
-      borderWidth: 0,    
-      formatter: '地区：{b}<br/>数据：{c}'
-    },
-    toolbox: {
-      show: true,
-      orient: 'vertical',
-      left: 'right',
-      bottom: '0',
-      feature: {
-          restore: {},
-          saveAsImage: {}
-      }
-    },
-    backgroundColor: 'transparent'
-  }
-  // 绘制图表
-  mapcharts.setOption(option);    
-}
 
-onMounted(()=>{
-    createChartl3()
-    createChartm1()
-    createChartm2()
-    createChartr11()
-    createChartr12()
-    createChartr13()
-    createChartr2()
+
+onMounted(async()=>{
+  await techStore.getdata()
+  await createAllCharts()
 })
 
 
