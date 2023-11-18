@@ -86,7 +86,7 @@
 
 <script setup>
 import * as echarts from 'echarts';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch ,computed} from 'vue';
 // import useStatusStore from '@/stores/screenStatus.js'
 
 import {useVisitorStore }from '@/stores/dashboard.js'
@@ -98,17 +98,16 @@ const platformData = ref([])
 const visitorData = ref([])
 // 大屏管理数据
 const screendata = ref([])
-// 
 
 // 获取数据
 const createChart=async()=>{
     // 获取各平台相关数据总数
     platformData.value = await visitorStore.getplatformData()
-    console.log(platformData)
+    // console.log(platformData)
 
     // 获取浏览量数据
     const viewsData =await visitorStore.getViewsData()
-    console.log(viewsData)
+    // console.log(viewsData)
    
     // console.log(visitorData)
 
@@ -147,11 +146,25 @@ option&&visitorChart.setOption(option)
 console.log('sucess')
 }
 onMounted(()=>createChart())
-watch(screendata,(newScreenData)=>{
+watch(()=>JSON.parse(JSON.stringify(screendata.value)),(newScreenData,oldScreenData)=>{
     //要不直接就把改变后的原封不动的传回去，直接覆盖了原来的数据
-    console.log(newScreenData)
-    //statusStore.sendSwitchStateToBackend()
-})
+    console.log("new",newScreenData)
+    console.log('old',oldScreenData)
+    // console.log(JSON.parse(newScreenData),JSON.parse(oldScreenData))
+    if(oldScreenData.length!=0)
+    {
+        for(let i = 0;i<newScreenData.length;i++){
+            // console.log(newScreenData[i].value)
+            if(newScreenData[i].value!=oldScreenData[i].value){
+                // console.log(newScreenData[i].id)
+                // console.log(oldScreenData[i].value)
+                statusStore.sendSwitchStateToBackend({id:newScreenData[i].id,showSwitch:newScreenData[i].value})
+            }
+        }
+    }
+       
+    
+}, { deep: true })
 </script>
 
 

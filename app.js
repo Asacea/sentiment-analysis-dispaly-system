@@ -190,8 +190,9 @@ app.get('/screendata', (req, res) => {
 
 // 更改管理大屏数据
 app.post('/screenadmin',(req,res)=>{
-  const { topic,showSwitch } = req.body;
-  return res.status(200).json({ message: '登录成功' });
+  const { id,showSwitch } = req.body;
+  //这里存储数据，要同步修改上面的screendata
+  return res.status(200).json({ message: '登录成功',data:id });
 
 })
 

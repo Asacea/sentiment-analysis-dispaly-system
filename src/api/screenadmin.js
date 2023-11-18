@@ -1,14 +1,14 @@
 import request from "../utils/http";
 
 // 更改管理大屏数据
-export const screenadminAPI = ({topic,showSwitch}) => {
+export const screenadminAPI = ({id,showSwitch}) => {
   return request({
     // 测试接口
     url:'http://localhost:3000/screenadmin',
     // url: '/admin/adminscreen',
     method: 'POST',
     data:{
-      topic,
+      id,
       showSwitch
     }
   })
