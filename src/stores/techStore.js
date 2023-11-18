@@ -22,8 +22,9 @@ const usetechStore = defineStore('tech',()=>{
     const data_tech_r2 = ref({})
 
     // 各平台数据
-    const getdata = async()=>{
-      const res = await techAPI()
+    const getdata = async(screenId)=>{
+      console.log(screenId)
+      const res = await techAPI(screenId)
       data_tech_topic.value = res.data_tech_topic   
       data_tech_l2.value=res.data_tech_l2 
       data_tech_l3.value = res.data_tech_l3
@@ -34,7 +35,7 @@ const usetechStore = defineStore('tech',()=>{
       data_tech_r13.value = res.data_tech_r13
       data_tech_r2.value = res.data_tech_r2
       // return res
-      // console.log(res)
+      console.log(res)
     }
 
     // 配置项

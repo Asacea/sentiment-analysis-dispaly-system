@@ -45,8 +45,8 @@ onMounted(async ()=>{
   await identifyUser()
 })
 const changeScreen=(screen)=>{
-  socialStore.screenId=screen.id;
-  socialStore.screenTitle=screen.topic
+  userStore.screenId=screen.id;
+  userStore.screenTitle=screen.topic
 }
 </script>
 <style scoped lang="scss">

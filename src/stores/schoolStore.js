@@ -26,8 +26,8 @@ const useschoolStore = defineStore('school',()=>{
     const data_school_r2 = ref({})
 
     // 各平台数据
-    const getSchooldata = async()=>{
-      const res = await schoolAPI()
+    const getSchooldata = async(screenId)=>{
+      const res = await schoolAPI(screenId)
       data_opinion.value = res.data_opinion
       console.log(data_opinion.value)
       data_school_l1.value = res.data_school_l1;

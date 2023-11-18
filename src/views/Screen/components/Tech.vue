@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="item in l2_data"
+                    v-for="item in techStore.data_tech_l2.data"
                     :style="{
                       backgroundColor:
                         item.rank % 2 == 0 ? '' : 'rgba(255,255,255,0.17)',
@@ -149,9 +149,9 @@ import { CanvasRenderer } from "echarts/renderers";
 import usetechStore from "@/stores/techStore.js";
 import "echarts-wordcloud";
 import "echarts/map/js/china.js";
-
-const route = useRoute();
-const screenId = ref(2);
+import { useUserStore } from "../../../stores/user";
+import { storeToRefs } from "pinia";
+const userStore=useUserStore()
 const techStore = usetechStore();
 // 渲染图表函数封装
 async function createChart(eleID, option) {
@@ -176,7 +176,6 @@ async function createAllCharts() {
 }
 
 // 关键传播账号
-let l2_data
 async function rotateArray(arr) {
   setInterval(() => {
     arr.push(arr.shift());
@@ -184,10 +183,9 @@ async function rotateArray(arr) {
 }
 
 onMounted(async () => {
-  await techStore.getdata();
+  await techStore.getdata(userStore.screenId);
   await createAllCharts();
-  l2_data=techStore.data_tech_l2.data
-  await rotateArray(l2_data);
+  await rotateArray(techStore.data_tech_l2.data);
 });
 </script>
 <style scoped lang="scss">

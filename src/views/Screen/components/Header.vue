@@ -3,7 +3,7 @@
         <div id="decorationTop">
             <dv-decoration5 :dur="3" style="width:100%;height:60px;"/>
         </div>
-        <h1 class="title">{{socialStore.screenTitle+"舆情分析"}}</h1>
+        <h1 class="title">{{userStore.screenTitle+"舆情分析"}}</h1>
         <h2 class="time">{{beijingTime}}</h2>
         <div class="navbar">
             <Navbar/>

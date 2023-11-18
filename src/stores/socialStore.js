@@ -11,8 +11,8 @@ const useSocialScreenStore=defineStore('social',()=>{
     const r1_data=ref({})
     const hotRT = ref([]);
     //和科技和学校和的时候，这两个参数合并
-    const screenId=ref(0)
-    const screenTitle=ref('')
+    // const screenId=ref(0)
+    // const screenTitle=ref('')
     //--------------------------
     const l1_option=computed(()=>{
         let option= {
@@ -302,9 +302,9 @@ const useSocialScreenStore=defineStore('social',()=>{
           };
         return option
     })
-    const getSocialData= async ()=>{
+    const getSocialData= async (screenId)=>{
         console.log("getSocialData")
-        const res= await socialAPI(screenId.value)
+        const res= await socialAPI(screenId)
         console.log(res)
         hotList.value=res.hotList;
         l1_data.value=res.l1_data;
@@ -315,7 +315,7 @@ const useSocialScreenStore=defineStore('social',()=>{
         hotRT.value=res.hotRT;
     }
     return {
-        screenId,screenTitle,
+        // screenId,screenTitle,
         l1_option,l3_option,m1_option,m2_option,r1_option,
         hotList,hotRT,hotMap,
         getSocialData

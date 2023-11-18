@@ -16,10 +16,14 @@ export const useUserStore = defineStore('user',()=>{
     userType.value=res.usertype
     return res
   }
+    const screenId=ref(0)
+    const screenTitle=ref('')
+
   // 3. 以对象的格式把state和action return
   return {
     userInfo,userType,
-    getUserInfo
+    getUserInfo,
+    screenId,screenTitle
   }
 },
 {

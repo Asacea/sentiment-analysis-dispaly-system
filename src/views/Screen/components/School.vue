@@ -90,7 +90,9 @@ import "echarts/map/js/china.js";
 // 引入百度地图的 JavaScript API
 // import BMap from 'bmap-jsapi';
 import useschoolStore from '@/stores/schoolStore.js'
+import { useUserStore } from "../../../stores/user";
 const schoolStore = useschoolStore()
+const userStore=useUserStore()
 const route = useRoute();
 const screenId = ref(5);
 
@@ -194874,7 +194876,7 @@ async function rotateArray(arr) {
 }
 onMounted(async () => {
     // createChartm1()
-    await schoolStore.getSchooldata()
+    await schoolStore.getSchooldata(userStore.screenId)
     await createAllCharts()
     await rotateArray(schoolStore.data_opinion);
     

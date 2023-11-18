@@ -94,7 +94,9 @@ import * as echarts from "echarts";
 import "echarts-wordcloud";
 import "echarts/map/js/china.js";
 import useSocialScreenStore from "@/stores/socialStore.js";
+import { useUserStore } from "../../../stores/user";
 const socialStore = useSocialScreenStore();
+const userStore=useUserStore()
 const color_gradient = {
   1: "red",
   2: "orange",
@@ -116,7 +118,7 @@ async function createAllCharts(){
    createChart("chart-m-1", socialStore.m1_option);
 }
 onMounted(async () => {
-  await socialStore.getSocialData();
+  await socialStore.getSocialData(userStore.screenId);
   await createAllCharts()
 });
 </script>
