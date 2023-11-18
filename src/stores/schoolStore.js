@@ -3,7 +3,7 @@ import {defineStore} from 'pinia'
 import { schoolAPI} from '../api/school.js'
 const useschoolStore = defineStore('school',()=>{
     // 热门舆情数
-    const data_opinion = ref({});
+    const data_opinion = ref([]);
     // 本校热词数据
     const data_school_l1 = ref({});
     // 校内情感数据
@@ -29,7 +29,7 @@ const useschoolStore = defineStore('school',()=>{
     const getSchooldata = async()=>{
       const res = await schoolAPI()
       data_opinion.value = res.data_opinion
-      // console.log(data_opinion)
+      console.log(data_opinion.value)
       data_school_l1.value = res.data_school_l1;
       data_school_l21.value = res.data_school_l21;
       data_school_l22.value = res.data_school_l22;

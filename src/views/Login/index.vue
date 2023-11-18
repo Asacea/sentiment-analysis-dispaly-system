@@ -1,5 +1,6 @@
 <template>
     <div class="layout">
+        <canvass></canvass>
         <div class="container">
             <RouterView/>
         </div>
@@ -7,6 +8,7 @@
 </template>
 <script setup>
 import { RouterView } from 'vue-router';
+import canvass from '@/views/bcg1.vue'
 </script>
 <style scoped lang="scss">
 .layout{
@@ -20,7 +22,8 @@ import { RouterView } from 'vue-router';
     align-items: center;
     justify-content: center;
     .container{
-        position: relative;
+        //position: relative;
+        position: fixed;
         width: 500px;
         height: 250px;
         //border: 1px solid black;
@@ -29,7 +32,7 @@ import { RouterView } from 'vue-router';
         // background-color: rgba(255,255,255,0.4);
         // box-shadow: 3px 3px 2px 1px rgba(255, 255, 255, 0.2);
     }
-    background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') no-repeat;
-    background-size: 100% 130%;
+   // background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') no-repeat;
+    //background-size: 100% 130%;
 }
 </style>

@@ -31,10 +31,19 @@
           <dv-border-box12>
             <div class="inner1" style="text-align: center;">
               <h3 style="margin-top:15px;margin-bottom:5px">本月热门舆情</h3>
-              <div v-for="(item, index) in items1" :key="index" style="color:white">
-                <div style="color:white"><span :style="{ color: getFontColor(item) }">{{ item }}</span>
-                {{ data1[index] }}</div>
-            </div>
+              <div id="chart_m_2_1">
+                <!--这里记得修改成store-->
+                <div 
+                v-for="(item,index) in schoolStore.data_opinion" 
+                :style="{
+                  backgroundColor:
+                    index % 2 == 0 ? '' : 'rgba(255,255,255,0.17)',
+                }"
+                 class="opinion">
+                  <div class="mood" :style="{color:getFontColor[item.mood]}">【{{item.mood}}】</div>
+                  <div class="text">{{item.text}}</div>
+                </div>
+              </div>
             </div>
           </dv-border-box12>
           <dv-border-box12>
@@ -77,7 +86,7 @@ import { ref, onMounted, reactive, onBeforeUnmount } from "vue";
 import * as echarts from "echarts";
 import "echarts-wordcloud";
 import "echarts/map/js/china.js";
-import 'echarts/extension/bmap/bmap';
+// import 'echarts/extension/bmap/bmap';
 // 引入百度地图的 JavaScript API
 // import BMap from 'bmap-jsapi';
 import useschoolStore from '@/stores/schoolStore.js'
@@ -86,20 +95,11 @@ const route = useRoute();
 const screenId = ref(5);
 
 // 根据内容获取字体颜色
-const getFontColor = (content) => {
-    switch (content.trim()) {
-        case '正向':
-            return 'green';
-        case '负向':
-            return 'red';
-        case '中性':
-            return 'orange';
-        default:
-            return 'black'; // 默认颜色
-    }
-};
-
-
+const getFontColor={
+  '正向':'green',
+  '负向':'red',
+  '中性':'orange'
+}
 // 封装渲染函数
 async function createChart(eleID, option) {
   let ele = document.getElementById(eleID);
@@ -194863,19 +194863,20 @@ const createChartm1 = async ()=>{
       option&&myChart.setOption(option);
     }
 }
-let items1 = ref([]);
-let data1 = ref([])
-const getdata_option=async()=>{
-  items1.value = await schoolStore.data_opinion.data.map(i=>i.mood)
-  data1.value = await schoolStore.data_opinion.data.map(i=>i.text)
+// let items1 = ref([]);
+// let data1 = ref([])
+
+async function rotateArray(arr) {
+  console.log(arr);
+  setInterval(() => {
+    arr.push(arr.shift());
+  }, 1500);
 }
-
-
 onMounted(async () => {
     // createChartm1()
     await schoolStore.getSchooldata()
     await createAllCharts()
-    getdata_option()
+    await rotateArray(schoolStore.data_opinion);
     
 });
 </script>
@@ -194983,6 +194984,29 @@ a .outer {
   // left: 2%;
   width: 96%;
   height: 90%;
+}
+#chart_m_2_1{
+  position:absolute;
+  //background-color:#fff;
+  width:80%;
+  max-height:270px;
+  //bottom:2%;
+  left:10%;
+  color:white;
+  overflow-y: hidden;
+  .opinion{
+    display:flex;
+    flex-direction:row;
+    height:30px;
+    line-height:30px;
+    border-radius: 5px;
+    .text{
+      font-size:small;
+    }
+    .mood{
+      font-size: medium;
+    }
+  }
 }
 
 .dv-border-svg-container {

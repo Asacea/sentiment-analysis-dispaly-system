@@ -208,13 +208,13 @@ const useSocialScreenStore=defineStore('social',()=>{
         return option
     });
     const m2_option=computed(()=>{
-        console.log(m2_data.value)
+        // console.log(m2_data)
        let option={
         title: {
           text: m2_data.value.title,
           textStyle: {
             color: "#1FACED",
-          },
+          }
         },
         tooltip: {
           trigger: "axis",
@@ -226,7 +226,7 @@ const useSocialScreenStore=defineStore('social',()=>{
           },
         },
         legend: {
-          data:m2_data.value.map((i)=>i.name),
+          data:m2_data.value.value.map((i)=>i.name),
         },
         grid: {
           left: "3%",
@@ -249,7 +249,7 @@ const useSocialScreenStore=defineStore('social',()=>{
         ],
         series: function () {
           let serie = [];
-          m2_data.value.map((item) => {
+          m2_data.value.value.map((item) => {
             let data = {
               name: item.name,
               type: "line",
@@ -309,7 +309,7 @@ const useSocialScreenStore=defineStore('social',()=>{
         hotList.value=res.hotList;
         l1_data.value=res.l1_data;
         wordCloud_data.value=res.wordCloud_data;
-        m2_data.value=res.m2_data.value;
+        m2_data.value=res.m2_data;
         hotMap.value=res.hotMap;
         r1_data.value=res.r1_data;
         hotRT.value=res.hotRT;

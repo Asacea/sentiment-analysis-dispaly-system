@@ -4,6 +4,8 @@ import { techAPI} from '../api/tech.js'
 const usetechStore = defineStore('tech',()=>{
     // 热点话题数据
     const data_tech_topic = ref({}) 
+    //关键传播信息账号
+    const data_tech_l2=ref({})
     // 话题情感数据
     const data_tech_l3 = ref({})
     // 关键节点数据
@@ -22,7 +24,8 @@ const usetechStore = defineStore('tech',()=>{
     // 各平台数据
     const getdata = async()=>{
       const res = await techAPI()
-      data_tech_topic.value = res.data_tech_topic    
+      data_tech_topic.value = res.data_tech_topic   
+      data_tech_l2.value=res.data_tech_l2 
       data_tech_l3.value = res.data_tech_l3
       data_tech_m1.value = res.data_tech_m1
       data_tech_m2.value = res.data_tech_m2
@@ -402,6 +405,7 @@ const usetechStore = defineStore('tech',()=>{
       // getmid1,
       getdata,
       data_tech_topic,
+      data_tech_l2,
       tech_l3_option,
       tech_m1_option,
       tech_m2_option,
