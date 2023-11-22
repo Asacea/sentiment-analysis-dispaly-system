@@ -197,7 +197,7 @@ app.post('/screenadmin',(req,res)=>{
 })
 
 
-// 科技
+// 科技第一组数据
 app.use('/echarts-data/2', async (req, res) => {
     // 数据
     const data = {
@@ -1224,6 +1224,8 @@ app.use('/echarts-data/2', async (req, res) => {
 
     res.json(data)
 });
+
+// 科技第二组数据
 app.use('/echarts-data/3', async (req, res) => {
     // 数据
     const data = {
@@ -2250,6 +2252,8 @@ app.use('/echarts-data/3', async (req, res) => {
 
     res.json(data)
 });
+
+// 科技第三组数据
 app.use('/echarts-data/4', async (req, res) => {
     // 数据
     const data = {
@@ -3276,6 +3280,7 @@ app.use('/echarts-data/4', async (req, res) => {
 
     res.json(data)
 });
+
 // 学校
 app.use('/school/5',async(req,res)=>{
   const data = {
@@ -4941,6 +4946,15 @@ app.use('/school/5',async(req,res)=>{
             { value: 148, name: '积极' },
             { value: 635, name: '消极' },
             { value: 520, name: '中立' },
+        ]
+    },
+
+    // 校内外话题热度变化
+    data_school_m1:{
+        title:'校内外话题热度变化',
+        value:[
+            { name:'校内',data:[1000,1500,2800,3500,3000,2600,2000,1000]},
+            { name:'校外',data:[3100,1700,1100,1600,2100,2600,2100,1600]},
         ]
     },
 

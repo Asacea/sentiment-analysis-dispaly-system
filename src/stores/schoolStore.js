@@ -10,7 +10,7 @@ const useschoolStore = defineStore('school',()=>{
     const data_school_l21 = ref({})
     // 校外情感数据
     const data_school_l22 = ref({})
-    // 传播途径数据
+    // 校内外话题热度变化数据
     const data_school_m1 = ref({})
     // 情感走向
     const data_school_m22 = ref({})
@@ -29,10 +29,10 @@ const useschoolStore = defineStore('school',()=>{
     const getSchooldata = async(screenId)=>{
       const res = await schoolAPI(screenId)
       data_opinion.value = res.data_opinion
-      console.log(data_opinion.value)
       data_school_l1.value = res.data_school_l1;
       data_school_l21.value = res.data_school_l21;
       data_school_l22.value = res.data_school_l22;
+      data_school_m1.value = res.data_school_m1;
       data_school_m22.value = res.data_school_m22;
       data_school_r11.value = res.data_school_r11;
       data_school_r12.value = res.data_school_r12;
@@ -201,20 +201,60 @@ const useschoolStore = defineStore('school',()=>{
       return option
     })
 
-    // 传播途径配置
+    // 校内外情感热度变化数据
     const school_m1_option = computed(()=>{
-      let option;
+      let option = {
+        title: {
+          text: data_school_m1.value.title,
+          left:'center',
+          top:'10',
+          textStyle: {
+            color: "#1FACED",
+          }
+        },
+        
+        grid: {
+          bottom: "10%",
+          with: "80",
+          height: "70%",  
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            type: "category",
+            boundaryGap: false,
+            data: ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"],
+          },
+        ],
+        yAxis: [
+          {
+            type: "value",
+          },
+        ],
+        legend: {
+          top:'bottom',
+          data:data_school_m1.value.value.map((i)=>i.name),
+        },
+        series: function () {
+          let serie = [];
+          data_school_m1.value.value.map((item) => {
+            let data = {
+              name: item.name,
+              type: "line",
+              data:item.data,
+            };
+            serie.push(data);
+          });
+          return serie;
+        }(),
+
+        backgroundColor: "rgba(0,0,0,0)",
+      };
       return option;
     })
 
     // 情感走向
     const school_m22_option = computed(()=>{
-      const data1 = {
-        title: "情感走向",
-        value: [
-            { name: "积极值", data: [100, 140, 230, 100, 120, 146] },
-        ],
-      };
       let option = {
         // text从后端获取
         title: {
@@ -225,7 +265,6 @@ const useschoolStore = defineStore('school',()=>{
             color: "#1FACED",
           },
         },
-
         tooltip: {
           trigger: "axis",
           axisPointer: {
@@ -240,13 +279,6 @@ const useschoolStore = defineStore('school',()=>{
           data:data_school_m22.value.value.map((i)=>i.name),
           top:40
         },
-        // grid: {
-        //   left: "3%",
-        //   right: "4%",
-        //   bottom: "3%",
-        //   height: "80%",
-        //   containLabel: true,
-        // },
         // data从后端获取
         xAxis: [
           {
@@ -273,11 +305,9 @@ const useschoolStore = defineStore('school',()=>{
           }
         ],
         grid: {
-          // left: "3%",
-          // right: "4%",
           bottom: "3%",
           with: "80",
-          height: "70%",  // Adjust this value to make the chart smaller
+          height: "70%", 
           containLabel: true,
         },
         backgroundColor: "rgba(0,0,0,0)",
