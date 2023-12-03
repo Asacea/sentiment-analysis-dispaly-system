@@ -73,7 +73,16 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
           return option
     });
     const l2_option=computed(()=>{
-        const scatterOption = (option = {
+      function calculateAverage(data, dim) {
+        if(!data) return 0  //真是奇了怪了 为什么只读的到一个？？？？？
+        console.log("in calculateAverage:",data)
+        let total = 0;
+        for (var i = 0; i < data.length; i++) {
+          total += data[i][dim];
+        }
+        return (total /= data.length);
+      }
+        const scatterOption = {
             backgroundColor: "rgba(0,0,0,0)",
             title: {
                   text: "用户对抗网络模型",
@@ -121,7 +130,7 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                 data: l2_chart_data.value.data.maleData,
               },
             ],
-          });
+          };
         const barOption = {
         backgroundColor: "rgba(0,0,0,0)",
         title: {
