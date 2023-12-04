@@ -47,6 +47,7 @@ onMounted(async ()=>{
 const changeScreen=(screen)=>{
   userStore.screenId=screen.id;
   userStore.screenTitle=screen.topic
+  userStore.screenDetail=screen.detail
 }
 </script>
 <style scoped lang="scss">

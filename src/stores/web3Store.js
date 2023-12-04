@@ -1,6 +1,7 @@
 import {ref,computed} from 'vue'
 import { defineStore } from 'pinia'
 import { socialAPI } from '../api/social';//这里就不改了，反正最后都要合并
+import axios from 'axios';
 const useWeb3ScreenStore=defineStore('web3',()=>{
     const l1_chart_data=ref({})
     const l2_chart_data=ref({})
@@ -25,6 +26,14 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                   backgroundColor: "#6a7985",
                 },
               },
+              formatter:(params)=>{
+                for(let i of l1_chart_data.value.events){
+                  if(i.month==params[0].axisValue){
+                    return `<strong>事件：</strong>${i.detail}<br/><div style="color:#409eff"><strong>关注度：</strong>${params[0].data}</div><div style="color:#95d475"><strong>讨论度：</strong>${params[1].data}</div>`
+                  }
+                }
+              return `<div style="color:#409eff"><strong>关注度：</strong>${params[0].data}</div><div style="color:#95d475"><strong>讨论度：</strong>${params[1].data}</div>`
+              }
             },
             legend: {
               data: ["关注度", "讨论度"],
@@ -215,7 +224,19 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                 },
                 edges: m_chart_data.value.data.links
               }
-            ]
+            ],
+            tooltip:{
+              trigger:'item',
+              formatter:(params)=>{
+                if(params.dataType=='node'){
+                // console.log(params)
+                  let index=params.data.category
+                let color=params.color
+                let detail=m_chart_data.value.data.categories[index].detail
+                return `<div style="color:${color}">${detail}</div>`
+                }
+              }
+            }
           };
         return option
     })

@@ -154,6 +154,7 @@ app.get('/screendata', (req, res) => {
       clicks: 178,
       type: '社科',
       value: true,
+      detail:'2022年考研报名人数457万，按照合理的预测，2023年考研人数极有可能突破500万。值得注意的是，在教育部最新公布的统计公报中，2021年我国高考本科招生人数为444.6万人，与2022年考研报名人数总体大致相当。若此时考研缩招，无疑意味着考研难度的再次升级。'
     },
     {
       id:2,
@@ -161,6 +162,7 @@ app.get('/screendata', (req, res) => {
       topic: '元宇宙',
       type: '科技',
       value: true,
+      detail:'2022年考研报名人数457万，按照合理的预测，2023年考研人数极有可能突破500万。值得注意的是，在教育部最新公布的统计公报中，2021年我国高考本科招生人数为444.6万人，与2022年考研报名人数总体大致相当。若此时考研缩招，无疑意味着考研难度的再次升级。'
     },
     {
       id:3,
@@ -168,6 +170,7 @@ app.get('/screendata', (req, res) => {
       topic: 'web3.0',
       type: '科技',
       value: true,
+      detail:'2022年考研报名人数457万，按照合理的预测，2023年考研人数极有可能突破500万。值得注意的是，在教育部最新公布的统计公报中，2021年我国高考本科招生人数为444.6万人，与2022年考研报名人数总体大致相当。若此时考研缩招，无疑意味着考研难度的再次升级。'
     },
     {
       id:4,
@@ -175,6 +178,7 @@ app.get('/screendata', (req, res) => {
       topic: '电子科大',
       type: '学校专属定制',
       value: true,
+      detail:'2022年考研报名人数457万，按照合理的预测，2023年考研人数极有可能突破500万。值得注意的是，在教育部最新公布的统计公报中，2021年我国高考本科招生人数为444.6万人，与2022年考研报名人数总体大致相当。若此时考研缩招，无疑意味着考研难度的再次升级。'
     }
   ];
   res.json(screendata);
@@ -190,7 +194,7 @@ app.post('/screenadmin',(req,res)=>{
 })
 
 
-// 科技第一组数据
+// 元宇宙数据
 app.use('/echarts-data/2', async (req, res) => {
     // 数据
     const data = {
@@ -1218,7 +1222,7 @@ app.use('/echarts-data/2', async (req, res) => {
     res.json(data)
 });
 
-// 科技第二组数据
+// Web3数据
 app.use('/echarts-data/3', async (req, res) => {
     // 数据
     const data={
@@ -1232,7 +1236,11 @@ app.use('/echarts-data/3', async (req, res) => {
                 {
                     name: "讨论度",
                     data: [50, 100, 200, 140, 80, 60, 143, 170, 160, 70, 192, 70],
-                  },
+                },
+            ],
+            events:[
+                {month:'3月',detail:'林俊杰买房被骗'},
+                {month:'8月',detail:'林俊杰买房被骗'}
             ]
         },
         l2_chart_data:{
@@ -1354,26 +1362,31 @@ app.use('/echarts-data/3', async (req, res) => {
                     {
                         name: "HTMLElement",
                         keyword: {},
-                        base: "HTMLElement"
+                        base: "HTMLElement",
+                        detail:'林俊杰买房'
                     },
                     {
                         name: "WebGL",
                         keyword: {},
-                        base: "WebGLRenderingContext"
+                        base: "WebGLRenderingContext",
+                        detail:'林俊杰卖房'
                     },
                     {
                         name: "SVG",
                         keyword: {},
-                        base: "SVGElement"
+                        base: "SVGElement",
+                        detail:'林俊杰炒房'
                     },
                     {
                         name: "CSS",
                         keyword: {},
-                        base: "CSSRule"
+                        base: "CSSRule",
+                        detail:'林俊杰被骗'
                     },
                     {
                         name: "Other",
-                        keyword: {}
+                        keyword: {},
+                        detail:'林俊杰痛改前非'
                     }
                 ],
                 nodes: [
