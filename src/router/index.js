@@ -31,18 +31,23 @@ const router=createRouter({
                     component:()=>import('@/views/Screen/components/Default.vue')
                 },
                 {
-                    path:'/screen/社科/:id',
-                    name:'社科',
+                    path:'/screen/1',
+                    name:'social',
                     component:()=>import('@/views/Screen/components/Social.vue')
                 },
                 {
-                    path:'/screen/科技/:id',
-                    name:'科技',
+                    path:'/screen/2',
+                    name:'tech',
                     component:()=>import('@/views/Screen/components/Tech.vue')
                 },
                 {
-                    path:'/screen/学校专属定制/:school',
-                    name:'学校专属定制',
+                    path:'/screen/3',
+                    name:"web3.0",
+                    component:()=>import('@/views/Screen/components/Web3.vue')
+                },
+                {
+                    path:'/screen/4',
+                    name:'university',
                     component:()=>import('@/views/Screen/components/School.vue')
                 }
             ]
