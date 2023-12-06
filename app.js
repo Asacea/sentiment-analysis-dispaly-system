@@ -181,7 +181,7 @@ app.get('/screendata', (req, res) => {
       clicks: 178,
       topic: '电子科大',
       type: '学校专属定制',
-      value: true,
+      value: false,
     }
   ];
   res.json(screendata);
@@ -1162,11 +1162,11 @@ app.use('/echarts-data/2', async (req, res) => {
                 }
             ],
             indicator:[
-                { name: '个体认证', max: 6500 },
-                { name: '达人', max: 16000 },
-                { name: '普通用户', max: 30000 },
-                { name: '大V', max: 38000 },
-                { name: '公号', max: 52000 },
+                { name: '个体认证'},
+                { name: '达人'},
+                { name: '普通用户'},
+                { name: '大V'},
+                { name: '公号'},
             ]
         },
 
@@ -1222,7 +1222,7 @@ app.use('/echarts-data/2', async (req, res) => {
 
     }
 
-    res.json(data)
+    return res.json(data)
 });
 
 // 科技第二组数据
@@ -3282,7 +3282,7 @@ app.use('/echarts-data/4', async (req, res) => {
 });
 
 // 学校
-app.use('/school/5',async(req,res)=>{
+app.use('/school/4',async(req,res)=>{
   const data = {
     // 热门舆情数据
     data_opinion:
@@ -3309,7 +3309,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#4f19c7",
             "label": "jquery",
-            "attributes": {},
+            // "attributes": {},
             "y": -404.26147,
             "x": -739.36383,
             "id": "jquery",
@@ -3318,7 +3318,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71969",
             "label": "backbone",
-            "attributes": {},
+            // "attributes": {},
             "y": -862.7517,
             "x": -134.2215,
             "id": "backbone",
@@ -3327,7 +3327,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71969",
             "label": "underscore",
-            "attributes": {},
+            // "attributes": {},
             "y": -734.4221,
             "x": -75.53079,
             "id": "underscore",
@@ -3336,7 +3336,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71969",
             "label": "faye",
-            "attributes": {},
+            // "attributes": {},
             "y": 624.50604,
             "x": -818.97516,
             "id": "faye",
@@ -3345,7 +3345,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71919",
             "label": "socket.io",
-            "attributes": {},
+            // "attributes": {},
             "y": 120.37976,
             "x": -710.59204,
             "id": "socket.io",
@@ -3354,7 +3354,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71969",
             "label": "requirejs",
-            "attributes": {},
+            // "attributes": {},
             "y": -612.5541,
             "x": 71.52897,
             "id": "requirejs",
@@ -3363,7 +3363,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71969",
             "label": "amdefine",
-            "attributes": {},
+            // "attributes": {},
             "y": -556.3107,
             "x": 1202.1166,
             "id": "amdefine",
@@ -3372,7 +3372,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#1984c7",
             "label": "mongoose",
-            "attributes": {},
+            // "attributes": {},
             "y": 378.15536,
             "x": -1150.2018,
             "id": "mongoose",
@@ -3381,7 +3381,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c76919",
             "label": "underscore.deferred",
-            "attributes": {},
+            // "attributes": {},
             "y": 477.03778,
             "x": -127.03764,
             "id": "underscore.deferred",
@@ -3390,7 +3390,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#8419c7",
             "label": "cheerio",
-            "attributes": {},
+            // "attributes": {},
             "y": -404.62427,
             "x": -338.03128,
             "id": "cheerio",
@@ -3399,7 +3399,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c76919",
             "label": "lodash",
-            "attributes": {},
+            // "attributes": {},
             "y": -380.16626,
             "x": 118.30771,
             "id": "lodash",
@@ -3408,259 +3408,17 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c71969",
             "label": "faye-websocket",
-            "attributes": {},
+            // "attributes": {},
             "y": 649.6795,
             "x": -697.4635,
             "id": "faye-websocket",
             "size": 1.0128845
         },
-        {
-            "color": "#c71969",
-            "label": "dateformat",
-            "attributes": {},
-            "y": -531.28235,
-            "x": 381.10724,
-            "id": "dateformat",
-            "size": 3.3863845
-        },
-        {
-            "color": "#c79f19",
-            "label": "mkdirp",
-            "attributes": {},
-            "y": -224.0287,
-            "x": 317.77667,
-            "id": "mkdirp",
-            "size": 23.713282
-        },
-        {
-            "color": "#c71919",
-            "label": "express",
-            "attributes": {},
-            "y": -230.14833,
-            "x": -644.2716,
-            "id": "express",
-            "size": 49.608772
-        },
-        {
-            "color": "#c71919",
-            "label": "connect",
-            "attributes": {},
-            "y": 294.88266,
-            "x": -933.4234,
-            "id": "connect",
-            "size": 19.574871
-        },
-        {
-            "color": "#c71919",
-            "label": "consolidate",
-            "attributes": {},
-            "y": 495.22098,
-            "x": -101.796974,
-            "id": "consolidate",
-            "size": 3.0212305
-        },
-        {
-            "color": "#c78419",
-            "label": "hogan.js",
-            "attributes": {},
-            "y": 79.99539,
-            "x": 930.74255,
-            "id": "hogan.js",
-            "size": 3.2646663
-        },
-        {
-            "color": "#c719b9",
-            "label": "node-uuid",
-            "attributes": {},
-            "y": 815.4766,
-            "x": -378.0424,
-            "id": "node-uuid",
-            "size": 13.488974
-        },
-        {
-            "color": "#1984c7",
-            "label": "async",
-            "attributes": {},
-            "y": 41.25936,
-            "x": 157.57562,
-            "id": "async",
-            "size": 73.161194
-        },
-        {
-            "color": "#c719b9",
-            "label": "redis",
-            "attributes": {},
-            "y": 56.938953,
-            "x": -895.56586,
-            "id": "redis",
-            "size": 17.475237
-        },
-        {
-            "color": "#199fc7",
-            "label": "backoff",
-            "attributes": {},
-            "y": 810.54626,
-            "x": -275.69714,
-            "id": "backoff",
-            "size": 0.58687174
-        },
-        {
-            "color": "#9f19c7",
-            "label": "bytes",
-            "attributes": {},
-            "y": 380.12103,
-            "x": -1005.2705,
-            "id": "bytes",
-            "size": 0.8607372
-        },
-        {
-            "color": "#1984c7",
-            "label": "temp",
-            "attributes": {},
-            "y": 144.45488,
-            "x": 1057.7959,
-            "id": "temp",
-            "size": 4.0558333
-        },
-        {
-            "color": "#69c719",
-            "label": "mustache",
-            "attributes": {},
-            "y": -554.3333,
-            "x": -554.2029,
-            "id": "mustache",
-            "size": 3.7819674
-        },
-        {
-            "color": "#8419c7",
-            "label": "request",
-            "attributes": {},
-            "y": 241.89249,
-            "x": -147.57906,
-            "id": "request",
-            "size": 64.54965
-        },
-        {
-            "color": "#c71969",
-            "label": "underscore.string",
-            "attributes": {},
-            "y": -528.7333,
-            "x": 58.392773,
-            "id": "underscore.string",
-            "size": 7.311788
-        },
-        {
-            "color": "#c71969",
-            "label": "jquery-browserify",
-            "attributes": {},
-            "y": 385.31375,
-            "x": -231.44426,
-            "id": "jquery-browserify",
-            "size": 0.83030766
-        },
-        {
-            "color": "#8419c7",
-            "label": "event-stream",
-            "attributes": {},
-            "y": 858.8598,
-            "x": 313.5104,
-            "id": "event-stream",
-            "size": 3.0212305
-        },
-        {
-            "color": "#19c719",
-            "label": "log4js",
-            "attributes": {},
-            "y": 350.19534,
-            "x": 7.309183,
-            "id": "log4js",
-            "size": 3.4776726
-        },
-        {
-            "color": "#19c719",
-            "label": "optimist",
-            "attributes": {},
-            "y": 171.80579,
-            "x": 599.53815,
-            "id": "optimist",
-            "size": 48.6046
-        },
-        {
-            "color": "#1919c7",
-            "label": "mocha",
-            "attributes": {},
-            "y": -178.11076,
-            "x": -393.3754,
-            "id": "mocha",
-            "size": 7.889948
-        },
-        {
-            "color": "#1984c7",
-            "label": "should",
-            "attributes": {},
-            "y": -198.63869,
-            "x": -334.43466,
-            "id": "should",
-            "size": 4.7252817
-        },
-        {
-            "color": "#c79f19",
-            "label": "semver",
-            "attributes": {},
-            "y": 375.80014,
-            "x": 414.43912,
-            "id": "semver",
-            "size": 8.711545
-        },
-        {
-            "color": "#69c719",
-            "label": "q",
-            "attributes": {},
-            "y": -389.02567,
-            "x": -423.78125,
-            "id": "q",
-            "size": 12.54566
-        },
-        {
-            "color": "#c74f19",
-            "label": "node-fs",
-            "attributes": {},
-            "y": -94.528114,
-            "x": -319.42093,
-            "id": "node-fs",
-            "size": 1.225891
-        },
-        {
-            "color": "#19c7b9",
-            "label": "colorize",
-            "attributes": {},
-            "y": -432.71243,
-            "x": 37.15866,
-            "id": "colorize",
-            "size": 0.55644226
-        },
-        {
-            "color": "#c76919",
-            "label": "github",
-            "attributes": {},
-            "y": 244.62839,
-            "x": -383.83453,
-            "id": "github",
-            "size": 1.6519039
-        },
-        {
-            "color": "#19c719",
-            "label": "prompt",
-            "attributes": {},
-            "y": 819.16583,
-            "x": 748.4038,
-            "id": "prompt",
-            "size": 4.1471214
-        },
+ 
         {
             "color": "#19c719",
             "label": "colors",
-            "attributes": {},
+            // "attributes": {},
             "y": -265.6326,
             "x": 694.03375,
             "id": "colors",
@@ -3669,7 +3427,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#19c7b9",
             "label": "commander",
-            "attributes": {},
+            // "attributes": {},
             "y": -682.1726,
             "x": -479.44443,
             "id": "commander",
@@ -3678,7 +3436,7 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#9fc719",
             "label": "validator",
-            "attributes": {},
+            // "attributes": {},
             "y": -429.05365,
             "x": -668.0554,
             "id": "validator",
@@ -3687,475 +3445,17 @@ app.use('/school/5',async(req,res)=>{
         {
             "color": "#c7b919",
             "label": "grunt",
-            "attributes": {},
+            // "attributes": {},
             "y": -710.3381,
             "x": 683.8534,
             "id": "grunt",
             "size": 9.959153
         },
-        {
-            "color": "#c7b919",
-            "label": "grunt-contrib-clean",
-            "attributes": {},
-            "y": -386.1587,
-            "x": -292.83875,
-            "id": "grunt-contrib-clean",
-            "size": 1.0128845
-        },
-        {
-            "color": "#c7b919",
-            "label": "grunt-contrib-concat",
-            "attributes": {},
-            "y": 224.41283,
-            "x": 99.38902,
-            "id": "grunt-contrib-concat",
-            "size": 0.76944876
-        },
-        {
-            "color": "#c7b919",
-            "label": "grunt-contrib-less",
-            "attributes": {},
-            "y": -611.3146,
-            "x": -215.58498,
-            "id": "grunt-contrib-less",
-            "size": 0.6173013
-        },
-        {
-            "color": "#c7b919",
-            "label": "grunt-contrib-jshint",
-            "attributes": {},
-            "y": -938.3397,
-            "x": 548.61926,
-            "id": "grunt-contrib-jshint",
-            "size": 1.3171794
-        },
-        {
-            "color": "#c7b919",
-            "label": "grunt-contrib-uglify",
-            "attributes": {},
-            "y": -871.8892,
-            "x": 160.96982,
-            "id": "grunt-contrib-uglify",
-            "size": 1.1346025
-        },
-        {
-            "color": "#c7b919",
-            "label": "grunt-contrib-watch",
-            "attributes": {},
-            "y": 80.96627,
-            "x": -616.9189,
-            "id": "grunt-contrib-watch",
-            "size": 0.8607372
-        },
-        {
-            "color": "#19c719",
-            "label": "http-proxy",
-            "attributes": {},
-            "y": 418.763,
-            "x": 711.7106,
-            "id": "http-proxy",
-            "size": 4.6339936
-        },
-        {
-            "color": "#b9c719",
-            "label": "mime",
-            "attributes": {},
-            "y": 34.348167,
-            "x": -284.14108,
-            "id": "mime",
-            "size": 14.858301
-        },
-        {
-            "color": "#c78419",
-            "label": "ycssmin",
-            "attributes": {},
-            "y": -392.55402,
-            "x": -199.6149,
-            "id": "ycssmin",
-            "size": 0.4651538
-        },
-        {
-            "color": "#3419c7",
-            "label": "mongodb",
-            "attributes": {},
-            "y": 522.375,
-            "x": -1089.2416,
-            "id": "mongodb",
-            "size": 11.237192
-        },
-        {
-            "color": "#19b9c7",
-            "label": "ini",
-            "attributes": {},
-            "y": 357.40076,
-            "x": 1076.3447,
-            "id": "ini",
-            "size": 1.5301858
-        },
-        {
-            "color": "#c79f19",
-            "label": "slide",
-            "attributes": {},
-            "y": -272.38953,
-            "x": 928.9824,
-            "id": "slide",
-            "size": 0.40429485
-        },
-        {
-            "color": "#c79f19",
-            "label": "abbrev",
-            "attributes": {},
-            "y": -185.45026,
-            "x": 1187.2019,
-            "id": "abbrev",
-            "size": 0.43472436
-        },
-        {
-            "color": "#c79f19",
-            "label": "graceful-fs",
-            "attributes": {},
-            "y": -400.4116,
-            "x": 864.7834,
-            "id": "graceful-fs",
-            "size": 1.8649102
-        },
-        {
-            "color": "#c79f19",
-            "label": "minimatch",
-            "attributes": {},
-            "y": -332.82092,
-            "x": 923.4708,
-            "id": "minimatch",
-            "size": 4.6339936
-        },
-        {
-            "color": "#c79f19",
-            "label": "nopt",
-            "attributes": {},
-            "y": 0.9246719,
-            "x": 648.4921,
-            "id": "nopt",
-            "size": 5.303442
-        },
-        {
-            "color": "#c79f19",
-            "label": "rimraf",
-            "attributes": {},
-            "y": -169.53479,
-            "x": 842.5285,
-            "id": "rimraf",
-            "size": 7.159641
-        },
-        {
-            "color": "#c79f19",
-            "label": "which",
-            "attributes": {},
-            "y": -237.25739,
-            "x": 1191.029,
-            "id": "which",
-            "size": 1.8649102
-        },
-        {
-            "color": "#c79f19",
-            "label": "tar",
-            "attributes": {},
-            "y": -160.8614,
-            "x": 572.6111,
-            "id": "tar",
-            "size": 3.2646663
-        },
-        {
-            "color": "#c79f19",
-            "label": "fstream",
-            "attributes": {},
-            "y": -86.683586,
-            "x": 522.8266,
-            "id": "fstream",
-            "size": 2.5343587
-        },
-        {
-            "color": "#c79f19",
-            "label": "inherits",
-            "attributes": {},
-            "y": 289.38367,
-            "x": 639.7362,
-            "id": "inherits",
-            "size": 3.4472432
-        },
-        {
-            "color": "#c79f19",
-            "label": "read",
-            "attributes": {},
-            "y": 376.2344,
-            "x": 537.65076,
-            "id": "read",
-            "size": 1.4997563
-        },
-        {
-            "color": "#c719b9",
-            "label": "lru-cache",
-            "attributes": {},
-            "y": 63.76733,
-            "x": 758.7636,
-            "id": "lru-cache",
-            "size": 2.1996343
-        },
-        {
-            "color": "#c79f19",
-            "label": "node-gyp",
-            "attributes": {},
-            "y": -206.755,
-            "x": 941.12946,
-            "id": "node-gyp",
-            "size": 1.165032
-        },
-        {
-            "color": "#c79f19",
-            "label": "fstream-npm",
-            "attributes": {},
-            "y": 172.07289,
-            "x": 792.2891,
-            "id": "fstream-npm",
-            "size": 0.52601284
-        },
-        {
-            "color": "#c79f19",
-            "label": "archy",
-            "attributes": {},
-            "y": -15.182732,
-            "x": 1288.449,
-            "id": "archy",
-            "size": 0.67816025
-        },
-        {
-            "color": "#c79f19",
-            "label": "npmlog",
-            "attributes": {},
-            "y": -713.69055,
-            "x": 856.64276,
-            "id": "npmlog",
-            "size": 1.4084679
-        },
-        {
-            "color": "#c79f19",
-            "label": "ansi",
-            "attributes": {},
-            "y": -722.70416,
-            "x": 996.9021,
-            "id": "ansi",
-            "size": 1.165032
-        },
-        {
-            "color": "#c79f19",
-            "label": "npm-registry-client",
-            "attributes": {},
-            "y": -163.23782,
-            "x": 770.89215,
-            "id": "npm-registry-client",
-            "size": 0.70858973
-        },
-        {
-            "color": "#c79f19",
-            "label": "read-package-json",
-            "attributes": {},
-            "y": -328.63486,
-            "x": 835.7924,
-            "id": "read-package-json",
-            "size": 0.6173013
-        },
-        {
-            "color": "#c79f19",
-            "label": "glob",
-            "attributes": {},
-            "y": -542.05096,
-            "x": 502.02698,
-            "id": "glob",
-            "size": 14.88873
-        },
-        {
-            "color": "#c79f19",
-            "label": "osenv",
-            "attributes": {},
-            "y": 83.11953,
-            "x": 1170.4095,
-            "id": "osenv",
-            "size": 0.67816025
-        },
-        {
-            "color": "#c76919",
-            "label": "retry",
-            "attributes": {},
-            "y": -149.41582,
-            "x": 1088.8419,
-            "id": "retry",
-            "size": 0.55644226
-        },
-        {
-            "color": "#34c719",
-            "label": "once",
-            "attributes": {},
-            "y": 632.73914,
-            "x": 692.4719,
-            "id": "once",
-            "size": 0.92159617
-        },
-        {
-            "color": "#c79f19",
-            "label": "npmconf",
-            "attributes": {},
-            "y": 263.6715,
-            "x": 880.9455,
-            "id": "npmconf",
-            "size": 0.70858973
-        },
-        {
-            "color": "#c79f19",
-            "label": "opener",
-            "attributes": {},
-            "y": 30.311459,
-            "x": 1306.2058,
-            "id": "opener",
-            "size": 0.43472436
-        },
-        {
-            "color": "#3419c7",
-            "label": "append",
-            "attributes": {},
-            "y": -216.35048,
-            "x": 23.50861,
-            "id": "append",
-            "size": 0.4651538
-        },
-        {
-            "color": "#3419c7",
-            "label": "clone",
-            "attributes": {},
-            "y": 52.33028,
-            "x": -407.7309,
-            "id": "clone",
-            "size": 2.4430702
-        },
-        {
-            "color": "#c71919",
-            "label": "ejs",
-            "attributes": {},
-            "y": 264.84995,
-            "x": -421.52237,
-            "id": "ejs",
-            "size": 11.298051
-        },
-        {
-            "color": "#9f19c7",
-            "label": "debug",
-            "attributes": {},
-            "y": -75.5553,
-            "x": -880.5015,
-            "id": "debug",
-            "size": 15.923333
-        },
-        {
-            "color": "#9f19c7",
-            "label": "out",
-            "attributes": {},
-            "y": -141.5042,
-            "x": -27.64139,
-            "id": "out",
-            "size": 0.43472436
-        },
-        {
-            "color": "#1919c7",
-            "label": "when",
-            "attributes": {},
-            "y": -798.01276,
-            "x": -874.1786,
-            "id": "when",
-            "size": 3.8123972
-        },
-        {
-            "color": "#c78419",
-            "label": "coffee-script",
-            "attributes": {},
-            "y": -915.89026,
-            "x": 81.49971,
-            "id": "coffee-script",
-            "size": 44.131462
-        },
-        {
-            "color": "#c79f19",
-            "label": "adm-zip",
-            "attributes": {},
-            "y": 198.17334,
-            "x": 893.567,
-            "id": "adm-zip",
-            "size": 1.3780384
-        },
-        {
-            "color": "#c7b919",
-            "label": "findup-sync",
-            "attributes": {},
-            "y": -535.91614,
-            "x": 345.53296,
-            "id": "findup-sync",
-            "size": 0.6173013
-        },
-        {
-            "color": "#c78419",
-            "label": "node-minify",
-            "attributes": {},
-            "y": -772.7816,
-            "x": 284.06558,
-            "id": "node-minify",
-            "size": 0.76944876
-        },
-        {
-            "color": "#19c719",
-            "label": "watch",
-            "attributes": {},
-            "y": 794.0542,
-            "x": 1113.2292,
-            "id": "watch",
-            "size": 3.7211087
-        },
-        {
-            "color": "#19c784",
-            "label": "bal-util",
-            "attributes": {},
-            "y": 630.7962,
-            "x": 1637.5715,
-            "id": "bal-util",
-            "size": 1.0128845
-        },
-        {
-            "color": "#19c784",
-            "label": "extendr",
-            "attributes": {},
-            "y": 674.9556,
-            "x": 1661.8947,
-            "id": "extendr",
-            "size": 0.4651538
-        },
-        {
-            "color": "#19c784",
-            "label": "taskgroup",
-            "attributes": {},
-            "y": 557.3904,
-            "x": 1473.007,
-            "id": "taskgroup",
-            "size": 0.67816025
-        },
-        {
-            "color": "#19c784",
-            "label": "typechecker",
-            "attributes": {},
-            "y": 655.7608,
-            "x": 1672.5186,
-            "id": "typechecker",
-            "size": 0.4651538
-        },
+
         {
             "color": "#c7199f",
             "label": "underscorem",
-            "attributes": {},
+            // "attributes": {},
             "y": -865.8074,
             "x": -106.96772,
             "id": "underscorem",
@@ -5184,6 +4484,165 @@ app.get('/echarts-data/1',(req,res)=>{
     }
     res.json(data)
 })
+
+
+app.use('/admin/displaydata',async(req,res)=>{
+    const data = {
+        data1:{
+            title:'平台整体热度走势',
+            value:[
+                {
+                    name:'bilibili',
+                    data:[140, 232, 101, 264, 90, 340, 250]
+                },
+                {
+                    name:'知乎',
+                    data:[120, 282, 111, 234, 220, 340, 310]
+                },
+                {
+                    name:'微博',
+                    data:[320, 132, 201, 334, 190, 130, 220]
+                },
+                {
+                    name:'贴吧',
+                    data:[220, 402, 231, 134, 190, 230, 120]
+                },
+                {
+                    name:'清水河畔',
+                    data:[220, 302, 181, 234, 210, 290, 150]
+                },                    
+            ],
+        },
+        data2:{
+            value:[
+                {
+                  platform:'bilibili',
+                  lastmonthdata:12,
+                  thismonthdata:13
+                },
+                {
+                  platform:'知乎',
+                  lastmonthdata:19,
+                  thismonthdata:14
+                },
+                {
+                  platform:'微博',
+                  lastmonthdata:19,
+                  thismonthdata:14
+                },
+                {
+                  platform:'贴吧',
+                  lastmonthdata:12,
+                  thismonthdata:16
+                },
+                {
+                  platform:'清水河畔',
+                  lastmonthdata:12,
+                  thismonthdata:14
+                },
+              ]
+        },
+        data3:{
+            value:[
+                {name:'点赞量',value:50},
+                {name:'收藏量',value:60},
+                {name:'转发量',value:70},
+                {name:'评论量',value:80}
+            ]
+        },
+        data4:{
+            indicator: [
+                { text: 'bilibili', max: 200 },
+                { text: '知乎', max: 150 },
+                { text: '微博', max: 50 },
+                { text: '清水河畔', max: 100 },
+                { text: '贴吧', max: 80 },
+            ]
+        },
+        
+        data5:{
+            value:[
+                {
+                  platform:'bilibili',
+                  papernum:53,
+                  vary1:'2%',
+                  type1:'up',
+                  commentnum:56,
+                  vary2:'3%',
+                  type2:'up',
+                  valid:12,
+                  vary3:"4%",
+                  type3:"down",
+                  invalid:23,
+                  vary4:"3%",
+                  type4:'down',
+                },
+                {
+                  platform:'知乎',
+                  papernum:53,
+                  vary1:'2%',
+                  type1:'down',
+                  commentnum:78,
+                  vary2:'3%',
+                  type2:'up',
+                  valid:12,
+                  vary3:"4%",
+                  type3:"down",
+                  invalid:23,
+                  vary4:"3%",
+                  type4:'down',
+                },
+                {
+                  platform:'微博',
+                  papernum:53,
+                  vary1:'2%',
+                  type1:'up',
+                  commentnum:56,
+                  vary2:'3%',
+                  type2:'up',
+                  valid:12,
+                  vary3:"4%",
+                  type3:"up",
+                  invalid:23,
+                  vary4:"3%",
+                  type4:'down',
+                },
+                {
+                  platform:'贴吧',
+                  papernum:53,
+                  vary1:'2%',
+                  type1:'up',
+                  commentnum:56,
+                  vary2:'3%',
+                  type2:'up',
+                  valid:12,
+                  vary3:"4%",
+                  type3:"down",
+                  invalid:23,
+                  vary4:"3%",
+                  type4:'down',
+                },
+                {
+                  platform:'清水河畔',
+                  papernum:53,
+                  vary1:'2%',
+                  type1:'up',
+                  commentnum:56,
+                  vary2:'3%',
+                  type2:'up',
+                  valid:12,
+                  vary3:"4%",
+                  type3:"down",
+                  invalid:23,
+                  vary4:"3%",
+                  type4:'down',
+                },
+              ]
+        }
+    }
+    res.json(data)
+})
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
