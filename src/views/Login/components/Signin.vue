@@ -30,7 +30,7 @@ import { useRouter } from 'vue-router';
 import {useUserStore} from '../../../stores/user.js'
 const userStore = useUserStore()
 const router=useRouter()
-const formdata=reactive({
+const formdata=ref({
     usertype:'',
     username:'',
     userpswd:''
@@ -48,34 +48,28 @@ const rules = {
 
 }
 const myForm = ref(null)
+import { loginAPI } from '../../../api/user';
 const handleClick= ()=>{
-    console.log(formdata.usertype)
-    // router.push('/screen')
     myForm.value.validate(async (valid) => {
-        if (valid) {
-            ElMessage.success('表单验证通过'); // 成功提示
-            // 后端进行用户名密码验证
-            const res = await userStore.getUserInfo( {
-              usertype: formdata.usertype, // 从组件的 data 中获取数据
-              username: formdata.username,
-              password: formdata.userpswd
-            });
 
-            console.log(res)
-            // 进行数据验证
-
+        try {
+            let result = await loginAPI(formdata.value);
+            console.log(formdata.value)
+            ElMessage({ type: 'success', message: '登录成功' });
             // 跳转到对应管理员/访客对应页面
-            if(formdata.usertype==='visitor'){
+            if(formdata.value.usertype==='visitor'){
                 router.push('/screen')
             }else{
                 router.push('/Admin')          
             }
-        } else {
-            ElMessage.error('表单验证失败，请检查输入'); // 失败提示
+        } catch (error) {
+            // 处理注册失败的情况
+            console.error('登录失败', error);
+            ElMessage({ type: 'error', message: '登录失败' });
         }
-      });
 
-    // router.push('/admin')
+    });
+
 }
 </script>
 <style  lang="scss">

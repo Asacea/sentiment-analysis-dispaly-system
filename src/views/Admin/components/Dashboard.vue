@@ -2,23 +2,14 @@
     <div class="module">
         <dv-border-box12>
             <div class="innerbox">
-             <!-- <div class="subtitle">
-                    <h1>>网络舆情数据</h1>
-                    <div class="itemholder">
-                        <div class="item" v-for="info in visitorStore.infoSelectList">
-                            <p class="number">{{info.number}}</p>
-                            <p class="notes">{{info.notes}}</p>
-                        </div>
-                    </div>    
-                </div> -->
             <div class="subtitle">
              <!-- <i class="iconfont icon-shuju"></i>  -->
             <h1>>网络舆情数据</h1>
             </div>
             <div class="itemholder">
                 <div class="item" v-for="info in platformData">
-                    <p class="number">{{ info.number }}</p>
-                    <p class="notes">{{ info.notes }}</p>
+                    <p class="number">{{ info.dataNumber }}</p>
+                    <p class="notes">{{ info.platform }}</p>
                 </div>
             </div>    
             </div>    
@@ -42,8 +33,8 @@
                 </div>
                 <div class="Admin">
                     <el-table :data="visitorData" height="250" style="width: 100%" class="Table">
-                        <el-table-column prop="date" label="最近访问时间" width="200" />
-                        <el-table-column prop="name" label="姓名" width="200" />
+                        <el-table-column prop="date" label="最近访问时间" width="300" />
+                        <el-table-column prop="username" label="姓名" width="200" />
                         <el-table-column prop="count" label="访问次数"  width="200"/>
                         <el-table-column prop="school" label="学校" />
                     </el-table>
@@ -107,7 +98,7 @@ const createChart=async()=>{
 
     // 获取浏览量数据
     const viewsData =await visitorStore.getViewsData()
-    // console.log(viewsData)
+    console.log(viewsData.map(i=>i.month))
    
     // console.log(visitorData)
 
@@ -123,7 +114,7 @@ const createChart=async()=>{
         backgroundColor:'rgba(0,0,0,0)',
         xAxis:{
             type:'category',
-            data:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+            data:viewsData.map(i=>i.month),
             axisLabel:{
                 color:'#fff'
             }
@@ -136,14 +127,14 @@ const createChart=async()=>{
         },
         series:[
             {
-                data:viewsData,
+                data:viewsData.map(i=>i.data),
                 type:'line',
                 smooth:true
             }
         ]
-}
-option&&visitorChart.setOption(option)
-console.log('sucess')
+    }
+    option&&visitorChart.setOption(option)
+    console.log('sucess')
 }
 onMounted(()=>createChart())
 watch(()=>JSON.parse(JSON.stringify(screendata.value)),(newScreenData,oldScreenData)=>{
@@ -156,36 +147,14 @@ watch(()=>JSON.parse(JSON.stringify(screendata.value)),(newScreenData,oldScreenD
         for(let i = 0;i<newScreenData.length;i++){
             // console.log(newScreenData[i].value)
             if(newScreenData[i].value!=oldScreenData[i].value){
-                // console.log(newScreenData[i].id)
-                // console.log(oldScreenData[i].value)
-                statusStore.sendSwitchStateToBackend({id:newScreenData[i].id,showSwitch:newScreenData[i].value})
+                statusStore.sendSwitchStateToBackend(newScreenData[i])
             }
         }
-    }
-       
-    
+    }          
 }, { deep: true })
 </script>
 
-
-<!-- </> -->
 <style scoped lang="scss">
-//   .content-wrap {
-//     transform-origin: 0 0;
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     padding: 18px 64px;
-//   }
-
-// .screen-adapter {
-//   width: 100vw;
-//   min-height: 100%;
-//   max-height: 100vh;
-//   overflow: hidden;
-// //   background: url("../../assets/charts/icon-bg.png") no-repeat;
-//   background-size: 100% 100%;
-// }
 .module{
     //position: relative;
     //top:-2000px;

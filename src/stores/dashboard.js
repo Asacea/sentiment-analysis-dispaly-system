@@ -6,24 +6,21 @@ export const useVisitorStore = defineStore('visitor',()=>{
     const getplatformData = async()=>{
       const res = await alldataAPI()
       console.log(res)
-      return res
+      return res.data
     }
-
-
-
     
     // 获取浏览量数据
     const getViewsData = async() => {
       const res = await viewsAPI()
       // console.log(res)
-      return res;
+      return res.data;
     } 
 
     // 获取访客记录数据
     const getVisitorData = async() => {
       const res = await visitrecordAPI()
       console.log(res)
-      return res
+      return res.data
     }
 
     return {

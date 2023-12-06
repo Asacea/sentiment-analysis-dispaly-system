@@ -4,8 +4,8 @@ import request from "../utils/http";
 export const alldataAPI = () => {
   return request({
     // 测试url
-    url:'http://localhost:3000/platformdata',
-    // url: '/admin/alldata',
+    // url:'http://localhost:3000/platformdata',
+    url: '/admin/platformdata',
   })
 }
 
@@ -13,8 +13,8 @@ export const alldataAPI = () => {
 export const viewsAPI = () => {
   return request({
     // 测试url
-    url: 'http://localhost:3000/views',
-    // url:'/admin/views',
+    // url: 'http://localhost:3000/views',
+    url:'/admin/viewsdata',
   })
 }
 
@@ -22,8 +22,8 @@ export const viewsAPI = () => {
 export const visitrecordAPI = ()=>{
   return request({
     // 测试url
-    url: 'http://localhost:3000/visitrecord',
-    // url:'/admin/visitrecord'
+    // url: 'http://localhost:3000/visitrecord',
+    url:'/admin/visitordata'
   })
 }
 

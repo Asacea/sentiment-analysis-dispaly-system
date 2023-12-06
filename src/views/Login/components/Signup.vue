@@ -17,7 +17,7 @@
                 <el-input type="password" v-model="formdata.userpswd" placeholder="请输入密码" />
             </el-form-item>
             <el-form-item label="确认密码" prop="confirmPassword">
-                <el-input type="password" v-model="formdata.confirmpassword" placeholder="请再次输入密码" @blur="updateFormData"></el-input>
+                <el-input type="password" v-model="formdata.confirmpassword" placeholder="请再次输入密码" ></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleClick" size="large" id="btn">注册</el-button>
@@ -37,13 +37,24 @@ import { useRouter } from 'vue-router';
 // import { ElForm, ElFormItem, ElInput, ElButton, ElMessage } from 'element-plus';
 
 const router=useRouter()
-const formdata=reactive({
+const formdata=ref({
     userschool:'',
     usertype:'',
     username:'',
     userpswd:'',
     confirmpassword:''
 })
+// 校验密码的函数
+const checkRePassword = (rule, value, calback) => {
+  if(value===''){
+    calback(new Error('请再次确认密码'))
+  }else if(value !== formdata.value.userpswd){
+    calback(new Error('请确认两次输入的密码一致'))
+  }else{
+    calback();
+  }
+}
+
 const rules = {
     userschool:[
         {required:true,message:'学校不能为空',trigger:blur}
@@ -58,61 +69,31 @@ const rules = {
         {required:true,message:'密码不能为空',trigger:blur}
     ],
     confirmPassword:[
-        {required:true,message:'密码不能为空',trigger:blur},
-        {
-          validator: (rule, value, callback) => {
-            // console(formdata.value.userpswd)
-            if (value !== formdata.userpswd) {
-              callback(new Error('两次输入的密码不一致'));
-              
-            } else {
-              callback();
-            }
-          },
-          trigger: 'blur',
-        },
+        // {required:true,message:'密码不能为空',trigger:blur},
+        {validator:checkRePassword,trigger:blur}
     ]
 
 }
-const updateFormData = () => {
-      // 在失去焦点时更新表单数据
-    const validatePassword = () => {
-    try {
-      myForm.value.validateField('confirmPassword');
-    } catch (error) {
-      // 捕获异常，不进行额外的处理或输出
-    }
-};
 
-
-};
+import { signinAPI } from '../../../api/user';
+import { ElMessage } from 'element-plus'
 const myForm = ref(null)
-const handleClick=()=>{
-    // console.log(myForm.value)
-    myForm.value.validate((valid) => {
-        if (valid) {
-            ElMessage.success('表单验证通过'); // 成功提示
-            // 将数据保存在后端
-            
-            // 页面跳转至登录页
-            // router.push('/')  
-        } else {
-            ElMessage.error('表单验证失败，请检查输入'); // 失败提示
-        }
-      });
-    // 先验证表单数据是否未空
+// 点击注册
+const handleClick=async()=>{
+    try {
+    let result = await signinAPI(formdata.value);
+    ElMessage({ type: 'success', message: '注册成功' });
 
-    // axios.get(url,{
-    //     userType:formdata.userschool,
-    //     username:formdata.username,
-    //     userpswd:formdata.userpswd
-    // }).then(res=>{
-    //     console.log(res.data)
-    //     if(res.data.msg===1){
-            
-    //     }
-    // })
-    // router.push('/')
+    // 延时1秒后跳转页面
+    setTimeout(() => {
+      // 跳转页面
+      router.push('/');
+    }, 1000);
+  } catch (error) {
+    // 处理注册失败的情况
+    console.error('注册失败', error);
+    ElMessage({ type: 'error', message: '注册失败' });
+  }
 }
 </script>
 <style lang="scss">
