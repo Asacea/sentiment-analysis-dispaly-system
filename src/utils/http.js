@@ -2,7 +2,7 @@
 //导入axios  npm install axios
 import axios from 'axios';
 import { ElMessage } from 'element-plus'
-import { useTokenStore } from '@/stores/token.js';
+// import { useTokenStore } from '@/stores/token.js';
 import router from '@/router'
 //定义一个变量,记录公共的前缀  ,  baseURL
 // const baseURL = 'http://localhost:8080';
@@ -13,11 +13,11 @@ const instance = axios.create({baseURL})
 instance.interceptors.request.use(
     (config)=>{
         //在发送请求之前做什么
-        let tokenStore = useTokenStore()
-        //如果token中有值，在携带
-        if(tokenStore.token){
-            config.headers.Authorization=tokenStore.token
-        }
+        // let tokenStore = useTokenStore()
+        // //如果token中有值，在携带
+        // if(tokenStore.token){
+        //     config.headers.Authorization=tokenStore.token
+        // }
         return config
     },
     (err)=>{
