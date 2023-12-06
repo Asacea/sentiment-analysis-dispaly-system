@@ -56,6 +56,11 @@ const router=createRouter({
                     name:'dashboard',
                     component:()=>import('@/views/Admin/Components/Dashboard.vue')
                 },
+                {
+                    path:'/admin/data',
+                    name:'dataplay',
+                    component:()=>import('@/views/Admin/Components/datadisplay.vue')
+                },
             ],
             redirect:'/admin/dashboard'
         }
