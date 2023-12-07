@@ -1,6 +1,7 @@
 import {computed, ref} from 'vue'
 import {defineStore} from 'pinia'
 import { schoolAPI} from '../api/school.js'
+import { getTitleAPI } from '../api/alltitle.js'
 const useschoolStore = defineStore('school',()=>{
     // 热门舆情数
     const data_opinion = ref([]);
@@ -28,17 +29,39 @@ const useschoolStore = defineStore('school',()=>{
     // 各平台数据
     const getSchooldata = async(screenId)=>{
       const res = await schoolAPI(screenId)
-      data_opinion.value = res.data_opinion
-      data_school_l1.value = res.data_school_l1;
-      data_school_l21.value = res.data_school_l21;
-      data_school_l22.value = res.data_school_l22;
-      data_school_m1.value = res.data_school_m1;
-      data_school_m22.value = res.data_school_m22;
-      data_school_r11.value = res.data_school_r11;
-      data_school_r12.value = res.data_school_r12;
-      data_school_r13.value = res.data_school_r13;
-      data_school_r14.value = res.data_school_r14;
-      data_school_r2.value = res.data_school_r2
+      data_opinion.value = res.data.schoolm21Data
+
+      data_school_l1.value.title = (await getTitleAPI('schooll1')).data
+      data_school_l1.value.data = res.data.schooll1Data;
+
+      data_school_l21.value.title = (await getTitleAPI('schooll21')).data
+      data_school_l21.value.data = res.data.schooll21Data;
+
+      data_school_l22.value.title = (await getTitleAPI('schooll22')).data
+      data_school_l22.value.data = res.data.schooll22Data;
+
+      data_school_m1.value.title = (await getTitleAPI('schoolm1')).data
+      data_school_m1.value.data = res.data.schoolm1Data;
+
+      data_school_m22.value.title = (await getTitleAPI('schoolm22')).data
+      data_school_m22.value.data = res.data.schoolm22Data;
+
+      data_school_r11.value.title = (await getTitleAPI('schoolr11')).data
+      data_school_r11.value.data = res.data.schoolr11Data;
+
+      data_school_r12.value.title = (await getTitleAPI('schoolr12')).data
+      data_school_r12.value.data = res.data.schoolr12Data;
+
+      data_school_r13.value.title = (await getTitleAPI('schoolr13')).data
+      data_school_r13.value.data = res.data.schoolr13Data;
+
+      data_school_r14.value.title = (await getTitleAPI('schoolr14')).data
+      data_school_r14.value.data = res.data.schoolr14Data;
+
+      data_school_r2.value.title = (await getTitleAPI('schoolr2')).data
+      data_school_r2.value.data = res.data.schoolr2Data
+      console.log(res)
+      console.log(data_school_l1.value)
     }
     // 配置
     // 本校热词配置
@@ -60,7 +83,7 @@ const useschoolStore = defineStore('school',()=>{
             type: 'graph',
             layout: 'none',
             // progressiveThreshold: 700,
-            data: data_school_l1.value.nodes.map(function (node) {
+            data: data_school_l1.value.data.map(function (node) {
               return {
                 x: node.x,
                 y: node.y,
@@ -110,7 +133,7 @@ const useschoolStore = defineStore('school',()=>{
         legend: {
             // orient: 'horizontal',
             top: 'bottom',
-            data:data_school_l21.value.value.map(item=>item.name),
+            data:data_school_l21.value.data.map(item=>item.name),
             itemGap: 6
         },
         // data从后端获取
@@ -122,7 +145,7 @@ const useschoolStore = defineStore('school',()=>{
               label: {
                 show: false
               },
-              data: data_school_l21.value.value,
+              data: data_school_l21.value.data,
               emphasis: {
                 itemStyle: {
                   shadowBlur: 10,
@@ -158,7 +181,7 @@ const useschoolStore = defineStore('school',()=>{
         legend: {
             // orient: 'horizontal',
             top: 'bottom',
-            data:data_school_l22.value.value.map(item=>item.name),
+            data:data_school_l22.value.data.map(item=>item.name),
             itemGap: 6
         },
         // data从后端获取
@@ -178,7 +201,7 @@ const useschoolStore = defineStore('school',()=>{
                   return colorList[params.dataIndex];
                 }
               },
-              data: data_school_l22.value.value,
+              data: data_school_l22.value.data,
               emphasis: {
                 itemStyle: {
                   shadowBlur: 10,
@@ -233,11 +256,11 @@ const useschoolStore = defineStore('school',()=>{
         ],
         legend: {
           top:'bottom',
-          data:data_school_m1.value.value.map((i)=>i.name),
+          data:data_school_m1.value.data.map((i)=>i.name),
         },
         series: function () {
           let serie = [];
-          data_school_m1.value.value.map((item) => {
+          data_school_m1.value.data.map((item) => {
             let data = {
               name: item.name,
               type: "line",
@@ -276,7 +299,7 @@ const useschoolStore = defineStore('school',()=>{
         },
         // data从后端获取
         legend: {
-          data:data_school_m22.value.value.map((i)=>i.name),
+          data:data_school_m22.value.data.map((i)=>i.name),
           top:40
         },
         // data从后端获取
@@ -284,7 +307,7 @@ const useschoolStore = defineStore('school',()=>{
           {
             type: "category",
             boundaryGap: false,
-            data: data_school_m22.value.value.map(i=>i.name),
+            data: data_school_m22.value.data.map(i=>i.name),
           },
         ],
         yAxis: [
@@ -296,12 +319,13 @@ const useschoolStore = defineStore('school',()=>{
         // data从后端获取
         series: [
           {
-            name:data_school_m22.value.name,
+            name:data_school_m22.value.data.name,
+            // name:data_school_m22.value.data.map(i=>i.name),
             type:"line",
             areaStyle:{
               opacity:0.3
             },
-            data:data_school_m22.value.value.map(i=>i.value)
+            data:data_school_m22.value.data.map(i=>i.value)
           }
         ],
         grid: {
@@ -335,13 +359,13 @@ const useschoolStore = defineStore('school',()=>{
         legend: {
             // orient: 'horizontal',
             top: 'top',
-            data:data_school_r11.value.value.map(i=>i.name),
+            data:data_school_r11.value.data.map(i=>i.name),
             itemGap: 6
         },
         // data从后端获取
         series: [
             {
-              name: data_school_r11.value.name,
+              name: data_school_r11.value.data.name,
               type: 'pie',
               radius: '50%',
               label: {
@@ -355,7 +379,7 @@ const useschoolStore = defineStore('school',()=>{
                   return colorList[params.dataIndex];
                 }
               },
-              data: data_school_r11.value.value,
+              data: data_school_r11.value.data.value,
               emphasis: {
                 itemStyle: {
                   shadowBlur: 10,
@@ -391,7 +415,7 @@ const useschoolStore = defineStore('school',()=>{
         // data从后端获取
         xAxis: {
           type: 'category',
-          data: data_school_r12.value.value.map(i=>i.name),
+          data: data_school_r12.value.data.map(i=>i.name),
           axisLabel: {fontSize: 10}
         },
         yAxis: {
@@ -402,7 +426,7 @@ const useschoolStore = defineStore('school',()=>{
         // data从后端获取
         series: [
           {
-            data: data_school_r12.value.value.map(i=>i.data),
+            data: data_school_r12.value.data.map(i=>i.data),
             type: 'bar',
             barWidth: '55%' // 调整柱子的宽度
           }
@@ -456,7 +480,7 @@ const useschoolStore = defineStore('school',()=>{
           axisLabel: { show: false },
           axisTick: { show: false },
           splitLine: { show: false },
-          data: data_school_r13.value.value.map(i=>i.name)
+          data: data_school_r13.value.data.map(i=>i.name)
         },
         // data从后端获取
         series: [
@@ -468,7 +492,7 @@ const useschoolStore = defineStore('school',()=>{
               show: true,
               formatter: '{b}'
             },
-            data: data_school_r13.value.value.map(i=>i.data)
+            data: data_school_r13.value.data.map(i=>i.data)
           }
         ],
         backgroundColor: 'transparent'
@@ -547,7 +571,7 @@ const useschoolStore = defineStore('school',()=>{
             // name: 'Access From',
             type: 'pie',
             radius: '50%',
-            data: data_school_r2.value.value,
+            data: data_school_r2.value.data,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,

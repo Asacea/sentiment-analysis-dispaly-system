@@ -5,7 +5,8 @@ export const schoolAPI = (screenId) => {
   return request({
     // 测试url
     // url:'http://localhost:3000/echarts-data//data/asset/data/les-miserables.json',
-    url:`http://localhost:3000/school/${screenId}`,
+    // url:`http://localhost:3000/school/${screenId}`,
+    url: '/school',
 
     // url: '/admin/alldata',
   })

@@ -113,10 +113,11 @@ async function createAllCharts(){
   createChart("chart-m-1", schoolStore.school_m1_option);
   createChart("chart-m-2", schoolStore.school_m22_option);
   createChart("chart-r-1", schoolStore.school_r11_option);
-  createChart("chart-r-5", schoolStore.school_r2_option);
   createChart("chart-r-2", schoolStore.school_r12_option);
   createChart("chart-r-3", schoolStore.school_r13_option);
   createChart("chart-r-4", schoolStore.school_r14_option);
+  createChart("chart-r-5", schoolStore.school_r2_option);
+
 }
 
 
@@ -130,7 +131,7 @@ async function rotateArray(arr) {
 onMounted(async () => {
     await schoolStore.getSchooldata(userStore.screenId)
     await createAllCharts()
-    await rotateArray(schoolStore.data_opinion);
+    // await rotateArray(schoolStore.data_opinion);
     
 });
 </script>
