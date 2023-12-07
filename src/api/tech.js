@@ -6,7 +6,8 @@ export const techAPI = (screenId) => {
     // 测试url
     // url:'http://localhost:3000/echarts-data//data/asset/data/les-miserables.json',
     url:`http://localhost:3000/echarts-data/${screenId}`,
-
+    // url:'/tech',
+    // url:'http://47.113.190.225:8080/tech'
     // url: '/admin/alldata',
   })
 }
