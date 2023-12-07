@@ -8,7 +8,7 @@
       <dv-border-box7>
         <RouterLink
           :to="{
-            path: `/screen/${screen.type}/${screen.id}`,
+            path: `/screen/${screen.id}`,
           }"
           @click="changeScreen(screen)"
           >{{ screen.topic }}</RouterLink>
@@ -47,6 +47,7 @@ onMounted(async ()=>{
 const changeScreen=(screen)=>{
   userStore.screenId=screen.id;
   userStore.screenTitle=screen.topic
+  userStore.screenDetail=screen.detail
 }
 </script>
 <style scoped lang="scss">

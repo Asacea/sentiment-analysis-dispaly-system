@@ -3,7 +3,9 @@
         <div id="decorationTop">
             <dv-decoration5 :dur="3" style="width:100%;height:60px;"/>
         </div>
-        <h1 class="title">{{userStore.screenTitle+"舆情分析"}}</h1>
+        <h1 class="title">{{userStore.screenTitle+"舆情分析"}}
+            <i class="iconfont icon-htmal5icon28" @click="open"></i>
+        </h1>
         <h2 class="time">{{beijingTime}}</h2>
         <div class="navbar">
             <Navbar/>
@@ -36,6 +38,15 @@ function getClock(){
 function goBacktoDashboard(){
     socialStore.screenTitle=""
     router.push('/Admin')
+}
+function open(){
+    ElMessageBox.alert(
+    `<p>${userStore.screenDetail}</p>`,
+    '事件详情',
+    {
+      dangerouslyUseHTMLString: true,
+    }
+  )
 }
 onMounted(()=>{
     setInterval(getClock,1000)

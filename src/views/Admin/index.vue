@@ -17,7 +17,7 @@
                 <el-menu-item index="2">
                     <span><RouterLink to="/admin/data">后台数据</RouterLink></span>
                 </el-menu-item>
-                <el-menu-item index="2">
+                <el-menu-item index="3">
                     <span><RouterLink to="/screen">大屏展示</RouterLink></span>
                 </el-menu-item>
                 
