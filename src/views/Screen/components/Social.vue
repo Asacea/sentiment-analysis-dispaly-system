@@ -112,10 +112,10 @@ async function createChart(eleID, option) {
 async function createAllCharts(){
   console.log("开始建表")
    createChart("chart-l-1", socialStore.l1_option);
-   createChart("chart-m-2", socialStore.m2_option);
-   createChart("chart-r-1", socialStore.r1_option);
    createChart("chart-l-3", socialStore.l3_option);
    createChart("chart-m-1", socialStore.m1_option);
+   createChart("chart-m-2", socialStore.m2_option);
+   createChart("chart-r-1", socialStore.r1_option);
 }
 onMounted(async () => {
   await socialStore.getSocialData(userStore.screenId);

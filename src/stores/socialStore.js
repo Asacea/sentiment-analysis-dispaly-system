@@ -2,6 +2,8 @@ import {ref,computed} from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios';
 import { socialAPI } from '../api/social';
+import { getTitleAPI } from '../api/alltitle.js'
+
 const useSocialScreenStore=defineStore('social',()=>{
     const hotList=ref([])
     const l1_data=ref({});
@@ -10,6 +12,33 @@ const useSocialScreenStore=defineStore('social',()=>{
     const hotMap=ref({});
     const r1_data=ref({})
     const hotRT = ref([]);
+
+
+    const getSocialData= async (screenId)=>{
+      console.log("getSocialData")
+      const res= await socialAPI(screenId)
+
+      // hotList.value=res.hotList;
+
+      l1_data.value.title = (await getTitleAPI('sociall1')).data
+      l1_data.value.data=res.data.sociall1Data;
+
+      wordCloud_data.value.title = (await getTitleAPI('sociall3')).data
+      wordCloud_data.value.data = res.data.sociall3Data;
+
+      hotMap.value.title = (await getTitleAPI('socialm1')).data
+      hotMap.value.data=res.data.socialm1Data;
+
+      m2_data.value.title=(await getTitleAPI('socialm2')).data
+      m2_data.value.data=res.data.socialm2Data;
+
+      r1_data.value.title=(await getTitleAPI('socialr1')).data
+      r1_data.value.data=res.data.socialr1Data;
+      hotRT.value=res.data.socialr2Data;
+      console.log(res)
+      // console.log(l1_data.value.data)
+
+    }
     //和科技和学校和的时候，这两个参数合并
     // const screenId=ref(0)
     // const screenTitle=ref('')
@@ -32,7 +61,7 @@ const useSocialScreenStore=defineStore('social',()=>{
             },
             yAxis: {
               type: "category",
-              data: l1_data.value.value.map((i) => i.name),
+              data: l1_data.value.data.map((i) => i.name),
               axisLabel: {
                 fontSize: "10",
                 interval: 0, // 让字体完全显示
@@ -46,7 +75,7 @@ const useSocialScreenStore=defineStore('social',()=>{
             },
             series: [
               {
-                data: l1_data.value.value.map((i) => i.data),
+                data: l1_data.value.data.map((i) => i.data),
                 type: "bar",
                 backgroundColor: "rgba(0,0,0,0)",
               },
@@ -107,12 +136,13 @@ const useSocialScreenStore=defineStore('social',()=>{
                   },
                 },
                 //data属性中的value值却大，权重就却大，展示字体就却大
-                data: wordCloud_data.value.value,
+                data: wordCloud_data.value.data,
               },
             ],
           };
           return option;
     })
+
     const m1_option=computed(()=>{
         let option={
             backgroundColor: "rgba(0,0,0,0)",
@@ -153,7 +183,7 @@ const useSocialScreenStore=defineStore('social',()=>{
                     borderWidth: 2,
                   },
                 },
-                data: hotMap.value.value,
+                data: hotMap.value.data,
               },
             ],
             visualMap: [
@@ -207,8 +237,9 @@ const useSocialScreenStore=defineStore('social',()=>{
           };
         return option
     });
+
+
     const m2_option=computed(()=>{
-        // console.log(m2_data)
        let option={
         title: {
           text: m2_data.value.title,
@@ -226,7 +257,7 @@ const useSocialScreenStore=defineStore('social',()=>{
           },
         },
         legend: {
-          data:m2_data.value.value.map((i)=>i.name),
+          data:m2_data.value.data.map((i)=>i.name),
         },
         grid: {
           left: "3%",
@@ -249,7 +280,7 @@ const useSocialScreenStore=defineStore('social',()=>{
         ],
         series: function () {
           let serie = [];
-          m2_data.value.value.map((item) => {
+          m2_data.value.data.map((item) => {
             let data = {
               name: item.name,
               type: "line",
@@ -267,6 +298,8 @@ const useSocialScreenStore=defineStore('social',()=>{
     //   console.log(option)
       return option
     });
+
+
     const r1_option =computed(()=>{
         let option = {
             title: {
@@ -286,7 +319,7 @@ const useSocialScreenStore=defineStore('social',()=>{
             backgroundColor: "rgba(0,0,0,0)",
             xAxis: {
               type: "category",
-              data: r1_data.value.value.map((i) => i.name),
+              data: r1_data.value.data.map((i) => i.name),
               axisLabel: {fontSize: 10}
           
             },
@@ -295,29 +328,24 @@ const useSocialScreenStore=defineStore('social',()=>{
             },
             series: [
               {
-                data: l1_data.value.value.map((i) => i.data),
+                data: l1_data.value.data.map((i) => i.data),
                 type: "bar",
               },
             ],
           };
         return option
     })
-    const getSocialData= async (screenId)=>{
-        console.log("getSocialData")
-        const res= await socialAPI(screenId)
-        console.log(res)
-        hotList.value=res.hotList;
-        l1_data.value=res.l1_data;
-        wordCloud_data.value=res.wordCloud_data;
-        m2_data.value=res.m2_data;
-        hotMap.value=res.hotMap;
-        r1_data.value=res.r1_data;
-        hotRT.value=res.hotRT;
-    }
+
     return {
         // screenId,screenTitle,
-        l1_option,l3_option,m1_option,m2_option,r1_option,
-        hotList,hotRT,hotMap,
+        l1_option,
+        l3_option,
+        m1_option,
+        m2_option,
+        r1_option,
+        hotList,
+        hotRT,
+        hotMap,
         getSocialData
     }
 })

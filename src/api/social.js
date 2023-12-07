@@ -4,6 +4,7 @@ import request from "../utils/http";
 export const socialAPI = (id) => {
   return request({
     // 测试url
-    url:`http://localhost:3000/echarts-data/${id}`,
+    // url:`http://localhost:3000/echarts-data/${id}`,
+    url:'social'
   })
 }
