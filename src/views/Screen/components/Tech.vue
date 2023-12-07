@@ -3,7 +3,7 @@
     <div class="left">
       <div class="l1 outer">
         <dv-border-box12 style="text-align: center; display: flex">
-          <h3 style="margin-top: 10px">热门话题</h3>
+          <h3 style="margin-top: 10px">{{ techStore.data_tech_topic.title }}</h3>
           <div class="inner" id="chart-l-1">
             <div class="inner1">
               <div
@@ -16,7 +16,7 @@
                   style="width: 85px"
                 />
                 <div style="margin-top: 10px">
-                  {{ techStore.data_tech_topic.platform }}
+                  <!-- {{ techStore.data_tech_topic.data.platform }} -->
                 </div>
                 <!-- <div style="margin-top: 5px;">微博认证</div> -->
               </div>
@@ -31,15 +31,15 @@
                   margin: 3px;
                 "
               >
-                <div>{{ techStore.data_tech_topic.text }}</div>
+                <!-- <div>{{ techStore.data_tech_topic.data.text }}</div> -->
                 <br />
-                <div>
+                <!-- <div>
                   【转发：{{
-                    techStore.data_tech_topic.num_forward
+                    techStore.data_tech_topic.data.numforward
                   }}，评论数：{{
-                    techStore.data_tech_topic.num_comment
-                  }}，点赞：{{ techStore.data_tech_topic.num_like }}】
-                </div>
+                    techStore.data_tech_topic.data.numcomment
+                  }}，点赞：{{ techStore.data_tech_topic.data.numlike }}】
+                </div> -->
               </div>
             </div>
           </div>
@@ -53,8 +53,13 @@
               <table>
                 <thead>
                   <tr>
-                    <th></th>
-                    <th v-for="h in techStore.data_tech_l2.header">{{ h }}</th>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>粉丝数</th>
+                    <th>用户类型</th>
+                    <th>时间</th>
+                    
+                    <!-- <th v-for="h in techStore.data_tech_l2.header">{{ h }}</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -68,7 +73,12 @@
                   >
                     <td class="rank" v-if="item.rank<10">0{{ item.rank }}</td>
                     <td class="rank" v-else>{{item.rank}}</td>
-                    <td v-for="i in item.details">{{ i }}</td>
+                    <!-- <td v-for="i in item.details">{{ i }}</td> -->
+                    <td >{{ item.username }}</td>
+                    <td >{{ item.fannum }}</td>
+                    <td >{{ item.type }}</td>
+                    <td >{{ item.date }}</td>
+
                   </tr>
                 </tbody>
               </table>

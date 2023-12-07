@@ -31,17 +31,17 @@ const router=createRouter({
                     component:()=>import('@/views/Screen/components/Default.vue')
                 },
                 {
-                    path:'/screen/社科/:id',
+                    path:'/screen/social/:id',
                     name:'社科',
                     component:()=>import('@/views/Screen/components/Social.vue')
                 },
                 {
-                    path:'/screen/科技/:id',
+                    path:'/screen/tech/:id',
                     name:'科技',
                     component:()=>import('@/views/Screen/components/Tech.vue')
                 },
                 {
-                    path:'/screen/学校专属定制/:school',
+                    path:'/screen/school/:school',
                     name:'学校专属定制',
                     component:()=>import('@/views/Screen/components/School.vue')
                 }

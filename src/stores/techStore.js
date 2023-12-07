@@ -1,6 +1,7 @@
 import {computed, ref} from 'vue'
 import {defineStore} from 'pinia'
 import { techAPI} from '../api/tech.js'
+import { getTitleAPI } from '../api/alltitle.js'
 const usetechStore = defineStore('tech',()=>{
     // 热点话题数据
     const data_tech_topic = ref({}) 
@@ -24,18 +25,43 @@ const usetechStore = defineStore('tech',()=>{
     // 各平台数据
     const getdata = async(screenId)=>{
       // console.log(screenId)
-      const res = await techAPI(screenId)
-      data_tech_topic.value = res.data_tech_topic   
-      data_tech_l2.value=res.data_tech_l2 
-      data_tech_l3.value = res.data_tech_l3
-      data_tech_m1.value = res.data_tech_m1
-      data_tech_m2.value = res.data_tech_m2
-      data_tech_r11.value = res.data_tech_r11
-      data_tech_r12.value = res.data_tech_r12
-      data_tech_r13.value = res.data_tech_r13
-      data_tech_r2.value = res.data_tech_r2
+      const res = await (await techAPI(screenId)).data
+      const res1 = await getTitleAPI('tech1l3');
+
+      data_tech_topic.value.title = (await getTitleAPI('tech1l1')).data
+      data_tech_topic.value.data = await res.techl1Data[0]  
+
+      data_tech_l2.value.title = (await getTitleAPI('tech1l2')).data
+      data_tech_l2.value.data=res.techl2Data 
+
+      data_tech_l2.value.title = (await getTitleAPI('tech1l3')).data
+      data_tech_l3.value.data = res.techl3Data
+
+      // 关键节点发现
+      data_tech_m1.value.title = (await getTitleAPI('tech1m1')).data
+      data_tech_m1.value.nodes = res.techm1nodesData;
+      data_tech_m1.value.links = res.techm1linksData;
+      data_tech_m1.value.categories = res.techm1categoriesData;
+
+
+      data_tech_m2.value.title = (await getTitleAPI('tech1m2')).data
+      data_tech_m2.value.data = res.techm2Data
+
+      data_tech_r11.value.title = (await getTitleAPI('tech1r11')).data
+      data_tech_r11.value.data = res.techr11Data
+
+      data_tech_r12.value.title = (await getTitleAPI('tech1r12')).data
+      data_tech_r12.value.indicator = res.techr12indicatorData
+      data_tech_r12.value.value = res.techr12valueData
+
+
+      data_tech_r13.value.title = (await getTitleAPI('tech1r13')).data
+      data_tech_r13.value.data = res.techr13Data
+
+      data_tech_r2.value.title = (await getTitleAPI('tech1r2')).data
+      data_tech_r2.value.data = res.techr2Data
       // return res
-      // console.log(res)
+      console.log(res)
     }
 
     // 配置项
@@ -43,11 +69,10 @@ const usetechStore = defineStore('tech',()=>{
     const tech_l3_option = computed(()=>{
       getdata()
       let option = {
-        // renderer: 'canvas',  // 设置渲染器为canvas
-        // useDirtyRect: false,  // 设置其他配置项，如使用脏矩形优化
         // text后端获取
         title:{
-          text: data_tech_l3.value.title,
+          text: data_tech_l2.value.title,
+          // text: '测试',
           left: 'center',
           textStyle: {
             color: "#1FACED",
@@ -68,7 +93,7 @@ const usetechStore = defineStore('tech',()=>{
             name: '评论数量',
             type: 'pie',
             radius: '50%',
-            data:data_tech_l3.value.value,
+            data:data_tech_l3.value.data,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -85,11 +110,13 @@ const usetechStore = defineStore('tech',()=>{
 
     // 关键节点发展配置项
     const tech_m1_option = computed(()=>{
-      let graph = data_tech_m1.value.data
+      let graph = data_tech_m1.value
+      // graph.nodes = data_tech_m1.tech
       let option = {
         // text从后端获取
         title:{
           text: data_tech_m1.value.title,
+          // text: '测试',
           left: 'center',
           textStyle: {
             color: "#1FACED",
@@ -142,6 +169,7 @@ const usetechStore = defineStore('tech',()=>{
         // text从后端获取
         title:{
           text: data_tech_m2.value.title,
+          // text: '好好好',
           left: 'center',
           textStyle: {
             color: "#1FACED",
@@ -151,7 +179,7 @@ const usetechStore = defineStore('tech',()=>{
         xAxis: {
           type: 'category',
           // data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月'],
-          data: data_tech_m2.value.value.map(item=>item.name)
+          data: data_tech_m2.value.data.map(item=>item.month)
         },
         yAxis: {
           type: 'value'
@@ -160,8 +188,9 @@ const usetechStore = defineStore('tech',()=>{
         series: [
           {
             // 图例名称
-            name: data_tech_m2.value.name, 
-            data: data_tech_m2.value.value.map(item=>item.data),
+            name: '转发量', 
+            // name: data_tech_m2.month, 
+            data: data_tech_m2.value.data.map(item=>item.data),
             type: 'line'
           }
         ],
@@ -186,6 +215,7 @@ const usetechStore = defineStore('tech',()=>{
         // text从后端获取
         title:{
           text: data_tech_r11.value.title,
+          // text: '1111',
           top:'bottom',
           left: 'center',
           textStyle: {
@@ -202,7 +232,7 @@ const usetechStore = defineStore('tech',()=>{
         xAxis: {
           type: 'category',
           // data: ['<15', '15-18', '18-30', '30-45', '>45'],
-          data: data_tech_r11.value.value.map(item=>item.name),
+          data: data_tech_r11.value.data.map(item=>item.age),
           // 字体大小调整
           axisLabel: {fontSize: 7}
         },
@@ -212,7 +242,7 @@ const usetechStore = defineStore('tech',()=>{
         // data从后端获取
         series: [
           {
-            data: data_tech_r11.value.value.map(item=>item.data),
+            data: data_tech_r11.value.data.map(item=>item.data),
             type: 'bar',
             barWidth: '55%' // 调整柱子的宽度
           }
@@ -229,6 +259,7 @@ const usetechStore = defineStore('tech',()=>{
         // text从后端获取
         title:{
           text: data_tech_r12.value.title,
+          // text:'222',
           top:'bottom',
           left: 'center',
           textStyle: {
@@ -269,6 +300,7 @@ const usetechStore = defineStore('tech',()=>{
         // text从后端获取
         title:{
           text: data_tech_r13.value.title,
+          // text: '3333',
           top:'bottom',
           left: 'center',
           textStyle: {
@@ -280,7 +312,8 @@ const usetechStore = defineStore('tech',()=>{
         },
         legend: {
           top: '5%',
-          left: 'center'
+          left: 'center',
+          // data: data_tech_r13.value.data.map(item=>item.name)
         },
         // data从后端获取
         series: [
@@ -317,6 +350,7 @@ const usetechStore = defineStore('tech',()=>{
         // text从后端获取
         title:{
           text: data_tech_r2.value.title,
+          // text: '地图',
           left: 'center',
           textStyle: {
             color: "#1FACED",

@@ -54,8 +54,10 @@ const handleClick= ()=>{
 
         try {
             let result = await loginAPI(formdata.value);
-            console.log(formdata.value)
+            console.log(result);
             ElMessage({ type: 'success', message: '登录成功' });
+            // ElMessage.success(result.msg?result.msg:'登录成功')
+
             // 跳转到对应管理员/访客对应页面
             if(formdata.value.usertype==='visitor'){
                 router.push('/screen')
