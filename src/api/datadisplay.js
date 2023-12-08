@@ -4,7 +4,7 @@ import request from "../utils/http";
 export const getdisplaydataAPI = () => {
   return request({
     // 测试url
-    url:'http://localhost:3000/admin/displaydata',
-    // url: '/admin/displaydata',
+    // url:'http://localhost:3000/admin/displaydata',
+    url: 'display',
   })
 }

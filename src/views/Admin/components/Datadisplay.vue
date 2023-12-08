@@ -45,21 +45,21 @@
           </div>
           <div class="down" style="color: white;">
             <div>各平台</div>
-            <div class="outer1" v-for="item in displayStore.data2.value">
+            <div class="outer1" v-for="item in displayStore.data2.data">
               <div class="inner" style="text-align: left; position: relative;">
-              <div style="position: absolute; font-size: 13px;">
-                <div style="left: 10px; top: 5px; font-size: 15px; width: 80px;">{{ item.platform }}</div>
-                <div style="left: 90px; top: 10px; width: 18px; height:12px;background-color: yellow;"></div>
-                <div style="left: 113px; top: 6px; width: 80px; ">上个月:{{item.lastmonthdata}}</div>
-                <div style="left: 180px; top: 10px; width: 18px; height:12px;background-color: yellowgreen;"></div>
-                <div style="left: 203px; top: 6px; width: 80px; ">本月:{{item.thismonthdata}}</div>
-                <div style="left: 265px; top: 6px;">
-                  <i :class="iconstyle(item.lastmonthdata,item.thismonthdata)" :style="{color:colorstyle(item.lastmonthdata,item.thismonthdata)}"></i>{{ item.lastmonthdata-item.thismonthdata>0 ? item.lastmonthdata-item.thismonthdata : -item.lastmonthdata+item.thismonthdata }}
+                <div style="position: absolute; font-size: 13px;">
+                  <div style="left: 10px; top: 5px; font-size: 15px; width: 80px;">{{ item.platform }}</div>
+                  <div style="left: 90px; top: 10px; width: 18px; height:12px;background-color: yellow;"></div>
+                  <div style="left: 113px; top: 6px; width: 80px; ">上个月:{{item.lastmonthdata}}</div>
+                  <div style="left: 180px; top: 10px; width: 18px; height:12px;background-color: yellowgreen;"></div>
+                  <div style="left: 203px; top: 6px; width: 80px; ">本月:{{item.thismonthdata}}</div>
+                  <div style="left: 265px; top: 6px;">
+                    <i :class="iconstyle(item.lastmonthdata,item.thismonthdata)" :style="{color:colorstyle(item.lastmonthdata,item.thismonthdata)}"></i>{{ item.lastmonthdata-item.thismonthdata>0 ? item.lastmonthdata-item.thismonthdata : -item.lastmonthdata+item.thismonthdata }}
+                  </div>
+                  <div style="display: flex; flex-direction: row;left: 10px; top: 30px; width: 278px;height: 10px;">
+                  <div :style="{flex:item.lastmonthdata,backgroundColor:'yellow'}"></div>
+                  <div :style="{flex:item.thismonthdata,backgroundColor: 'yellowgreen'}"></div></div>
                 </div>
-                <div style="display: flex; flex-direction: row;left: 10px; top: 30px; width: 278px;height: 10px;">
-                <div :style="{flex:item.lastmonthdata,backgroundColor:'yellow'}"></div>
-                <div :style="{flex:item.thismonthdata,backgroundColor: 'yellowgreen'}"></div></div>
-              </div>
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@
     </div>
   </div>
   <div class="box3" >
-    <div class="outer" v-for="item in displayStore.data5.value">
+    <div class="outer" v-for="item in displayStore.data5.data">
       <dv-border-box1>
         <div class="inner">
           <div style="color:white">{{ item.platform }}</div>

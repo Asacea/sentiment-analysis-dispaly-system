@@ -2,6 +2,7 @@ import {computed, ref} from 'vue'
 import {defineStore} from 'pinia'
 import { getdisplaydataAPI } from '../api/datadisplay'
 import * as echarts from 'echarts';
+import { getTitleAPI } from '../api/alltitle.js'
 
 export const usedisplayStore = defineStore('displaydata',()=>{
   const data1 = ref({})
@@ -10,17 +11,28 @@ export const usedisplayStore = defineStore('displaydata',()=>{
   const data4 = ref({})
   const data5 = ref({})
 
-  const res = ref({})
+
 
 
   // 获取所有数据
   const getdata = async()=>{
-    res.value = await getdisplaydataAPI();
-    data1.value = res.value.data1;
-    data2.value = res.value.data2;
-    data3.value = res.value.data3;
-    data4.value = res.value.data4;
-    data5.value = res.value.data5;
+    const res = await getdisplaydataAPI();
+
+    data1.value.title = (await getTitleAPI('schooll1')).data
+    data1.value.data = res.data.displayData1;
+
+    data2.value.title = (await getTitleAPI('schooll1')).data
+    data2.value.data = res.data.displayData2;
+
+    data3.value.title = (await getTitleAPI('schooll1')).data
+    data3.value.data = res.data.displayData3;
+
+    data4.value.title = (await getTitleAPI('schooll1')).data
+    data4.value.data = res.data.displayData4;
+
+    data5.value.title = (await getTitleAPI('schooll1')).data
+    data5.value.data = res.data.displayData5;
+    console.log(res);
   }
 
   const option1 = computed(()=>{
@@ -42,7 +54,7 @@ export const usedisplayStore = defineStore('displaydata',()=>{
       },
       legend: {
         top:5,
-        data: data1.value.value.map(i=>i.name)
+        data: data1.value.data.map(i=>i.name)
       },
       toolbox: {
         feature: {
@@ -69,7 +81,7 @@ export const usedisplayStore = defineStore('displaydata',()=>{
       ],
       series: [
         {
-          name: (data1.value.value)[0].name,
+          name: (data1.value.data)[0].name,
           type: 'line',
           stack: 'Total',
           smooth: true,
@@ -93,10 +105,10 @@ export const usedisplayStore = defineStore('displaydata',()=>{
           emphasis: {
             focus: 'series'
           },
-          data: (data1.value.value)[0].data
+          data: (data1.value.data)[0].data
         },
         {
-          name: (data1.value.value)[1].name,
+          name: (data1.value.data)[1].name,
           type: 'line',
           stack: 'Total',
           smooth: true,
@@ -120,10 +132,10 @@ export const usedisplayStore = defineStore('displaydata',()=>{
         emphasis: {
           focus: 'series'
         },
-        data: (data1.value.value)[1].data
+        data: (data1.value.data)[1].data
         },
         {
-          name: (data1.value.value)[2].name,
+          name: (data1.value.data)[2].name,
           type: 'line',
           stack: 'Total',
           smooth: true,
@@ -147,10 +159,10 @@ export const usedisplayStore = defineStore('displaydata',()=>{
           emphasis: {
             focus: 'series'
           },
-          data: (data1.value.value)[2].data
+          data: (data1.value.data)[2].data
         },
         {
-          name: (data1.value.value)[3].name,
+          name: (data1.value.data)[3].name,
           type: 'line',
           stack: 'Total',
           smooth: true,
@@ -174,10 +186,10 @@ export const usedisplayStore = defineStore('displaydata',()=>{
           emphasis: {
             focus: 'series'
           },
-          data: (data1.value.value)[3].data
+          data: (data1.value.data)[3].data
         },
         {
-          name: (data1.value.value)[4].name,
+          name: (data1.value.data)[4].name,
           type: 'line',
           stack: 'Total',
           smooth: true,
@@ -205,7 +217,7 @@ export const usedisplayStore = defineStore('displaydata',()=>{
           emphasis: {
             focus: 'series'
           },
-          data: (data1.value.value)[4].data
+          data: (data1.value.data)[4].data
       }
       ],
     backgroundColor: 'transparent'
@@ -214,10 +226,10 @@ export const usedisplayStore = defineStore('displaydata',()=>{
   })
 
   const option2 = computed(()=>{
-    let opt1=generateOption((data3.value.value)[0].name,(data3.value.value)[0].value);
-    let opt2=generateOption((data3.value.value)[1].name,(data3.value.value)[1].value);
-    let opt3=generateOption((data3.value.value)[2].name,(data3.value.value)[2].value);
-    let opt4=generateOption((data3.value.value)[3].name,(data3.value.value)[3].value);
+    let opt1=generateOption((data3.value.data)[0].name,(data3.value.data)[0].value);
+    let opt2=generateOption((data3.value.data)[1].name,(data3.value.data)[1].value);
+    let opt3=generateOption((data3.value.data)[2].name,(data3.value.data)[2].value);
+    let opt4=generateOption((data3.value.data)[3].name,(data3.value.data)[3].value);
     return [opt1,opt2,opt3,opt4];
   })
 
@@ -272,7 +284,7 @@ export const usedisplayStore = defineStore('displaydata',()=>{
   const option3 = computed(()=>{
     let option = {
       title: {
-        text: '各平台热度',
+        text: data4.value.title,
         top: 10,
         left: 90
       },
@@ -302,7 +314,7 @@ export const usedisplayStore = defineStore('displaydata',()=>{
       radar: {
         radius: '58%', // 设置雷达图的大小
         center: ['40%', '50%'], // 调整雷达图的中心位置
-        indicator: data4.value.indicator
+        indicator: data4.value.data
       },
       series: (function () {
         var series = [];
@@ -342,5 +354,12 @@ export const usedisplayStore = defineStore('displaydata',()=>{
 
   
 
-  return {option1,data2,option2,option3,data5,getdata}
+  return {
+    option1,
+    data2,
+    option2,
+    option3,
+    data5,
+    getdata
+  }
 })
