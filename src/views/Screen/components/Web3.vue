@@ -35,7 +35,7 @@
                 <div class="A_icon">
                   <i class="iconfont icon-mianxing-yonghutouxiang"></i>
                 </div>
-                <div class="A_publisher">{{ item.publisher }}</div>
+                <div class="A_publisher">{{ item.publish }}</div>
                 <div class="A_fans">粉丝{{ item.fans }}</div>
                 <div class="A_follows">关注{{ item.follows }}</div>
               </div>
@@ -94,6 +94,7 @@ function initchart1() {
   var option = web3Store.l1_option;
   option && myChart.setOption(option);
 }
+
 function initchart2() {
   var chartDom = document.getElementById("l2-chart");
   var myChart = echarts.init(chartDom, "dark");
@@ -128,7 +129,7 @@ function initchart4() {
   option && myChart.setOption(option);
 }
 async function initcharts(){
-    initchart1();
+  initchart1();
   initchart2();
   initchart3();
   initchart4();

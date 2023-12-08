@@ -1,14 +1,48 @@
 import {ref,computed} from 'vue'
 import { defineStore } from 'pinia'
-import { socialAPI } from '../api/social';//这里就不改了，反正最后都要合并
+// import { socialAPI } from '../api/social';//这里就不改了，反正最后都要合并
+import { WebAPI } from '../api/web3.js'
+import { getTitleAPI } from '../api/alltitle.js'
 import axios from 'axios';
 const useWeb3ScreenStore=defineStore('web3',()=>{
     const l1_chart_data=ref({})
     const l2_chart_data=ref({})
-    const m_chart_data=ref()
+    const m_chart_data=ref({})
     const keyUsers=ref([])
     const keyforward=ref([])
-    const r3_chart_data=ref()
+    const r3_chart_data=ref({})
+
+    const getWeb3Data= async (screenId)=>{
+      console.log("getWeb3Data")
+      const res= await WebAPI(screenId)
+
+      l1_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      l1_chart_data.value.data=res.data.webl1Data;
+
+      let l2data1 = res.data.webl2Data.webl21Data.map(item=>[item.num1,item.num2]);
+      let l2data2 = res.data.webl2Data.webl22Data.map(item=>[item.num1,item.num2]);
+      l2_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      l2_chart_data.value.data1=l2data1;
+      l2_chart_data.value.data2=l2data2;
+
+
+      m_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      m_chart_data.value.categories=res.data.webm1Data.webm11Data;
+      m_chart_data.value.nodes=res.data.webm1Data.webm12Data;
+      m_chart_data.value.links=res.data.webm1Data.webm13Data;
+
+      keyUsers.value.title = (await getTitleAPI('schooll1')).data
+      keyUsers.value.data = res.data.webr1Data;
+
+      keyforward.value.title = (await getTitleAPI('schooll1')).data
+      keyforward.value.data =res.data.webr2Data;
+
+      r3_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      r3_chart_data.value.data1=res.data.webr3Data.webr31Data;
+      r3_chart_data.value.data2=res.data.webr3Data.webr32Data;
+
+      console.log(res)
+  }
 
     const l1_option=computed(()=>{
         let option = {
@@ -27,7 +61,7 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                 },
               },
               formatter:(params)=>{
-                for(let i of l1_chart_data.value.events){
+                for(let i of l1_chart_data.value.data.webl12Data){
                   if(i.month==params[0].axisValue){
                     return `<strong>事件：</strong>${i.detail}<br/><div style="color:#409eff"><strong>关注度：</strong>${params[0].data}</div><div style="color:#95d475"><strong>讨论度：</strong>${params[1].data}</div>`
                   }
@@ -61,26 +95,27 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
             ],
             series: [
               {
-                name: l1_chart_data.value.info[0].name,
+                name: l1_chart_data.value.data.webl11Data[0].name,
                 type: "line",
                 areaStyle: {
                   opacity: 0.3,
                 },
-                data:l1_chart_data.value.info[0].data,
+                data:l1_chart_data.value.data.webl11Data[0].data,
               },
               {
-                name: l1_chart_data.value.info[1].name,
+                name: l1_chart_data.value.data.webl11Data[1].name,
                 type: "line",
                 areaStyle: {
                   opacity: 0.3,
                 },
-                data: l1_chart_data.value.info[1].data,
+                data: l1_chart_data.value.data.webl11Data[1].data,
               },
             ],
             backgroundColor: "rgba(0,0,0,0)",
           };
           return option
     });
+
     const l2_option=computed(()=>{
       function calculateAverage(data, dim) {
         let total = 0;
@@ -122,7 +157,7 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                     return Math.random() * 400;
                   },
                 },
-                data: l2_chart_data.value.data.femaleData,
+                data: l2_chart_data.value.data1,
               },
               {
                 type: "scatter",
@@ -134,7 +169,7 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                     return Math.random() * 400;
                   },
                 },
-                data: l2_chart_data.value.data.maleData,
+                data: l2_chart_data.value.data2,
               },
             ],
           };
@@ -165,11 +200,11 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
             id: "total",
             data: [
                 {
-                value: calculateAverage(l2_chart_data.value.data.maleData, 0),
+                value: calculateAverage(l2_chart_data.value.data1, 0),
                 groupId: "male",
                 },
                 {
-                value: calculateAverage(l2_chart_data.value.data.femaleData, 0),
+                value: calculateAverage(l2_chart_data.value.data1, 0),
                 groupId: "female",
                 },
             ],
@@ -197,7 +232,7 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                   boundaryGap: false,
                 },
             legend: {
-              data: m_chart_data.value.data.categories.map(i=>i.name),
+              data: m_chart_data.value.categories.map(i=>i.name),
               bottom:"0"
             },
             series: [
@@ -210,17 +245,17 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                   formatter: '{b}'
                 },
                 draggable: true,
-                data: m_chart_data.value.data.nodes.map(function (node, idx) {
+                data: m_chart_data.value.nodes.map(function (node, idx) {
                   node.id = idx;
                   return node;
                 }),
-                categories: m_chart_data.value.data.categories,
+                categories: m_chart_data.value.categories,
                 force: {
                   edgeLength: 5,
                   repulsion: 20,
                   gravity: 0.2
                 },
-                edges: m_chart_data.value.data.links
+                edges: m_chart_data.value.links
               }
             ],
             tooltip:{
@@ -228,9 +263,9 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
               formatter:(params)=>{
                 if(params.dataType=='node'){
                 // console.log(params)
-                  let index=params.data.category
+                  let index=params.category
                 let color=params.color
-                let detail=m_chart_data.value.data.categories[index].detail
+                let detail=m_chart_data.value.categories[index].detail
                 return `<div style="color:${color}">${detail}</div>`
                 }
               }
@@ -254,7 +289,7 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
             },
             legend: {
               bottom: 5,
-              data: r3_chart_data.value.data.map(i=>i.source),
+              data: ['知乎','微博'],
               itemGap: 100,
               textStyle: {
                 color: '#fff',
@@ -300,10 +335,10 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
             },
             series: [
               {
-                name: r3_chart_data.value.data[0].source,
+                name: '知乎',
                 type: 'radar',
                 lineStyle: lineStyle,
-                data: r3_chart_data.value.data[0].data,
+                data: r3_chart_data.value.data1,
                 symbol: 'none',
                 itemStyle: {
                   color: '#F9713C'
@@ -313,10 +348,10 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
                 }
               },
               {
-                name: r3_chart_data.value.data[1].source,
+                name: '微博',
                 type: 'radar',
                 lineStyle: lineStyle,
-                data:  r3_chart_data.value.data[1].data,
+                data:  r3_chart_data.value.data2,
                 symbol: 'none',
                 itemStyle: {
                   color: '#B3E4A1'
@@ -329,22 +364,15 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
           };
         return option
     })
-    const getWeb3Data= async (screenId)=>{
-        console.log("getWeb3Data")
-        const res= await socialAPI(screenId)
-        console.log(res)
-        l1_chart_data.value=res.l1_chart_data;
-        l2_chart_data.value=res.l2_chart_data;
-        m_chart_data.value=res.m_chart_data;
-        keyforward.value=res.keyforward;
-        keyUsers.value=res.keyUsers;
-        keyforward.value=res.keyforward;
-        r3_chart_data.value=res.r3_chart_data;
-    }
+
     return {
         // screenId,screenTitle,
-        l1_option,l2_option,m_option,r3_option,
-        keyUsers,keyforward,
+        l1_option,
+        l2_option,
+        m_option,
+        r3_option,
+        keyUsers,
+        keyforward,
         getWeb3Data
     }
 })

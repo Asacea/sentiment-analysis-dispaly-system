@@ -8,7 +8,7 @@
       <dv-border-box7>
         <RouterLink
           :to="{
-            path: `/screen/${screen.id}`,
+            path: `/screen/${screen.type}/${screen.id}`,
           }"
           @click="changeScreen(screen)"
           >{{ screen.topic }}</RouterLink>

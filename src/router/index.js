@@ -36,9 +36,14 @@ const router=createRouter({
                     component:()=>import('@/views/Screen/components/Social.vue')
                 },
                 {
-                    path:'/screen/tech/:id',
+                    path:'/screen/tech/2',
                     name:'科技',
                     component:()=>import('@/views/Screen/components/Tech.vue')
+                },
+                {
+                    path:'/screen/web3/:id',
+                    name:'科技',
+                    component:()=>import('@/views/Screen/components/Web3.vue')
                 },
                 {
                     path:'/screen/school/:school',
