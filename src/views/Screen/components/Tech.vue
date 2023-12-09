@@ -16,7 +16,7 @@
                   style="width: 85px"
                 />
                 <div style="margin-top: 10px">
-                  <!-- {{ techStore.data_tech_topic.data.platform }} -->
+                  {{ techStore.data_tech_topic.platform }}
                 </div>
                 <!-- <div style="margin-top: 5px;">微博认证</div> -->
               </div>
@@ -31,15 +31,15 @@
                   margin: 3px;
                 "
               >
-                <!-- <div>{{ techStore.data_tech_topic.data.text }}</div> -->
+                <div>{{ techStore.data_tech_topic.text }}</div>
                 <br />
-                <!-- <div>
+                <div>
                   【转发：{{
-                    techStore.data_tech_topic.data.numforward
+                    techStore.data_tech_topic.numforward
                   }}，评论数：{{
-                    techStore.data_tech_topic.data.numcomment
-                  }}，点赞：{{ techStore.data_tech_topic.data.numlike }}】
-                </div> -->
+                    techStore.data_tech_topic.numcomment
+                  }}，点赞：{{ techStore.data_tech_topic.numlike }}】
+                </div>
               </div>
             </div>
           </div>

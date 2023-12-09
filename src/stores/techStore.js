@@ -4,7 +4,7 @@ import { techAPI} from '../api/tech.js'
 import { getTitleAPI } from '../api/alltitle.js'
 const usetechStore = defineStore('tech',()=>{
     // 热点话题数据
-    const data_tech_topic = ref({}) 
+    const data_tech_topic = ref([]) 
     //关键传播信息账号
     const data_tech_l2=ref({})
     // 话题情感数据
@@ -29,7 +29,12 @@ const usetechStore = defineStore('tech',()=>{
       const res1 = await getTitleAPI('tech1l3');
 
       data_tech_topic.value.title = (await getTitleAPI('tech1l1')).data
-      data_tech_topic.value.data = await res.techl1Data[0]  
+      data_tech_topic.value.platform =(res.techl1Data)[0].platform
+      data_tech_topic.value.text =(res.techl1Data)[0].text
+      data_tech_topic.value.numforward =(res.techl1Data)[0].numforward
+      data_tech_topic.value.numcomment =(res.techl1Data)[0].numcomment
+      data_tech_topic.value.numlike =(res.techl1Data)[0].numlike
+
 
       data_tech_l2.value.title = (await getTitleAPI('tech1l2')).data
       data_tech_l2.value.data=res.techl2Data 
@@ -61,7 +66,7 @@ const usetechStore = defineStore('tech',()=>{
       data_tech_r2.value.title = (await getTitleAPI('tech1r2')).data
       data_tech_r2.value.data = res.techr2Data
       // return res
-      console.log(res)
+      console.log(data_tech_topic.value.data)
     }
 
     // 配置项
@@ -169,7 +174,6 @@ const usetechStore = defineStore('tech',()=>{
         // text从后端获取
         title:{
           text: data_tech_m2.value.title,
-          // text: '好好好',
           left: 'center',
           textStyle: {
             color: "#1FACED",

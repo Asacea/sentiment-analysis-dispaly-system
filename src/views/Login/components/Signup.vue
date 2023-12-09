@@ -30,7 +30,7 @@
         
 </template>
 <script setup>
-import {reactive,ref} from 'vue'
+import {reactive,ref,toRefs,computed,watch} from 'vue'
 import { RouterLink } from 'vue-router';
 import axios from 'axios'
 import { useRouter } from 'vue-router';
@@ -44,56 +44,52 @@ const formdata=ref({
     userpswd:'',
     confirmpassword:''
 })
+
+
 // 校验密码的函数
-const checkRePassword = (rule, value, calback) => {
-  if(value===''){
-    calback(new Error('请再次确认密码'))
-  }else if(value !== formdata.value.userpswd){
-    calback(new Error('请确认两次输入的密码一致'))
+const checkRePassword = (rule, value, callback) => {
+  if(formdata.value.confirmpassword===''){
+    callback(new Error('请再次确认密码'))
+  }else if(formdata.value.confirmpassword !== formdata.value.userpswd){
+    callback(new Error('请确认两次输入的密码一致'))
   }else{
-    calback();
+    callback();
   }
 }
 
-const rules = {
-    userschool:[
-        {required:true,message:'学校不能为空',trigger:blur}
-    ],
-    usertype:[
-        {required:true,message:'不能为空',trigger:blur}
-    ],
-    username:[
-        {required:true,message:'用户名不能为空',trigger:blur}
-    ],
-    userpswd:[
-        {required:true,message:'密码不能为空',trigger:blur}
-    ],
-    confirmPassword:[
-        // {required:true,message:'密码不能为空',trigger:blur},
-        {validator:checkRePassword,trigger:blur}
-    ]
 
-}
+
+
+const rules = {
+  userschool: [{ required: true, message: '学校不能为空', trigger: 'blur' }],
+  usertype: [{ required: true, message: '不能为空', trigger: 'blur' }],
+  username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
+  userpswd: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
+  confirmPassword: [{ validator: checkRePassword, trigger: 'change' }],
+};
+
+
 
 import { signinAPI } from '../../../api/user';
 import { ElMessage } from 'element-plus'
 const myForm = ref(null)
 // 点击注册
 const handleClick=async()=>{
-    try {
-    let result = await signinAPI(formdata.value);
-    ElMessage({ type: 'success', message: '注册成功' });
+    myForm.value.validate(async(valid)=>{
+        if(valid){
+            let result = await signinAPI(formdata.value);
+            // ElMessage({ type: 'success', message: '注册成功' });
+            ElMessage.success(result.msg?result.msg:'注册成功')
 
-    // 延时1秒后跳转页面
-    setTimeout(() => {
-      // 跳转页面
-      router.push('/');
-    }, 1000);
-  } catch (error) {
-    // 处理注册失败的情况
-    console.error('注册失败', error);
-    ElMessage({ type: 'error', message: '注册失败' });
-  }
+            // 延时1秒后跳转页面
+            setTimeout(() => {
+              // 跳转页面
+              router.push('/');
+            }, 1000);
+        }
+    })
+    
+
 }
 </script>
 <style lang="scss">

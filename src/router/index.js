@@ -42,7 +42,7 @@ const router=createRouter({
                 },
                 {
                     path:'/screen/web3/:id',
-                    name:'科技',
+                    name:'web3',
                     component:()=>import('@/views/Screen/components/Web3.vue')
                 },
                 {

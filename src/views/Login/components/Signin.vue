@@ -37,37 +37,38 @@ const formdata=ref({
 })
 const rules = {
     usertype:[
-        {required:true,message:'不能为空',trigger:blur}
+        {required:true,message:'不能为空',trigger: 'blur' }
     ],
     username:[
-        {required:true,message:'用户名不能为空',trigger:blur}
+        {required:true,message:'用户名不能为空',trigger:'blur'}
     ],
     userpswd:[
-        {required:true,message:'密码不能为空',trigger:blur}
+        {required:true,message:'密码不能为空',trigger:'blur'}
     ],
 
 }
 const myForm = ref(null)
-import { loginAPI } from '../../../api/user';
+import { loginAPI,getuserinfoAPI } from '../../../api/user';
+import { useTokenStore } from '@/stores/token.js';
+const tokenStore = useTokenStore()
 const handleClick= ()=>{
     myForm.value.validate(async (valid) => {
-
-        try {
+        if(valid){
             let result = await loginAPI(formdata.value);
-            console.log(result);
-            ElMessage({ type: 'success', message: '登录成功' });
-            // ElMessage.success(result.msg?result.msg:'登录成功')
+            ElMessage.success(result.msg?result.msg:'登录成功')
+            tokenStore.setToken(result.data)
+
+            // 获取用户信息
+            let userInfo = await getuserinfoAPI(formdata.value.username);
+            console.log(userInfo);
 
             // 跳转到对应管理员/访客对应页面
-            if(formdata.value.usertype==='visitor'){
+            if(userInfo.data.usertype ==='visitor'){
                 router.push('/screen')
             }else{
                 router.push('/Admin')          
             }
-        } catch (error) {
-            // 处理注册失败的情况
-            console.error('登录失败', error);
-            ElMessage({ type: 'error', message: '登录失败' });
+
         }
 
     });
