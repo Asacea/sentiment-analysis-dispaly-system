@@ -27,7 +27,7 @@
 import {reactive, ref} from 'vue'
 import { RouterLink } from 'vue-router';
 import { useRouter } from 'vue-router';
-import {useUserStore} from '../../../stores/user.js'
+import {useUserStore} from '@/stores/user.js'
 const userStore = useUserStore()
 const router=useRouter()
 const formdata=ref({
@@ -51,6 +51,7 @@ const myForm = ref(null)
 import { loginAPI,getuserinfoAPI } from '../../../api/user';
 import { useTokenStore } from '@/stores/token.js';
 const tokenStore = useTokenStore()
+
 const handleClick= ()=>{
     myForm.value.validate(async (valid) => {
         if(valid){
@@ -59,8 +60,10 @@ const handleClick= ()=>{
             tokenStore.setToken(result.data)
 
             // 获取用户信息
-            let userInfo = await getuserinfoAPI(formdata.value.username);
+            let userInfo = await getuserinfoAPI();
             console.log(userInfo);
+            userStore.screenTitle = ''
+
 
             // 跳转到对应管理员/访客对应页面
             if(userInfo.data.usertype ==='visitor'){

@@ -19,6 +19,6 @@ export const signinAPI = (formdata) => {
 }
 
 // 获取用户信息
-export const getuserinfoAPI = (username) => {
-  return request.get('/user/userInfo',username)
+export const getuserinfoAPI = () => {
+  return request.get('/user/userInfo')
 }
