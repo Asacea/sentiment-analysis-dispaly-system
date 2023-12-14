@@ -93,6 +93,7 @@ import { ref, onMounted, reactive, computed } from "vue";
 import * as echarts from "echarts";
 import "echarts-wordcloud";
 import "echarts/map/js/china.js";
+// import "@/assets/map/js/china.js";
 import useSocialScreenStore from "@/stores/socialStore.js";
 import { useUserStore } from "../../../stores/user";
 const socialStore = useSocialScreenStore();
@@ -110,7 +111,6 @@ async function createChart(eleID, option) {
   option && chart.setOption(option);
 }
 async function createAllCharts(){
-  console.log("开始建表")
    createChart("chart-l-1", socialStore.l1_option);
    createChart("chart-l-3", socialStore.l3_option);
    createChart("chart-m-1", socialStore.m1_option);

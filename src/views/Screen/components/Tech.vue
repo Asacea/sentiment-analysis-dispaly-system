@@ -11,7 +11,7 @@
                 style="color: white; font-size: 13px; margin-top: 5px"
               >
                 <img
-                  src="../../../../src/img/马立奥.png"
+                  src="../../../assets/img/马立奥.png"
                   alt=""
                   style="width: 85px"
                 />
