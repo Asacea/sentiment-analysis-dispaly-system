@@ -78,14 +78,11 @@ const handleClick=async()=>{
     myForm.value.validate(async(valid)=>{
         if(valid){
             let result = await signinAPI(formdata.value);
-            // ElMessage({ type: 'success', message: '注册成功' });
             ElMessage.success(result.msg?result.msg:'注册成功')
 
-            // 延时1秒后跳转页面
-            setTimeout(() => {
-              // 跳转页面
-              router.push('/');
-            }, 1000);
+            // 跳转页面
+            router.push('/');
+
         }
     })
     

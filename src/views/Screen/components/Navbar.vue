@@ -21,7 +21,9 @@ import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import useStatusStore from "@/stores/screenStatus.js";
 import useSocialScreenStore from '@/stores/socialStore.js'
-import { useUserStore } from "../../../stores/user";
+import { useUserStore } from "@/stores/user";
+import { getuserinfoAPI } from '@/api/user';
+
 const statusStore = useStatusStore();
 const socialStore=useSocialScreenStore();
 const userStore=useUserStore();
@@ -38,10 +40,10 @@ async function identifyUser(){
   console.log("screendata:",screendata.value)
 }
 onMounted(async ()=>{
+  userStore.screenTitle = ''
+  userStore.userType = (await getuserinfoAPI()).data.usertype;
   // getTopic()
-  console.log("hello")
   await statusStore.getscreenData()
-  // console.log(userStore.userType)
   await identifyUser()
 })
 const changeScreen=(screen)=>{

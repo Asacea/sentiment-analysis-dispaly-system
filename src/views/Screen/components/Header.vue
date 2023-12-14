@@ -4,7 +4,7 @@
             <dv-decoration5 :dur="3" style="width:100%;height:60px;"/>
         </div>
         <h1 class="title">{{userStore.screenTitle+"舆情分析"}}
-            <i class="iconfont icon-htmal5icon28" @click="open"></i>
+            <i class="iconfont icon-htmal5icon28" v-show="userStore.screenTitle!==''" @click="open"></i>
         </h1>
         <h2 class="time">{{beijingTime}}</h2>
         <div class="navbar">
@@ -18,8 +18,9 @@
 <script setup>
 import {ref,onMounted} from 'vue'
 import Navbar from '@/views/screen/components/Navbar.vue'
-import useSocialScreenStore from '../../../stores/socialStore';
-import { useUserStore } from '../../../stores/user';
+import useSocialScreenStore from '@/stores/socialStore';
+import { useUserStore } from '@/stores/user';
+import { getuserinfoAPI } from '@/api/user';
 import {useRouter} from 'vue-router'
 const socialStore=useSocialScreenStore()
 const userStore=useUserStore()
@@ -48,7 +49,13 @@ function open(){
     }
   )
 }
-onMounted(()=>{
+
+
+
+let userInfo;
+onMounted(async()=>{
+    userStore.screenTitle = ''
+    userStore.userType = (await getuserinfoAPI()).data.usertype;
     setInterval(getClock,1000)
 })
 </script>
