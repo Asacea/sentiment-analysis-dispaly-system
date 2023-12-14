@@ -37,11 +37,9 @@ import canvass from '@/views/bcg1.vue'
     top:0;
     left: 0;
     right: 0;
-    //bottom: auto;
-    //background: url('.././../img/111.jpg') repeat;
-    //color:white
     .cav{
-        height: 1750px;
+        width: 1400px;
+        height: 1400px;
     }
     .board{
         //position: fixed;

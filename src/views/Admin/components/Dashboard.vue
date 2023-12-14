@@ -1,21 +1,5 @@
 <template>
-    <div class="module">
-        <dv-border-box12>
-            <div class="innerbox">
-            <div class="subtitle">
-             <!-- <i class="iconfont icon-shuju"></i>  -->
-            <h1>>网络舆情数据</h1>
-            </div>
-            <div class="itemholder">
-                <div class="item" v-for="info in platformData">
-                    <p class="number">{{ info.dataNumber }}</p>
-                    <p class="notes">{{ info.platform }}</p>
-                </div>
-            </div>    
-            </div>    
-        </dv-border-box12>
-    </div>
-    <div class="module">
+    <div class="module1">
         <dv-border-box12>
             <div class="innerbox">
                 <div class="subtitle">
@@ -25,7 +9,7 @@
             </div>
         </dv-border-box12>  
     </div>
-    <div class="module">
+    <div class="module2">
         <dv-border-box12>
             <div class="innerbox">
                 <div class="subtitle">
@@ -42,22 +26,25 @@
             </div>
         </dv-border-box12>
     </div>
-    <div class="module">
+    <div class="module3" style="height: 480px;">
         <dv-border-box12>
-            <div class="innerbox">
+            <div class="innerbox" style="height: 480px;">
                 <div class="subtitle">
                     <h1>>大屏管理</h1>
                 </div>
                 <div class="Admin">
                     <el-table 
                     :data="screendata" 
-                    height="250" 
+                    max-height="950"
                     style="width: 100%;"
                     class="Table"
+                    :header-cell-style="{textAlign: 'center'}" 
+                    :cell-style="{ textAlign: 'center' }"
                     >
-                        <el-table-column prop="topic" label="话题" width="200" />
-                        <el-table-column prop="clicks" label="点击量" width="200" />
-                        <el-table-column prop="type" label="类型" width="200" />
+                        <el-table-column fixed prop="topic" label="话题" width="80" />
+                        <el-table-column prop="clicks" label="点击量" width="80" />
+                        <el-table-column prop="type" label="类型" width="75" />
+                        <el-table-column prop="detail" label="详情" width="650" />
                         <el-table-column fixed="right" label="展示开关" >
                             <template #default="scope">
                                 <el-switch
@@ -94,18 +81,10 @@ const screendata = ref([])
 const createChart=async()=>{
     // 获取各平台相关数据总数
     platformData.value = await visitorStore.getplatformData()
-    // console.log(platformData)
-
     // 获取浏览量数据
     const viewsData =await visitorStore.getViewsData()
-    console.log(viewsData.map(i=>i.month))
-   
-    // console.log(visitorData)
-
     // 获取访客数据
     visitorData.value = await visitorStore.getVisitorData()
-    // console.log(visitorData)
-
     // 获取管理大屏数据
     screendata.value = await statusStore.getscreenData()
 
@@ -134,18 +113,12 @@ const createChart=async()=>{
         ]
     }
     option&&visitorChart.setOption(option)
-    console.log('sucess')
 }
 onMounted(()=>createChart())
 watch(()=>JSON.parse(JSON.stringify(screendata.value)),(newScreenData,oldScreenData)=>{
-    //要不直接就把改变后的原封不动的传回去，直接覆盖了原来的数据
-    console.log("new",newScreenData)
-    console.log('old',oldScreenData)
-    // console.log(JSON.parse(newScreenData),JSON.parse(oldScreenData))
     if(oldScreenData.length!=0)
     {
         for(let i = 0;i<newScreenData.length;i++){
-            // console.log(newScreenData[i].value)
             if(newScreenData[i].value!=oldScreenData[i].value){
                 statusStore.sendSwitchStateToBackend(newScreenData[i])
             }
@@ -155,7 +128,7 @@ watch(()=>JSON.parse(JSON.stringify(screendata.value)),(newScreenData,oldScreenD
 </script>
 
 <style scoped lang="scss">
-.module{
+.module1,.module2,.module3{
     //position: relative;
     //top:-2000px;
     height: 400px;

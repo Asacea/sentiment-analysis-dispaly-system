@@ -1,4 +1,20 @@
 <template>
+  <div class="box">
+    <dv-border-box1>
+            <div class="innerbox">
+            <div class="subtitle">
+             <!-- <i class="iconfont icon-shuju"></i>  -->
+            <h3>>网络舆情数据</h3>
+            </div>
+            <div class="itemholder">
+                <div class="item" v-for="info in platformData">
+                    <p class="number">{{ info.dataNumber }}</p>
+                    <p class="notes">{{ info.platform }}</p>
+                </div>
+            </div>    
+            </div>    
+        </dv-border-box1>
+  </div>
   <div class="box1">
     <dv-border-box1>
       <div class="outer">
@@ -140,10 +156,15 @@
 
 <script setup>
 import * as echarts from 'echarts';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import {usedisplayStore} from '@/stores/datadisplayStore.js'
+import {useVisitorStore }from '@/stores/dashboard.js'
 const displayStore = usedisplayStore();
-const createChart1 = ()=>{
+const visitorStore=useVisitorStore()
+const platformData = ref([])
+
+
+const createChart1 = async ()=>{
   var dom = document.getElementById('chart1');
     var myChart = echarts.init(dom, 'dark', {
       renderer: 'canvas',
@@ -225,8 +246,8 @@ const colorstyle  = (data1,data2)=>{
 
 
 onMounted(async()=>{
+  platformData.value = await visitorStore.getplatformData()
   await displayStore.getdata();
-  console.log(displayStore.data2);
   createChart1()
   createChart2()
   createChart3()
@@ -235,6 +256,77 @@ onMounted(async()=>{
 </script>
 
 <style scoped lang="scss">
+.box{
+  margin-left: 220px;
+  // height: 350px;
+  width: 1050px;
+  position: relative;
+    //position: relative;
+    //top:-2000px;
+    height: 300px;
+    // margin: 20px;
+    // margin-left: 320px;
+    // background-color: rgba(0,0,0,0.7);
+    border: 0;
+    border-radius: 15px;
+    .innerbox{
+        position: absolute;
+        width: 1000px;
+        height: 300px;
+        .subtitle{
+            position: relative;
+            display: block;
+            margin-left: 20px;
+            // margin-top: 5px;
+            h3{
+                position: relative;
+                height: 30px;
+                margin:0;
+                padding-top: 3px;
+                padding-left: 20px;
+                line-height: 50px;
+                // margin-top: 10px;
+                font-weight: 600;
+                font-size:x-large;
+                color:white;
+                text-shadow: aquamarine 1px 0 10px; 
+            }
+        }  
+        .itemholder{
+            height: 250px;
+            width: 1050px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            .item{
+                background-color: rgb(244, 244, 242);
+                width: 250px;
+                margin: 25px;
+                height: 70px;
+                //border:1px solid #545c64;
+                box-shadow: 12px 12px 2px 1px aquamarine;
+                display: flex;
+                .number{
+                    margin: 0;
+                    padding: 10px;
+                    height: 55px;
+                    width: fit-content;
+                    font-weight: 800;
+                    font-size: 30px;
+                    line-height: 55px;
+                    color: aquamarine;
+                    background-color:#545c64;
+                    //background-color: #BEBEED;
+                }
+                .notes{
+                    padding: 5px;
+                }
+            }
+        }
+    }
+}
+
 .box1{
   margin-left: 220px;
   height: 350px;
@@ -276,6 +368,8 @@ onMounted(async()=>{
   height: 450px;
   width: 1050px;
   margin: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   margin-left: 220px;
   display: flex;
   .left{
@@ -385,6 +479,7 @@ onMounted(async()=>{
   height: 220px;
   width: 1050px;
   margin: 20px;
+  margin-top: 5px;
   margin-left: 220px;
   display: flex;
   .outer{
