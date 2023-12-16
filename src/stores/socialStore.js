@@ -15,10 +15,8 @@ const useSocialScreenStore=defineStore('social',()=>{
 
 
     const getSocialData= async (screenId)=>{
-      console.log("getSocialData")
       const res= await socialAPI(screenId)
 
-      // hotList.value=res.hotList;
 
       l1_data.value.title = (await getTitleAPI('sociall1')).data
       l1_data.value.data=res.data.sociall1Data;
@@ -35,8 +33,6 @@ const useSocialScreenStore=defineStore('social',()=>{
       r1_data.value.title=(await getTitleAPI('socialr1')).data
       r1_data.value.data=res.data.socialr1Data;
       hotRT.value=res.data.socialr2Data;
-      console.log(res)
-      // console.log(l1_data.value.data)
 
     }
     //和科技和学校和的时候，这两个参数合并
@@ -220,10 +216,8 @@ const useSocialScreenStore=defineStore('social',()=>{
               trigger: "item", //数据项图形触发
               backgroundColor: "#fff",
               borderWidth: 0,
-              //borderRadius:100,
               formatter: (params) => {
                 if (params.value > 1) {
-                  //console.log(params.value);
                   return `${params.name}<i class="iconfont icon-xiaopangchetubiao-copy" style="color:red;text-algin:center" </i><br/>话题量：${params.value}`;
                 } else return `地区：${params.name}<br/>数据：${params.value}`;
               },
@@ -295,7 +289,6 @@ const useSocialScreenStore=defineStore('social',()=>{
         }(),//疯了！这个bug我找了20分钟！！！
         backgroundColor: "rgba(0,0,0,0)",
       }; 
-    //   console.log(option)
       return option
     });
 

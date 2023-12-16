@@ -37,7 +37,6 @@ async function identifyUser(){
   }else{
     screendata.value=statusStore.visitorScreen
   }
-  console.log("screendata:",screendata.value)
 }
 onMounted(async ()=>{
   userStore.screenTitle = ''

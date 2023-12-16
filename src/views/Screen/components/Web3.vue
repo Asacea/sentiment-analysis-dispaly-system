@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- 3 4 2 -->
     <div class="left">
       <div class="left-1 outer">
         <dv-border-box8 :dur="5">
@@ -89,7 +88,6 @@ const web3Store = useWeb3ScreenStore();
 const userStore = useUserStore();
 function initchart1() {
   var chartDom = document.getElementById("l1-chart");
-  // console.log(chartDom)
   var myChart = echarts.init(chartDom, "dark");
   var option = web3Store.l1_option;
   option && myChart.setOption(option);
@@ -136,7 +134,6 @@ async function initcharts(){
 }
 onMounted(async () => {
   await web3Store.getWeb3Data(userStore.screenId);
-  console.log("mounted");
   await initcharts()
 });
 </script>

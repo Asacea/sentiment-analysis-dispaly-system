@@ -21,7 +21,7 @@
     <div class="mid">
       <div class="m1 outer">
         <dv-border-box12>
-          <div class="inner0">>
+          <div class="inner0">
             <div id="chart-m-1" style="height: 100%;"></div>
           </div>
         </dv-border-box12>
@@ -123,7 +123,6 @@ async function createAllCharts(){
 
 
 async function rotateArray(arr) {
-console.log(arr);
 setInterval(() => {
   arr.push(arr.shift());
 }, 1500);

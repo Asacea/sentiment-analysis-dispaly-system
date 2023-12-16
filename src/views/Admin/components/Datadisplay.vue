@@ -3,7 +3,6 @@
     <dv-border-box1>
             <div class="innerbox">
             <div class="subtitle">
-             <!-- <i class="iconfont icon-shuju"></i>  -->
             <h3>>网络舆情数据</h3>
             </div>
             <div class="itemholder">
@@ -60,7 +59,7 @@
             </div>
           </div>
           <div class="down" style="color: white;">
-            <div>各平台</div>
+            <div>{{ displayStore.data2.title }}</div>
             <div class="outer1" v-for="item in displayStore.data2.data">
               <div class="inner" style="text-align: left; position: relative;">
                 <div style="position: absolute; font-size: 13px;">

@@ -61,7 +61,6 @@ const handleClick= ()=>{
 
             // 获取用户信息
             let userInfo = await getuserinfoAPI();
-            console.log(userInfo);
             userStore.screenTitle = ''
 
 

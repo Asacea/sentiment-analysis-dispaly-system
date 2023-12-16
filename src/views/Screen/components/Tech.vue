@@ -170,7 +170,6 @@ async function createChart(eleID, option) {
 
 // 渲染图表
 async function createAllCharts() {
-  console.log("科技科技");
   createChart("chart-l-3", techStore.tech_l3_option);
   createChart("chart-m-1", techStore.tech_m1_option);
   createChart("chart-m-2", techStore.tech_m2_option);

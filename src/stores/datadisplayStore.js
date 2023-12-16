@@ -18,21 +18,18 @@ export const usedisplayStore = defineStore('displaydata',()=>{
   const getdata = async()=>{
     const res = await getdisplaydataAPI();
 
-    data1.value.title = (await getTitleAPI('schooll1')).data
+    data1.value.title = (await getTitleAPI('displaydata1')).data
     data1.value.data = res.data.displayData1;
 
-    data2.value.title = (await getTitleAPI('schooll1')).data
+    data2.value.title = (await getTitleAPI('displaydata2')).data
     data2.value.data = res.data.displayData2;
 
-    data3.value.title = (await getTitleAPI('schooll1')).data
     data3.value.data = res.data.displayData3;
 
-    data4.value.title = (await getTitleAPI('schooll1')).data
+    data4.value.title = (await getTitleAPI('displaydata4')).data
     data4.value.data = res.data.displayData4;
 
-    data5.value.title = (await getTitleAPI('schooll1')).data
     data5.value.data = res.data.displayData5;
-    console.log(res);
   }
 
   const option1 = computed(()=>{

@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 // import { socialAPI } from '../api/social';//这里就不改了，反正最后都要合并
 import { WebAPI } from '../api/web3.js'
 import { getTitleAPI } from '../api/alltitle.js'
-import axios from 'axios';
 const useWeb3ScreenStore=defineStore('web3',()=>{
     const l1_chart_data=ref({})
     const l2_chart_data=ref({})
@@ -13,35 +12,33 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
     const r3_chart_data=ref({})
 
     const getWeb3Data= async (screenId)=>{
-      console.log("getWeb3Data")
       const res= await WebAPI(screenId)
 
-      l1_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      l1_chart_data.value.title = (await getTitleAPI('webl1')).data
       l1_chart_data.value.data=res.data.webl1Data;
 
       let l2data1 = res.data.webl2Data.webl21Data.map(item=>[item.num1,item.num2]);
       let l2data2 = res.data.webl2Data.webl22Data.map(item=>[item.num1,item.num2]);
-      l2_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      l2_chart_data.value.title = (await getTitleAPI('webl2')).data
       l2_chart_data.value.data1=l2data1;
       l2_chart_data.value.data2=l2data2;
 
 
-      m_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      m_chart_data.value.title = (await getTitleAPI('webm1')).data
       m_chart_data.value.categories=res.data.webm1Data.webm11Data;
       m_chart_data.value.nodes=res.data.webm1Data.webm12Data;
       m_chart_data.value.links=res.data.webm1Data.webm13Data;
 
-      keyUsers.value.title = (await getTitleAPI('schooll1')).data
+      keyUsers.value.title = (await getTitleAPI('webr1')).data
       keyUsers.value.data = res.data.webr1Data;
 
-      keyforward.value.title = (await getTitleAPI('schooll1')).data
+      keyforward.value.title = (await getTitleAPI('webr2')).data
       keyforward.value.data =res.data.webr2Data;
 
-      r3_chart_data.value.title = (await getTitleAPI('schooll1')).data
+      r3_chart_data.value.title = (await getTitleAPI('webr3')).data
       r3_chart_data.value.data1=res.data.webr3Data.webr31Data;
       r3_chart_data.value.data2=res.data.webr3Data.webr32Data;
 
-      console.log(res)
   }
 
     const l1_option=computed(()=>{
@@ -262,7 +259,6 @@ const useWeb3ScreenStore=defineStore('web3',()=>{
               trigger:'item',
               formatter:(params)=>{
                 if(params.dataType=='node'){
-                // console.log(params)
                   let index=params.category
                 let color=params.color
                 let detail=m_chart_data.value.categories[index].detail

@@ -60,8 +60,6 @@ const useschoolStore = defineStore('school',()=>{
 
       data_school_r2.value.title = (await getTitleAPI('schoolr2')).data
       data_school_r2.value.data = res.data.schoolr2Data
-      console.log(res)
-      console.log(data_school_l1.value)
     }
     // 配置
     // 本校热词配置
