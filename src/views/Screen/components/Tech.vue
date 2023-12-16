@@ -149,24 +149,19 @@
 
 <script setup>
 import "echarts-wordcloud";
-import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { ref, reactive, onMounted, watch, onBeforeUnmount } from "vue";
+import { onMounted } from "vue";
 import * as echarts from "echarts";
-import { GridComponent } from "echarts/components";
-import { LineChart } from "echarts/charts";
-import { UniversalTransition } from "echarts/features";
-import { CanvasRenderer } from "echarts/renderers";
 import usetechStore from "@/stores/techStore.js";
 import "echarts-wordcloud";
-import "echarts/map/js/china.js";
+import china from "@/assets/map/json/china.json";
 import { useUserStore } from "../../../stores/user";
-import { storeToRefs } from "pinia";
 const userStore=useUserStore()
 const techStore = usetechStore();
 // 渲染图表函数封装
 async function createChart(eleID, option) {
   let ele = document.getElementById(eleID);
   let chart = echarts.init(ele, "dark");
+  echarts.registerMap('china', china);
   option && chart.setOption(option);
   window.addEventListener("resize", function () {
     chart.resize();
