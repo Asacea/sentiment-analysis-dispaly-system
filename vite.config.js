@@ -27,8 +27,9 @@ export default defineConfig({
     proxy:{
       '/api':{//获取路径中包含了/api的请求
           // 后台服务所有路径
-          target:'http://localhost:8080',
-          // target:'http://47.113.190.225:8080',
+          // target:'http://localhost:8080',
+          // http://8.137.34.8/api
+          target:'http://8.137.34.8/api',
           changeOrigin:true,
           // rewrite:(path)=>path.replace(/^\/api/,'')
           rewrite:(path)=>path.replace(/^\/api/,'')
