@@ -1,4 +1,5 @@
 import { createRouter ,createWebHistory} from "vue-router";
+import token from '../utils/token.js'
 const router=createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -9,9 +10,11 @@ const router=createRouter({
         {
             path:'/login',
             component:()=>import('@/views/Login/index.vue'),
+            name:'start',
             children:[
                 {
                     path:'',
+                    name:'login',
                     component:()=>import('@/views/Login/components/Signin.vue')
                 },
                 {
@@ -55,6 +58,7 @@ const router=createRouter({
         {
             path:'/admin',
             component:()=>import('@/views/Admin/index.vue'),
+            name:'admin',
             children:[
                 {
                     path:'/admin/dashboard',
@@ -70,6 +74,24 @@ const router=createRouter({
             redirect:'/admin/dashboard'
         }
     ]
+})
+token.getTokenfromLoaclStorage()
+router.beforeEach((to,from,next)=>{
+    if(to.name!=='login'&&!token.isAuthenticated){
+        console.log('不从头登录')
+        next({name:'login'})
+    }else if(to.name==='login'&&token.isAuthenticated){
+        if(token.usertype==='admin'){
+            console.log('管理员登录')
+            next({name:'admin'})
+        }else{
+            next({name:'default'})
+        }
+    }else{
+        console.log('login')
+        next()
+    }
+    // localStorage.clear()
 })
 export default router
 

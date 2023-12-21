@@ -64,9 +64,10 @@
                     style="width: 100%;"
                     class="Table"
                     >
-                        <el-table-column prop="topic" label="话题" width="200" />
-                        <el-table-column prop="clicks" label="点击量" width="200" />
-                        <el-table-column prop="type" label="类型" width="200" />
+                        <el-table-column prop="topic" label="话题" width="100" />
+                        <el-table-column prop="clicks" label="点击量" width="100" />
+                        <el-table-column prop="type" label="类型" width="100" />
+                        <el-table-column prop="detail" label="详情" width="560"/>
                         <el-table-column fixed="right" label="展示开关" >
                             <template #default="scope">
                                 <el-switch
