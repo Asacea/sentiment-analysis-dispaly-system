@@ -37,7 +37,7 @@ function getClock(){
 }
 function goBacktoDashboard(){
     socialStore.screenTitle=""
-    router.push('/Admin')
+    router.push('/admin')
 }
 function open(){
     ElMessageBox.alert(
@@ -50,6 +50,9 @@ function open(){
 }
 onMounted(()=>{
     setInterval(getClock,1000)
+    if(!userStore.userType){
+        userStore.getUserInfofromToken()
+    }
 })
 </script>
 <style scoped lang="scss">

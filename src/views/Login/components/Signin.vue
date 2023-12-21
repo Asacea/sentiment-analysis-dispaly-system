@@ -68,7 +68,7 @@ const handleClick= ()=>{
             if(formdata.usertype==='visitor'){
                 router.push('/screen')
             }else{
-                router.push('/Admin')          
+                router.push('/admin')          
             }
         } else {
             ElMessage.error('表单验证失败，请检查输入'); // 失败提示

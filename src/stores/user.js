@@ -11,10 +11,16 @@ export const useUserStore = defineStore('user',()=>{
   const userType=ref("");
   // 2. 定义获取接口数据的action函数
   // 登录时获取用户相关信息
+  const isLoadedRouter=ref(false)
   const getUserInfofromToken=()=>{
     if(token.isAuthenticated){
-      userInfo.value = JSON.parse(JSON.stringify(token.userInfo))
-      userType.value=userInfo.value.get('usertype')
+      Object.assign(userInfo.value,{
+        username:token.username,
+        usertype:token.usertype,
+        password:token.password
+      })
+      userType.value=token.usertype
+      console.log('从token获取user信息')
     }
   }
   const getUserInfo = async ({  usertype, username, password }) => {
@@ -31,7 +37,7 @@ export const useUserStore = defineStore('user',()=>{
 
   // 3. 以对象的格式把state和action return
   return {
-    userInfo,userType,
+    userInfo,userType,isLoadedRouter,
     getUserInfo,getUserInfofromToken,
     screenId,screenTitle,screenDetail
   }
