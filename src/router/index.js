@@ -85,16 +85,15 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   console.log("路由守卫");
-  token.getTokenfromLoaclStorage();
+  if(!token.isAuthenticated){
+    token.getTokenfromLoaclStorage();
+  }
   console.log(to.path);
   if (to.path == "/login") {
-    console.log("在login");
     next();
   } else {
-    console.log("不是login");
     if (token.isAuthenticated && token.usertype) {
       if (to.meta.roles.includes(token.usertype)) {
-        console.log("访问", to.name);
         next();
       } else {
         console.log("没有访问权限");

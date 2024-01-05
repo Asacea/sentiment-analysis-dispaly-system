@@ -4,10 +4,11 @@ class Token {
     this.usertype = "";
     this.password = "";
     this.isAuthenticated = false;
-    this.expire = 100000; //设置过期时间
+    this.expire = 1000*60; //设置过期时间
     this.curTime = Date.now();
   }
   getTokenfromLoaclStorage() {
+    console.log('调用getTokenfromLoaclStorage')
     if (
       localStorage.length &&
       this.curTime - localStorage.getItem("curTime") <= this.expire
