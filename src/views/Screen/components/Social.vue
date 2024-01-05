@@ -92,6 +92,7 @@ import { useRoute } from "vue-router";
 import { ref, onMounted, reactive, computed } from "vue";
 import * as echarts from "echarts";
 import "echarts-wordcloud";
+// import "echarts/map/js/china.js"
 import china from "@/assets/map/json/china.json";
 import useSocialScreenStore from "@/stores/socialStore.js";
 import { useUserStore } from "../../../stores/user";

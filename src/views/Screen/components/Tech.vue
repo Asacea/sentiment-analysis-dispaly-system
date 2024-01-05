@@ -153,6 +153,7 @@ import { onMounted } from "vue";
 import * as echarts from "echarts";
 import usetechStore from "@/stores/techStore.js";
 import "echarts-wordcloud";
+// import "echarts/map/js/china.js"
 import china from "@/assets/map/json/china.json";
 import { useUserStore } from "../../../stores/user";
 const userStore=useUserStore()
