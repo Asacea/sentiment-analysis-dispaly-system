@@ -102,43 +102,43 @@ app.get('/visitrecord', (req, res) => {
       date: '2023-05-03',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
     {
       date: '2023-05-02',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
     {
       date: '2023-05-04',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
     {
       date: '2023-05-01',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
     {
       date: '2023-05-08',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
     {
       date: '2023-05-06',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
     {
       date: '2023-05-07',
       name: '张伟',
       count: 1,
-      school: '电子科技大学',
+      school: '大学',
     },
   ];
   res.json(visitRecords);
@@ -175,7 +175,7 @@ app.get('/screendata', (req, res) => {
     {
       id:4,
       clicks: 178,
-      topic: '电子科大',
+      topic: '大学',
       type: '学校专属定制',
       value: false,
       detail:'2022年考研报名人数457万，按照合理的预测，2023年考研人数极有可能突破500万。值得注意的是，在教育部最新公布的统计公报中，2021年我国高考本科招生人数为444.6万人，与2022年考研报名人数总体大致相当。若此时考研缩招，无疑意味着考研难度的再次升级。'
@@ -8246,19 +8246,19 @@ app.use('/school/4',async(req,res)=>{
     // 热门舆情数据
     data_opinion:
         [
-            {mood:'正向',text:"电子科技大学好好好"},
-            {mood:'负向',text:"电子科技大学坏坏坏"},
-            {mood:'正向',text:"电子科技大学好好好"},
-            {mood:'正向',text:"电子科技大学好好好"},
-            {mood:'中性',text:"电子科技大学1111"},
-            {mood:'正向',text:"电子科技大学好好好"},
-            {mood:'正向',text:"电子科技大学好好好"},
-            {mood:'中性',text:"电子科技大学1111"},
-            {mood:'负向',text:"电子科技大学坏坏坏"},
-            {mood:'中性',text:"电子科技大学1111"},
-            {mood:'正向',text:"电子科技大学好好好"},
-            {mood:'中性',text:"电子科技大学1111"},
-            {mood:'负向',text:"电子科技大学坏坏坏"},
+            {mood:'正向',text:"大学好好好"},
+            {mood:'负向',text:"大学坏坏坏"},
+            {mood:'正向',text:"大学好好好"},
+            {mood:'正向',text:"大学好好好"},
+            {mood:'中性',text:"大学1111"},
+            {mood:'正向',text:"大学好好好"},
+            {mood:'正向',text:"大学好好好"},
+            {mood:'中性',text:"大学1111"},
+            {mood:'负向',text:"大学坏坏坏"},
+            {mood:'中性',text:"大学1111"},
+            {mood:'正向',text:"大学好好好"},
+            {mood:'中性',text:"大学1111"},
+            {mood:'负向',text:"大学坏坏坏"},
         ]
     ,
     // 本校热词数据
@@ -9401,7 +9401,7 @@ app.get('/echarts-data/1',(req,res)=>{
         r1_data:{
             title: "本校考研缩招热门词条",
             value: [
-              { name: "电子科大", data: 100 },
+              { name: "大学", data: 100 },
               { name: "考研缩招", data: 140 },
               { name: "考研", data: 230 },
               { name: "录取人数", data: 100 },
